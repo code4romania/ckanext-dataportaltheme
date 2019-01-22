@@ -1,40 +1,38 @@
-.. You should enable this project on travis-ci.org and coveralls.io to make
-   these badges work. The necessary Travis and Coverage config files have been
-   generated for you.
-
-.. image:: https://travis-ci.org/code4romania/ckanext-dataportaltheme.svg?branch=master
-    :target: https://travis-ci.org/code4romania/ckanext-dataportaltheme
-
-.. image:: https://coveralls.io/repos/code4romania/ckanext-dataportaltheme/badge.svg
-  :target: https://coveralls.io/r/code4romania/ckanext-dataportaltheme
-
-.. image:: https://pypip.in/download/ckanext-dataportaltheme/badge.svg
-    :target: https://pypi.python.org/pypi//ckanext-dataportaltheme/
-    :alt: Downloads
-
-.. image:: https://pypip.in/version/ckanext-dataportaltheme/badge.svg
-    :target: https://pypi.python.org/pypi/ckanext-dataportaltheme/
-    :alt: Latest Version
-
-.. image:: https://pypip.in/py_versions/ckanext-dataportaltheme/badge.svg
-    :target: https://pypi.python.org/pypi/ckanext-dataportaltheme/
-    :alt: Supported Python versions
-
-.. image:: https://pypip.in/status/ckanext-dataportaltheme/badge.svg
-    :target: https://pypi.python.org/pypi/ckanext-dataportaltheme/
-    :alt: Development Status
-
-.. image:: https://pypip.in/license/ckanext-dataportaltheme/badge.svg
-    :target: https://pypi.python.org/pypi/ckanext-dataportaltheme/
-    :alt: License
-
-=============
 ckanext-dataportaltheme
 =============
 
-.. Put a description of your extension here:
-   What does it do? What features does it have?
-   Consider including some screenshots or embedding a video!
+DataPortal base theme
+
+
+## Start Vagrant
+```
+vagrant up
+vagrant ssh
+```
+
+## Activate virtualenv 
+```
+source /usr/lib/ckan/default/bin/activate
+```
+
+
+## Start CKAN development server
+First be sure to set `debug=true` in `/etc/ckan/default/development.ini`
+```
+sudo paster serve /etc/ckan/default/development.ini --reload
+```
+
+
+## Create admin user
+```
+paster --plugin=ckan sysadmin add admin -c /etc/ckan/default/development.ini
+```
+
+
+# CKAN Documentation
+[CKAN Docs](https://docs.ckan.org/en/2.8/)
+[CKAN Extensions Tutorial](https://docs.ckan.org/en/2.8/extensions/tutorial.html)
+
 
 
 ------------
