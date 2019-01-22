@@ -4,28 +4,43 @@ ckanext-dataportaltheme
 DataPortal base theme
 
 
-## Start Vagrant
+------------
+Requirements
+------------
+
+To start working on this extension you will need [Virtualbox](https://www.virtualbox.org/) and [Vagrant] (https://www.vagrantup.com/)
+
+-------------
+Start Vagrant
+-------------
 ```
 vagrant up
 vagrant ssh
 ```
+If you get any error while `vagrant up` try `vagrant reload`
 
-## Activate virtualenv 
+------------------------------------------
+Activate virtualenv and install the plugin
+------------------------------------------
 ```
 source /usr/lib/ckan/default/bin/activate
+cd /vagrant
+python setup.py develop
 ```
 
-
-## Start CKAN development server
-First be sure to set `debug=true` in `/etc/ckan/default/development.ini`
+-----------------------------
+Start CKAN development server
+-----------------------------
+Before starting the development server be sure to set  `debug=true`, and add `dataportaltheme` in `ckan.plugins` in `/vagrant/ckan/development.ini`
 ```
-sudo paster serve /etc/ckan/default/development.ini --reload
+sudo paster serve /vagrant/ckan/development.ini --reload
 ```
 
-
-## Create admin user
+-----------------
+Create admin user
+-----------------
 ```
-paster --plugin=ckan sysadmin add admin -c /etc/ckan/default/development.ini
+paster --plugin=ckan sysadmin add admin -c /vagrant/ckan/development.ini
 ```
 
 
@@ -33,14 +48,6 @@ paster --plugin=ckan sysadmin add admin -c /etc/ckan/default/development.ini
 [CKAN Docs](https://docs.ckan.org/en/2.8/)
 [CKAN Extensions Tutorial](https://docs.ckan.org/en/2.8/extensions/tutorial.html)
 
-
-
-------------
-Requirements
-------------
-
-For example, you might want to mention here which versions of CKAN this
-extension works with.
 
 
 ------------
