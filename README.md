@@ -25,7 +25,7 @@ Activate virtualenv and install the plugin
 ```
 source /usr/lib/ckan/default/bin/activate
 cd /vagrant
-python setup.py develop
+sudo python setup.py develop
 ```
 
 -----------------------------
