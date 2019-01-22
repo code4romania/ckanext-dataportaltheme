@@ -31,7 +31,6 @@ sudo python setup.py develop
 -----------------------------
 Start CKAN development server
 -----------------------------
-Before starting the development server be sure to set  `debug=true`, and add `dataportaltheme` in `ckan.plugins` in `/vagrant/ckan/development.ini`
 ```
 sudo paster serve /vagrant/ckan/development.ini --reload
 ```
