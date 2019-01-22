@@ -43,37 +43,13 @@ paster --plugin=ckan sysadmin add admin -c /vagrant/ckan/development.ini
 ```
 
 
+Now you can access ckan instance on http://127.0.0.1:8080
+
+# Happy Hacking :)
+
 # CKAN Documentation
 [CKAN Docs](https://docs.ckan.org/en/2.8/)
 [CKAN Extensions Tutorial](https://docs.ckan.org/en/2.8/extensions/tutorial.html)
-
-
-
-------------
-Installation
-------------
-
-.. Add any additional install steps to the list below.
-   For example installing any non-Python dependencies or adding any required
-   config settings.
-
-To install ckanext-dataportaltheme:
-
-1. Activate your CKAN virtual environment, for example::
-
-     . /usr/lib/ckan/default/bin/activate
-
-2. Install the ckanext-dataportaltheme Python package into your virtual environment::
-
-     pip install ckanext-dataportaltheme
-
-3. Add ``dataportaltheme`` to the ``ckan.plugins`` setting in your CKAN
-   config file (by default the config file is located at
-   ``/etc/ckan/default/production.ini``).
-
-4. Restart CKAN. For example if you've deployed CKAN with Apache on Ubuntu::
-
-     sudo service apache2 reload
 
 
 ---------------
@@ -85,19 +61,6 @@ Document any optional config settings here. For example::
     # The minimum number of hours to wait before re-checking a resource
     # (optional, default: 24).
     ckanext.dataportaltheme.some_setting = some_default_value
-
-
-------------------------
-Development Installation
-------------------------
-
-To install ckanext-dataportaltheme for development, activate your CKAN virtualenv and
-do::
-
-    git clone https://github.com/code4romania/ckanext-dataportaltheme.git
-    cd ckanext-dataportaltheme
-    python setup.py develop
-    pip install -r dev-requirements.txt
 
 
 -----------------
