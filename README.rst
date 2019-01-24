@@ -12,9 +12,9 @@ To start working on this extension you will need [Virtualbox](https://www.virtua
 
 We gave 2048MB of RAM to the VM. If you wish you can change this in the `Vagrantfile`
 
----------------------
+-------------
 Start Virtual Machine
----------------------
+-------------
 ```
 vagrant up
 vagrant ssh
@@ -44,7 +44,7 @@ paster --plugin=ckan sysadmin add admin -c /etc/ckan/default/development.ini
 Start CKAN development server
 -----------------------------
 ```
-paster serve /etc/ckan/default/development.ini --reload
+sudo paster serve /etc/ckan/default/development.ini --reload
 ```
 
 
