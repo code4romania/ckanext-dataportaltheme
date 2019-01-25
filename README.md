@@ -10,7 +10,7 @@ Requirements
 
 To start working on this extension you will need [Virtualbox](https://www.virtualbox.org/) and [Vagrant](https://www.vagrantup.com/)
 
-We gave 2048MB of RAM to the VM. If you wish you can change this in the `Vagrantfile`
+We gave 4096MB of RAM to the VM. If you wish you can change this in the `Vagrantfile`
 
 ---------------------
 Start Virtual Machine
@@ -25,12 +25,10 @@ If you get any error while `vagrant up` try `vagrant reload`.
 If you still have errors in during `vagrant up` please check that you have the latest `Vagrant` and `Virtualbox`, or try to run step by step the commands from [Installing CKAN from source](https://docs.ckan.org/en/latest/maintaining/installing/install-from-source.html) documentation
 
 ------------------------------------------
-Activate virtualenv and install the plugin
+Activate virtualenv
 ------------------------------------------
 ```
 source /usr/lib/ckan/default/bin/activate
-cd /vagrant
-sudo python setup.py develop
 ```
 
 -----------------
@@ -48,14 +46,14 @@ paster serve /etc/ckan/default/development.ini --reload
 ```
 
 
-Now you can access ckan instance on http://127.0.0.1:8080
+Now you can access ckan instance on http://127.0.0.1:5000
 
 # Happy Hacking :)
 
 # CKAN Documentation
-[CKAN Docs](https://docs.ckan.org/en/2.8/)
-[CKAN Extensions Tutorial](https://docs.ckan.org/en/2.8/extensions/tutorial.html)
-
+[CKAN Docs](https://docs.ckan.org/en/2.8/)  
+[CKAN Extensions Tutorial](https://docs.ckan.org/en/2.8/extensions/tutorial.html)  
+[CKAN Theming guide](https://docs.ckan.org/en/2.8/theming/)
 
 ---------------
 Config Settings

@@ -68,10 +68,10 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: <<-SHELL
     sudo apt-get update
     sudo apt-get install -y python-dev postgresql libpq-dev python-pip python-virtualenv git-core solr-jetty openjdk-8-jdk redis-server
-    mkdir -p ~/ckan/lib
-    sudo ln -s ~/ckan/lib /usr/lib/ckan
-    mkdir -p ~/ckan/etc
-    sudo ln -s ~/ckan/etc /etc/ckan
+    mkdir -p /home/vagrant/ckan/lib
+    sudo ln -s /home/vagrant/ckan/lib /usr/lib/ckan
+    mkdir -p /home/vagrant/ckan/etc
+    sudo ln -s /home/vagrant/ckan/etc /etc/ckan
     sudo mkdir -p /usr/lib/ckan/default
     sudo chown `whoami` /usr/lib/ckan/default
     sudo mkdir /var/lib/ckan
@@ -99,6 +99,7 @@ Vagrant.configure("2") do |config|
     sudo service jetty8 restart
     cd /usr/lib/ckan/default/src/ckan
     paster db init -c /etc/ckan/default/development.ini
-    
+    sudo chown -R vagrant:vagrant /var/lib/ckan
+    sudo chown -R vagrant:vagrant /usr/lib/ckan
   SHELL
 end
