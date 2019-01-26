@@ -1,13 +1,24 @@
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
 
+
+def all_groups():
+    '''Return a sorted list of the groups with the most datasets.'''
+
+    # Get a list of all the site's groups from CKAN, sorted by number of
+    # datasets.
+    groups = toolkit.get_action('group_list')(
+        data_dict={'all_fields': True})
+
+    return groups
+
+
 class DataportalthemePlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
-
+    plugins.implements(plugins.ITemplateHelpers)
     # IConfigurer
 
     def update_config(self, config):
-
         # Add this plugin's templates dir to CKAN's extra_template_paths, so
         # that CKAN will use this plugin's custom templates.
         # 'templates' is the path to the templates dir, relative to this
@@ -21,6 +32,12 @@ class DataportalthemePlugin(plugins.SingletonPlugin):
         # templates.
         toolkit.add_resource('fanstatic', 'dataportaltheme')
 
-        # Add this plugin's public dir to CKAN's extra_public_paths, so
-        # that CKAN will use this plugin's custom static files.
-        toolkit.add_public_directory(config, 'public')
+    def get_helpers(self):
+        '''Register the most_popular_groups() function above as a template
+        helper function.
+
+        '''
+        # Template helper function names should begin with the name of the
+        # extension they belong to, to avoid clashing with functions from
+        # other extensions.
+        return {'all_groups': all_groups}
