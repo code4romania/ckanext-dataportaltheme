@@ -1,0 +1,8 @@
+{% ckan_extends %}
+
+{% block footer_content %}
+    {% block social %}
+        {% include 'social.html' %}
+    {% endblock social %}
+    {{ super() }}
+{% endblock footer_content %}

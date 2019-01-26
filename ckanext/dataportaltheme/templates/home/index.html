@@ -1,1 +1,13 @@
 {% ckan_extends %}
+
+{% block styles %}
+  {{ super() }}
+
+  {# Import example_theme.css using Fanstatic.
+     'dataportaltheme/' is the name that the dataportaltheme/fanstatic directory
+     was registered with when the toolkit.add_resource() function was called.
+     'dataportaltheme.css' is the path to the CSS file, relative to the root of
+     the fanstatic directory. #}
+
+  {% resource 'dataportaltheme/categories.css' %}
+{% endblock %}
