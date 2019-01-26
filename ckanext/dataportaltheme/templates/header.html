@@ -1,6 +1,60 @@
 {% ckan_extends %}
 
+{% block header_site_search %}
+{% endblock %}
+
+{% block header_site_navigation %}
+  {{ super() }}
+  <div class="section language">
+    <a class="language-toggle" href="#">
+      <img src="/uk-flag.png">
+      {# To do: Backend Logic #}
+      {#
+      <img src="/romania-flag.png">
+      <img src="/hungarian-flag.png">
+      #}
+    </a>
+  </div>
+  {% block dropdown %}
+  <nav class="section partners clearfix">
+    <ul class="nav navbar-nav navbar-left">
+      <li>
+        <a href="">
+          <img src="/logos/logo-placeholder.png" alt="">
+        </a>
+      </li>
+      <li>
+        <a href="">
+          <img src="/logos/logo-placeholder.png" alt="">
+        </a>
+      </li>
+      <li>
+        <a href="">
+          <img src="/logos/logo-placeholder.png" alt="">
+        </a>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li class="dropdown">
+        <a href="#" class="partners-dropdown-toggle dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+          aria-expanded="false">
+          <span>Data Portal</span>
+          <div class="icon-wrapper">
+            <img src="/icons/drop-down-arrow.png" alt="">
+          </div>
+        </a>
+        <ul class="partners-dropdown-menu dropdown-menu">
+          <li><a href="#">Data Portal Cluj Napoca</a></li>
+          <li><a href="#">Data Portal Iași</a></li>
+          <li><a href="#">Data Portal Constanța</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+  {% endblock %}
+{% endblock %}
+
 {% block header_wrapper %}
-    {{ super() }}
-    {% include "categories_bar.html" %}
+  {{ super() }}
+  {% include "categories_bar.html" %}
 {% endblock %}
