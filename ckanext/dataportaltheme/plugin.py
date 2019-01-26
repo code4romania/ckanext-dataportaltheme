@@ -20,3 +20,7 @@ class DataportalthemePlugin(plugins.SingletonPlugin):
         # that we'll use to refer to this fanstatic directory from CKAN
         # templates.
         toolkit.add_resource('fanstatic', 'dataportaltheme')
+
+        # Add this plugin's public dir to CKAN's extra_public_paths, so
+        # that CKAN will use this plugin's custom static files.
+        toolkit.add_public_directory(config, 'public')
