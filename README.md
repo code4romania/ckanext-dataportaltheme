@@ -3,6 +3,7 @@ ckanext-dataportaltheme
 
 DataPortal base theme
 
+[UI prototipe](ma.com/file/P60qSupJkefpT7K4rT5PQuva/Data-Portal?node-id=0%3A1)
 
 ------------
 Requirements
@@ -54,6 +55,9 @@ Now you can access ckan instance on http://127.0.0.1:5000
 [CKAN Docs](https://docs.ckan.org/en/2.8/)  
 [CKAN Extensions Tutorial](https://docs.ckan.org/en/2.8/extensions/tutorial.html)  
 [CKAN Theming guide](https://docs.ckan.org/en/2.8/theming/)
+
+# Resources
+[Add static pages extension example](https://github.com/okfn/ckanext-sa/blob/master/ckanext/sa/plugin.py)
 
 ---------------
 Config Settings
