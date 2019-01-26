@@ -1,11 +1,24 @@
 <div class="featured-image">
-    <div>
-         {% snippet 'home/snippets/search.html' %}
-    </div>
+  <div>
+    {% snippet 'home/snippets/search.html' %}
+  </div>
 </div>
 
-<ul>
-    {% for group in h.all_groups() %}
-        <li> <img src="{{image_display_url}}" alt="">{{group.display_name}}</li>
-    {% endfor %}
-</ul>
+<div class="container">
+  <div class="row">
+    <ul class="categories">
+      {% for group in h.all_groups() %}
+      <li>
+        <a  href="#" class="category">
+          <div class="image-wrapper">
+            <img src="{{group.image_display_url}}" alt="">
+          </div>
+          <div class="text">
+            {{group.display_name}}
+          </div>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
