@@ -1,0 +1,11 @@
+.site-footer .logo img {
+    max-height: 99px;
+  }
+
+.site-footer {
+    background: #000;
+}
+
+.attribution {
+    text-align: right;
+}
