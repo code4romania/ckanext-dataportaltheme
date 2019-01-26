@@ -1,0 +1,16 @@
+.hero {
+  background-image: url('/header-local.png');
+  height: 350px;
+  border: none;
+}
+
+.hero .search-form {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50%;
+  left: 0;
+  right: 0;
+  margin: auto;
+  border: none; 
+}
