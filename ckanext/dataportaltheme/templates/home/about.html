@@ -1,0 +1,41 @@
+{% ckan_extends %}
+
+{% block styles %}
+  {{ super() }}
+  {% resource 'dataportaltheme/about.css' %}
+{% endblock %}
+
+{% block main_content %}
+  <div class="backButton">
+    <a href="/"><img src="back-arrow.png" /></a>
+  </div>
+
+  <div id="aboutLogo">
+		<img src="logo_big.png" />
+	</div>
+
+  <h2>Ce este Data Portal Timișoara</h2>
+  <p>
+    Informațiile care pot fi citite de calculator sunt date într-un format care poate fi înțeles de către un computer. Aceasta înseamnă că toate câmpurile relevante pot fi extrase și analizate fără o contribuție umană. Doar pentru că un set de date este accesibil digital nu înseamnă neapărat că este lizibil și pentru calculator (mai multe informații aici). În spiritul datelor deschise, seturile de date trebuie furnizate în formate de fișiere neprotejate. Datele tabulare sunt furnizate ca fișiere CSV sau în format JSON . Metadatele trebuie excluse din fișierele de date. Acestea vor fi incluse într-un fișier zip cu fișierul de date (consultați punctul Pachetul de date de mai jos).
+  </p>
+
+  <h2>Despre aplicația Data Portal</h2>
+  <p>
+    Scopul platformei Data Portal este de a răspunde la trei probleme legate de datele deschise în România. În primul rând, portalul va deschide publicului larg datele utilizate în cadrul proiectelor Code for Romania. Acestea vor putea fi accesate și vizualizate de către oricine este interesat. În al doilea rând, va defini standarde și protocoale de date pentru seturi de date publicate de către Code4Romania, care vor putea fi implementate de către orice instituție interesată să ofere date publice. În al treilea rând, platforma va oferi un punct de pornire pentru dezvoltarea unei comunități de open data în România. Prin intermediul Data Portal vom oferi sprijin (infrastructură, proceduri, know-how) voluntarilor interesați să deschidă și să curețe data publice din România.
+  </p>
+
+  <div id="aboutCode4Ro">
+    <div id="aboutWrap">
+      <div id="logo">
+        <img src="code-4-romania-logo-black.png" />
+      </div>
+
+      <div id="text">
+        <h2>Despre Code for Romania </h2>
+        <p>
+          Upgrading Romania one app at a time. Code for Romania este o organizatie neguvernamentala independenta, neafiliata politic si apolitica. În prezent peste 550 de membri specialisti in IT, comunicare, analiza si design dezvolta solutii digitale pentru a rezolva probleme ale societatii. Construim instrumente software menite sa ajute in cresterea transparentei, a deschiderii datelor publice, sa ajute in sprijinirea educatiei si a accesului la servicii. Ne propunem prin proiectele noastre sa venim in ajutorul tuturor comunitatilor, prin dezvoltarea de aplicatii civice in toate domeniile in care tehnologia poate aduce o schimbare benefica tuturor.
+        </p>
+      </div>
+    </div>
+  </div>
+{% endblock main_content %}
