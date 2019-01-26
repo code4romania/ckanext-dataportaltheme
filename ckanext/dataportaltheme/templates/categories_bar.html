@@ -1,0 +1,11 @@
+<div class="featured-image">
+    <div>
+         {% snippet 'home/snippets/search.html' %}
+    </div>
+</div>
+
+<ul>
+    {% for group in h.all_groups() %}
+        <li> <img src="{{image_display_url}}" alt="">{{group.display_name}}</li>
+    {% endfor %}
+</ul>
