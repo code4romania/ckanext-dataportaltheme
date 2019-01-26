@@ -47,10 +47,6 @@ class DataportalthemePlugin(plugins.SingletonPlugin):
     def after_map(self, route_map):
         return route_map
 
-
-    def dataStas(self):
-        return base.render('dataStas.html')
-
     def get_helpers(self):
         '''Register the most_popular_groups() function above as a template
         helper function.
@@ -61,3 +57,6 @@ class DataportalthemePlugin(plugins.SingletonPlugin):
         # other extensions.
         return {'all_groups': all_groups}
 
+class PortalController(base.BaseController):
+    def dataStas(self):
+        return base.render('dataStas.html')
