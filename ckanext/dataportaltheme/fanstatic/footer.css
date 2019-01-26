@@ -9,3 +9,19 @@
 .attribution {
     text-align: right;
 }
+
+#data_portal_logo {
+    width: 200px; height: 99px;
+}
+
+.attribution input#newsletter {
+    width: 300px; height: 30px;
+}
+
+#code_4_logo {
+    width: 150px; padding: 10px;
+}
+
+.copyright {
+    font-size: 14px;
+}
