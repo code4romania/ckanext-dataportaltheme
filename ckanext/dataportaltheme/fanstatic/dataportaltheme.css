@@ -3,3 +3,19 @@
 body {
   font-family: 'Titillium Web', sans-serif;
 }
+
+#content {
+  background-color: #fff;
+  position: relative;
+}
+
+h2 {
+  color: #21409A;
+}
+
+/* See about.html for the html */
+.backButton {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
