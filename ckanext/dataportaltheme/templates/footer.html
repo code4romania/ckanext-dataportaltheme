@@ -20,20 +20,20 @@
         {% endblock %}
         </div>
         <div class="col-sm-4 logo">
-        <img src="{{ h.url_for_static('data-portal-logo.png') }}" alt="Data Portal" style="width: 200px; height: 99px;">
+        <img src="{{ h.url_for_static('data-portal-logo.png') }}" alt="Data Portal" id="data_portal_logo">
         </div>
       <div class="col-sm-4 attribution">
         {% block footer_attribution %}
             <ul class="list-unstyled">
                 <li>Abonează-te la newsletter</li>
-                <input type="text" value="Introdu adresa de e-mail și apasă ENTER" style="width: 300px; height: 30px;"/>
-                <li><img src="{{ h.url_for_static('code-4-romania-logo.png') }}" alt="Code 4 Romania" style="width: 150px; padding: 10px;"></li>
-                <li style="font-size: 14px;">&copy; 2019 Code for Romania.<br/>
+                <input type="text" value="Introdu adresa de e-mail și apasă ENTER" id="newsletter"/>
+                <li><img src="{{ h.url_for_static('code-4-romania-logo.png') }}" alt="Code 4 Romania" id="code_4_logo"></li>
+                <li class="copyright">&copy; 2019 Code for Romania.<br/>
                 Organizație neguvernamentală independentă,<br/>neafiliată politic și apolitică.</li>
             </ul>
         {% endblock %}
         {% block footer_lang %}
-          {% snippet "snippets/language_selector.html" %}
+          {# snippet "snippets/language_selector.html" #}
         {% endblock %}
       </div>
     </div>
