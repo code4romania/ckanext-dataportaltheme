@@ -13,7 +13,7 @@ class DataportalthemePlugin(plugins.SingletonPlugin):
         # 'templates' is the path to the templates dir, relative to this
         # plugin.py file.
         toolkit.add_template_directory(config, 'templates')
-
+        toolkit.add_public_directory(config, 'public')
         # Register this plugin's fanstatic directory with CKAN.
         # Here, 'fanstatic' is the path to the fanstatic directory
         # (relative to this plugin.py file), and 'example_theme' is the name
