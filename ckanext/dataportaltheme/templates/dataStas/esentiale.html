@@ -21,7 +21,7 @@
 
 	<ul id="innerNav">
 		<li class="active">{% link_for _('Principii esențiale'), named_route="stas-date-esentiale" %}</li>
-		<li>{% link_for _('Structura pentru datele tabulare'), named_route="stas-date-esentiale" %}</li>
+		<li>{% link_for _('Structura pentru datele tabulare'), named_route="stas-date-struct" %}</li>
 		<li>{% link_for _('Alte resurse'), named_route="stas-date-esentiale" %}</li>
 	</ul>
 
@@ -43,7 +43,7 @@
 		<li>Fiecare coloană este o variabilă. Aceasta înseamnă că fiecare coloană trebuie să aibă aceeași unitate de măsură </li>
 		<li>Fiecare rând este o observație. Rețineți că acest lucru nu înseamnă că există o singură variabilă observată pentru fiecare rând. Pot exista mai multe variabile observate pentru fiecare rând: „O observație conține toate valorile măsurate pe aceeași unitate (cum ar fi, o persoană, o zi sau o rasă) pentru toate atributele.” (Wickham, pag. 3)</li>
 		<li>Un tip de unitate de observare pentru fiecare tabel. De exemplu, observațiile privind indicii de fertilitate ale întregii populații de sex feminin și că femeile din diferite grupe de vârstă ar trebui să fie în două tabele:</li>
-		<li>
+		<li class="hasChild">
 			<ul id="bordered">
 				<li>Indicele total de fertilitate”, unde unitatea de observare este întreaga populație de sex feminin </li>
 				<li>Indicele total de fertilitate după grupa de vârstă”, unde unitatea de observare este o populație de sex feminin din diferite grupe de vârstă</li>

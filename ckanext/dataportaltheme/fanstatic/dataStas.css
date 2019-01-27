@@ -11,8 +11,8 @@ ul:not(#innerNav) {
 	list-style: none;
 }
 
-	ul:not(#innerNav) li::before {
-		content: ">> ";
+	ul:not(#innerNav) li:not(.hasChild)::before {
+		content: ":: ";
 	}
 
 #innerNav {

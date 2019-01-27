@@ -1,0 +1,65 @@
+{% extends "page.html" %}
+
+{% block subtitle %}{{ _('Standarde de date') }}{% endblock %}
+
+{% block styles %}
+	{{ super() }}
+	{% resource 'dataportaltheme/dataStas.css' %}
+{% endblock %}
+
+
+{% block breadcrumb_content %}
+	<li class="active">{% link_for _('Standarde de date'), named_route="stas-date-esentiale" %}</li>
+{% endblock %}
+
+{% block primary %}
+	<h1>Ghidul calității datelor pentru datele tabulare</h1>
+
+	<p id="antet">
+		Toate seturile de date trebuie să îndeplinească aceste cerințe de calitate a datelor înainte de publicarea lor pe dataportal.ro.
+	</p>
+
+	<ul id="innerNav">
+		<li>{% link_for _('Principii esențiale'), named_route="stas-date-esentiale" %}</li>
+		<li class="active">{% link_for _('Structura pentru datele tabulare'), named_route="stas-date-struct" %}</li>
+		<li>{% link_for _('Alte resurse'), named_route="stas-date-esentiale" %}</li>
+	</ul>
+
+	<h3>1. Capetele coloanei</h3>
+	<ul>
+		<li>Numai caractere alfanumerice sau aceste trei caractere speciale: <code>.-_</code></li>
+		<li class="hasChild"><ul><li>Ampersand (&) ar trebui înlocuită cu „și” dacă este necesar</li></ul></li>
+		<li>Fiecare trebuie să fie unic</li>
+		<li class="hasChild"><ul><li>Nu putem avea două capete numite „durată”</li></ul></li>
+		<li>Toate capetele au caractere minuscule</li>
+		<li class="hasChild"><ul><li>de ex. „rating”</li></ul></li>
+		<li>În cazul în care capul conține mai multe cuvinte, utilizați simbolul liniuță jos pentru a le uni</li>
+		<li class="hasChild"><ul><li>de ex. vehicle_type (tip_vehicul)</li></ul></li>
+		<li>Unitățile de măsură ar trebui să fie omise</li>
+		<li>Scrieți pe scurt (sub 25 de caractere)</li>
+		<li class="hasChild"><ul><li>Numele complet poate fi stocat în partea de schemă a fișierului de metadate</li></ul></li>
+	</ul>
+
+	<h3>2. Ordinea coloanelor</h3>
+	<ul>
+		<li>Variabilele de dată și de timp ar trebui să fie întotdeauna în prima coloană pentru datele din serii de timp</li>
+		<li>Variabilele fixe ar trebui să fie ordonate cu variabila de cel mai înalt nivel în stânga și cea mai granulară variabilă în dreapta</li>
+		<li>Variabilele observate ar trebui să fie întotdeauna pe ultimele coloane din dreapta</li>
+	</ul>
+
+	<h3>3. Ordinea rândurilor</h3>
+	<ul>
+		<li>Rândurile ar trebui ordonate de la ultima coloană din stânga la ultima din dreapta</li>
+		<li>Pentru variabilele de dată și oră, ordonați cronologic</li>
+		<li>Pentru variabilele fixe, ordonați în ordine alfabetică</li>
+	</ul>
+
+	<h3>4. Variabilele de dată și oră</h3>
+	<ul>
+		<li>Pe baza ISO8601, un standard internațional pentru reprezentarea datei și orei. Am ales „formatul extins” cu cratimele, deoarece este mult mai ușor de citit de oameni.</li>
+		<li>Comparați 2016-01-01 cu 20160101</li>
+		<li>Toate variabilele de dată și oră trebuie să fie în UTC  +8 ore, dacă nu este specificat altfel.</li>
+		<li>Variabile de dată:</li>
+	</ul>
+
+{% endblock %}
