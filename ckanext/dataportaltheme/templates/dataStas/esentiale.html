@@ -1,0 +1,92 @@
+{% extends "page.html" %}
+
+{% block subtitle %}{{ _('Standarde de date') }}{% endblock %}
+
+{% block styles %}
+	{{ super() }}
+	{% resource 'dataportaltheme/dataStas.css' %}
+{% endblock %}
+
+
+{% block breadcrumb_content %}
+	<li class="active">{% link_for _('Standarde de date'), named_route="stas-date-esentiale" %}</li>
+{% endblock %}
+
+{% block primary %}
+	<h1> <a href="/" class="backButton"><img src="/back-arrow.png" /></a> Ghidul calității datelor pentru datele tabulare</h1>
+
+	<p id="antet">
+		Toate seturile de date trebuie să îndeplinească aceste cerințe de calitate a datelor înainte de publicarea lor pe dataportal.ro.
+	</p>
+
+	<ul id="innerNav">
+		<li class="active">{% link_for _('Principii esențiale'), named_route="stas-date-esentiale" %}</li>
+		<li>{% link_for _('Structura pentru datele tabulare'), named_route="stas-date-esentiale" %}</li>
+		<li>{% link_for _('Alte resurse'), named_route="stas-date-esentiale" %}</li>
+	</ul>
+
+	<h3>1. Lizibilitate electronică</h3>
+	<p>
+		Informațiile care pot fi citite de calculator sunt date într-un format care poate fi înțeles de către un computer. Aceasta înseamnă că toate câmpurile relevante pot fi extrase și analizate fără o contribuție umană. Doar pentru că un set de date este accesibil digital nu înseamnă neapărat că este lizibil și pentru calculator (mai multe informații aici). În spiritul datelor deschise, seturile de date trebuie furnizate în formate de fișiere neprotejate. Datele tabulare sunt furnizate ca fișiere CSV sau în format JSON . Metadatele trebuie excluse din fișierele de date. Acestea vor fi incluse într-un fișier zip cu fișierul de date (consultați punctul Pachetul de date de mai jos).
+	</p>
+
+	<h3>2. Date ordonate</h3>
+	<p>
+		Conceptul de date ordonate se bazează pe propunerea lui Hadley Wickham, autorul pachetelor R populare ggplot2 și plyr.
+	</p>
+
+	<p>
+		Hadley propune trei principii:
+	</p>
+
+	<ul>
+		<li>Fiecare coloană este o variabilă. Aceasta înseamnă că fiecare coloană trebuie să aibă aceeași unitate de măsură </li>
+		<li>Fiecare rând este o observație. Rețineți că acest lucru nu înseamnă că există o singură variabilă observată pentru fiecare rând. Pot exista mai multe variabile observate pentru fiecare rând: „O observație conține toate valorile măsurate pe aceeași unitate (cum ar fi, o persoană, o zi sau o rasă) pentru toate atributele.” (Wickham, pag. 3)</li>
+		<li>Un tip de unitate de observare pentru fiecare tabel. De exemplu, observațiile privind indicii de fertilitate ale întregii populații de sex feminin și că femeile din diferite grupe de vârstă ar trebui să fie în două tabele:</li>
+		<li>
+			<ul id="bordered">
+				<li>Indicele total de fertilitate”, unde unitatea de observare este întreaga populație de sex feminin </li>
+				<li>Indicele total de fertilitate după grupa de vârstă”, unde unitatea de observare este o populație de sex feminin din diferite grupe de vârstă</li>
+			</ul>
+		</li>
+	</ul>
+
+	<h3>3. Consecvență</h3>
+	<p>
+		Fiecare variabilă trebuie prelucrată și documentată în același mod pentru toate seturile de date. Exemplele includ:
+	</p>
+
+	<ul>
+		<li>Formatele de date </li>
+		<li>Valori nule și neglijabile </li>
+		<li>Unitatea de măsură</li>
+	</ul>
+
+	<p>
+		Acest lucru facilitează compilarea și utilizarea de către utilizatori a mai multor seturi de date, chiar și de la diferite agenții.
+	</p>
+
+	<h3>4. Granularitate si precizie</h3>
+	<p>
+		Pe cât posibil, agențiile ar trebui să furnizeze date brute, granulare, în loc de date agregate și de proces, cum ar fi procentele. Totalurile și subtotalurile ar trebui să fie în tabele separate dacă este necesar. De exemplu, există cazuri în care numerele agregate (de ex., totaluri, indici) nu pot fi derivate din punctele de date granulare.
+	</p>
+
+	<h3>5. Lizibilitatea umană</h3>
+	<p>
+		În final, seturile de date ar trebui prezentate, de asemenea, într-un mod în care are sens pentru utilizatorii umani.
+		Din acest motiv, am creat un set nou de specificații privind metadatele împreună cu acest Ghid de calitate a datelor, pentru a ne asigura că seturile de date sunt documentate în mod clar. De pildă, fiecare tabel trebuie să fie însoțit de o schemă, care precizează tipul de variabilă.
+		Ar trebui să se utilizeze un limbaj simplu pentru a denumi seturile de date și elementele din ele în măsura în care este posibil. Numele de coloane ar trebui să fie descriptive și semnificative. Tot jargonul trebuie explicat în mod clar și, după caz, trebuie furnizate linkuri de referință.
+	</p>
+
+	<h3>Pachete de date</h3>
+	<p>
+		Am adaptat acest concept din specificația Pachetului de Date de la Open Knowledge International, care ne permite să adunăm într-un pachet metadatele și fișierele de date.
+		Am ales să furnizăm metadate în formatul YAML în loc de formatul JSON, deoarece YAML poate fi citit atât de om, cât și de calculator.
+		Când utilizatorii descarcă un set de date de pe dataportal.ro, fișierul zip conține:
+	</p>
+
+	<ul>
+		<li>Un fișier text (în sintaxa YAML)</li>
+		<li>Fișierul (fișierele) de resurse</li>
+	</ul>
+{% endblock %}
