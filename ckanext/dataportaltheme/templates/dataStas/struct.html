@@ -62,4 +62,181 @@
 		<li>Variabile de dată:</li>
 	</ul>
 
+	<table>
+		<thead>
+			<tr>
+				<th>Interval</th>
+				<th>Numele coloanei</th>
+				<th>Format</th>
+				<th>Intervalul de valori</th>
+				<th>Exemplu</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr>
+				<td>Anual</td>
+				<td>year</td>
+				<td>AAAA</td>
+				<td>AAAA: începând cu 1900</td>
+				<td>2015</td>
+			</tr>
+
+			<tr>
+				<td>Lunar</td>
+				<td>month</td>
+				<td>AAAA-LL</td>
+				<td>LL: de la 01 la 12</td>
+				<td>2015-01</td>
+			</tr>
+
+			<tr>
+				<td>Zilnic</td>
+				<td>date</td>
+				<td>AAAA-LL-ZZ</td>
+				<td>ZZ: de la 01 la 31</td>
+				<td>2015-01-01</td>
+			</tr>
+
+			<tr>
+				<td>Săptămânal</td>
+				<td>week</td>
+				<td>AAAA-[S]SS</td>
+				<td>[S]SS: de la S01 la S52</td>
+				<td>2015-S01</td>
+			</tr>
+
+			<tr>
+				<td>Trimestrial</td>
+				<td>quarter</td>
+				<td>AAAA-[T]T</td>
+				<td>[T]T: de la T1 la T4</td>
+				<td>2015-T1</td>
+			</tr>
+
+			<tr>
+				<td>Semestrial</td>
+				<td>half_year</td>
+				<td>AAAA-[Se]Se</td>
+				<td>[Se]Se: de la Se1 la Se2</td>
+				<td>2015-Se1</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<ul>
+		<li>Pentru perioadele financiare, introduceți prefixul „financiar_” la numele coloanei</li>
+	</ul>
+
+	<table>
+		<thead>
+			<tr>
+				<th>Interval</th>
+				<th>Numele coloanei</th>
+				<th>Format</th>
+				<th>Exemplu</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr>
+				<td>Financiar, anual</td>
+				<td>financial_year</td>
+				<td>AAAA</td>
+				<td>2015</td>
+			</tr>
+
+			<tr>
+				<td>Financiar, trimestrial</td>
+				<td>financial_quarter</td>
+				<td>AAAA-[T]T</td>
+				<td>2015-T1</td>
+			</tr>
+
+			<tr>
+				<td>Financiar, semestrial</td>
+				<td>financial_half_year</td>
+				<td>AAAA-[Se]Se</td>
+				<td>2015-Se1</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<ul>
+		<li>Data de începere a exercițiului financiar trebuie indicată în metadate</li>
+		<li class="hasChild">&nbsp;</li>
+		<li>Pentru variabilele de dată și oră:</li>
+	</ul>
+
+	<table>
+		<thead>
+			<tr>
+				<th>Tip</th>
+				<th>Numele coloanei</th>
+				<th>Format</th>
+				<th>Exemplu</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr>
+				<td>Data + ora</td>
+				<td>date_time</td>
+				<td>AAAA-LL-ZZ[O]hh:mm</td>
+				<td>2015-01-01O12:00</td>
+			</tr>
+
+			<tr>
+				<td></td>
+				<td></td>
+				<td>sau AAAA-LL-ZZ [O]hh:mm:ss</td>
+				<td>2015-01-01O12:00:00</td>
+			</tr>
+
+			<tr>
+				<td>Doar ora</td>
+				<td>time</td>
+				<td>hh:mm</td>
+				<td>12:00</td>
+			</tr>
+
+			<tr>
+				<td></td>
+				<td></td>
+				<td>sau hh:mm:ss</td>
+				<td>12:00:00</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<ul>
+		<li>Precizați fusul orar dacă nu este UTC +8 ore:</li>
+	</ul>
+
+	<table>
+		<thead>
+			<tr>
+				<th>Tip</th>
+				<th>Numele coloanei</th>
+				<th>Format</th>
+				<th>Exemplu</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr>
+				<td>Data + ora</td>
+				<td>date_time</td>
+				<td>AAAA-LL-ZZ[O]hh:mm+hh:mm</td>
+				<td>2015-01-01O12:00+00:00</td>
+			</tr>
+
+			<tr>
+				<td></td>
+				<td></td>
+				<td>sau AAAA-LL-ZZ[O]hh:mm:ss+hh:mm:ss</td>
+				<td>2015-01-01O12:00:00+00:00:00</td>
+			</tr>
+		</tbody>
+	</table>
 {% endblock %}
