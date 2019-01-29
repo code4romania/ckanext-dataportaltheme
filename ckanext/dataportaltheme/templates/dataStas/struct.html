@@ -1,0 +1,365 @@
+{% extends "page.html" %}
+
+{% block subtitle %}{{ _('Standarde de date') }}{% endblock %}
+
+{% block styles %}
+	{{ super() }}
+	{% resource 'dataportaltheme/dataStas.css' %}
+{% endblock %}
+
+
+{% block breadcrumb_content %}
+	<li class="active">{% link_for _('Standarde de date'), named_route="stas-date-esentiale" %}</li>
+{% endblock %}
+
+{% block primary %}
+	<h1>Ghidul calității datelor pentru datele tabulare</h1>
+
+	<p id="antet">
+		Toate seturile de date trebuie să îndeplinească aceste cerințe de calitate a datelor înainte de publicarea lor pe dataportal.ro.
+	</p>
+
+	<ul id="innerNav">
+		<li>{% link_for _('Principii esențiale'), named_route="stas-date-esentiale" %}</li>
+		<li class="active">{% link_for _('Structura pentru datele tabulare'), named_route="stas-date-struct" %}</li>
+		<li>{% link_for _('Alte resurse'), named_route="stas-date-esentiale" %}</li>
+	</ul>
+
+	<h3>1. Capetele coloanei</h3>
+	<ul>
+		<li>Numai caractere alfanumerice sau aceste trei caractere speciale: <code>.-_</code></li>
+		<li class="hasChild"><ul><li>Ampersand (&) ar trebui înlocuită cu „și” dacă este necesar</li></ul></li>
+		<li>Fiecare trebuie să fie unic</li>
+		<li class="hasChild"><ul><li>Nu putem avea două capete numite „durată”</li></ul></li>
+		<li>Toate capetele au caractere minuscule</li>
+		<li class="hasChild"><ul><li>de ex. „rating”</li></ul></li>
+		<li>În cazul în care capul conține mai multe cuvinte, utilizați simbolul liniuță jos pentru a le uni</li>
+		<li class="hasChild"><ul><li>de ex. vehicle_type (tip_vehicul)</li></ul></li>
+		<li>Unitățile de măsură ar trebui să fie omise</li>
+		<li>Scrieți pe scurt (sub 25 de caractere)</li>
+		<li class="hasChild"><ul><li>Numele complet poate fi stocat în partea de schemă a fișierului de metadate</li></ul></li>
+	</ul>
+
+	<h3>2. Ordinea coloanelor</h3>
+	<ul>
+		<li>Variabilele de dată și de timp ar trebui să fie întotdeauna în prima coloană pentru datele din serii de timp</li>
+		<li>Variabilele fixe ar trebui să fie ordonate cu variabila de cel mai înalt nivel în stânga și cea mai granulară variabilă în dreapta</li>
+		<li>Variabilele observate ar trebui să fie întotdeauna pe ultimele coloane din dreapta</li>
+	</ul>
+
+	<h3>3. Ordinea rândurilor</h3>
+	<ul>
+		<li>Rândurile ar trebui ordonate de la ultima coloană din stânga la ultima din dreapta</li>
+		<li>Pentru variabilele de dată și oră, ordonați cronologic</li>
+		<li>Pentru variabilele fixe, ordonați în ordine alfabetică</li>
+	</ul>
+
+	<h3>4. Variabilele de dată și oră</h3>
+	<ul>
+		<li>Pe baza ISO8601, un standard internațional pentru reprezentarea datei și orei. Am ales „formatul extins” cu cratimele, deoarece este mult mai ușor de citit de oameni.</li>
+		<li>Comparați 2016-01-01 cu 20160101</li>
+		<li>Toate variabilele de dată și oră trebuie să fie în UTC  +8 ore, dacă nu este specificat altfel.</li>
+		<li>Variabile de dată:</li>
+	</ul>
+
+	<table>
+		<thead>
+			<tr>
+				<th>Interval</th>
+				<th>Numele coloanei</th>
+				<th>Format</th>
+				<th>Intervalul de valori</th>
+				<th>Exemplu</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr>
+				<td>Anual</td>
+				<td>year</td>
+				<td>AAAA</td>
+				<td>AAAA: începând cu 1900</td>
+				<td>2015</td>
+			</tr>
+
+			<tr>
+				<td>Lunar</td>
+				<td>month</td>
+				<td>AAAA-LL</td>
+				<td>LL: de la 01 la 12</td>
+				<td>2015-01</td>
+			</tr>
+
+			<tr>
+				<td>Zilnic</td>
+				<td>date</td>
+				<td>AAAA-LL-ZZ</td>
+				<td>ZZ: de la 01 la 31</td>
+				<td>2015-01-01</td>
+			</tr>
+
+			<tr>
+				<td>Săptămânal</td>
+				<td>week</td>
+				<td>AAAA-[S]SS</td>
+				<td>[S]SS: de la S01 la S52</td>
+				<td>2015-S01</td>
+			</tr>
+
+			<tr>
+				<td>Trimestrial</td>
+				<td>quarter</td>
+				<td>AAAA-[T]T</td>
+				<td>[T]T: de la T1 la T4</td>
+				<td>2015-T1</td>
+			</tr>
+
+			<tr>
+				<td>Semestrial</td>
+				<td>half_year</td>
+				<td>AAAA-[Se]Se</td>
+				<td>[Se]Se: de la Se1 la Se2</td>
+				<td>2015-Se1</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<ul>
+		<li>Pentru perioadele financiare, introduceți prefixul „financiar_” la numele coloanei</li>
+	</ul>
+
+	<table>
+		<thead>
+			<tr>
+				<th>Interval</th>
+				<th>Numele coloanei</th>
+				<th>Format</th>
+				<th>Exemplu</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr>
+				<td>Financiar, anual</td>
+				<td>financial_year</td>
+				<td>AAAA</td>
+				<td>2015</td>
+			</tr>
+
+			<tr>
+				<td>Financiar, trimestrial</td>
+				<td>financial_quarter</td>
+				<td>AAAA-[T]T</td>
+				<td>2015-T1</td>
+			</tr>
+
+			<tr>
+				<td>Financiar, semestrial</td>
+				<td>financial_half_year</td>
+				<td>AAAA-[Se]Se</td>
+				<td>2015-Se1</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<ul>
+		<li>Data de începere a exercițiului financiar trebuie indicată în metadate</li>
+		<li class="hasChild">&nbsp;</li>
+		<li>Pentru variabilele de dată și oră:</li>
+	</ul>
+
+	<table>
+		<thead>
+			<tr>
+				<th>Tip</th>
+				<th>Numele coloanei</th>
+				<th>Format</th>
+				<th>Exemplu</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr>
+				<td>Data + ora</td>
+				<td>date_time</td>
+				<td>AAAA-LL-ZZ[O]hh:mm</td>
+				<td>2015-01-01O12:00</td>
+			</tr>
+
+			<tr>
+				<td></td>
+				<td></td>
+				<td>sau AAAA-LL-ZZ [O]hh:mm:ss</td>
+				<td>2015-01-01O12:00:00</td>
+			</tr>
+
+			<tr>
+				<td>Doar ora</td>
+				<td>time</td>
+				<td>hh:mm</td>
+				<td>12:00</td>
+			</tr>
+
+			<tr>
+				<td></td>
+				<td></td>
+				<td>sau hh:mm:ss</td>
+				<td>12:00:00</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<ul>
+		<li>Precizați fusul orar dacă nu este UTC +8 ore:</li>
+	</ul>
+
+	<table>
+		<thead>
+			<tr>
+				<th>Tip</th>
+				<th>Numele coloanei</th>
+				<th>Format</th>
+				<th>Exemplu</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr>
+				<td>Data + ora</td>
+				<td>date_time</td>
+				<td>AAAA-LL-ZZ[O]hh:mm+hh:mm</td>
+				<td>2015-01-01O12:00+00:00</td>
+			</tr>
+
+			<tr>
+				<td></td>
+				<td></td>
+				<td>sau AAAA-LL-ZZ[O]hh:mm:ss+hh:mm:ss</td>
+				<td>2015-01-01O12:00:00+00:00:00</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<h3>5. Variabile textuale</h3>
+	<ul>
+		<li>Ar trebui să se utilizeze codificarea UTF-8</li>
+		<li class="hasChild"><ul><li>Acest lucru permite ca o serie de caractere speciale, cum ar fi caracterele chinezești, să poată fi decodificate de utilizatori</li></ul></li>
+		<li>Nu există separatoare de rânduri în interiorul celulelor</li>
+	</ul>
+
+	<h3>6. Variabile numerice</h3>
+	<ul>
+		<li>Fără  virgule</li>
+		<li class="hasChild"><ul><li>De ex. „1000” în loc de „1,000”</li></ul></li>
+		<li>Fără  unități de măsură</li>
+		<li class="hasChild"><ul><li>Unitățile ar trebui să fie în metadate</li></ul></li>
+		<li>Exprimați numărul complet, dacă este posibil</li>
+		<li class="hasChild">
+			<ul>
+				<li>Dacă este rotunjit, indicați în metadate</li>
+				<li>De ex. „1200000” în loc de „1.2” (milioane)</li>
+			</ul>
+		</li>
+		<li>Fără rotunjiri, dacă este posibil</li>
+		<li class="hasChild">
+			<ul>
+				<li>Dați numerele brute, pe cât posibil</li>
+				<li>Dacă este necesară rotunjirea, încercați să furnizați cel puțin 2 zecimale de precizie</li>
+			</ul>
+		</li>
+		<li>Procentele pot fi exprimate ca o proporție a numerelor 1 sau 100.</li>
+		<li class="hasChild">
+			<ul>
+				<li>De ex. 20% poate fi exprimat ca 20 sau 0.2</li>
+				<li>Reprezentarea procentelor trebuie să fie consecventă în fiecare fișier CSV</li>
+				<li>Agențiile trebuie să indice modul în care procentele sunt exprimate în schemă</li>
+			</ul>
+		</li>
+	</ul>
+
+	<h3>7. Variabile de localizare</h3>
+	<ul>
+		<li>Coordonate în EPSG 4326 sau EPSG 3414:</li>
+		<li>Ar trebui să fie reprezentate în două coloane</li>
+		<li class="hasChild">
+			<ul>
+				<li>EPSG 4326: latitude (latitudine) și longitude (longitudine) sau</li>
+				<li>EPSG 3414: x_coord și y_coord</li>
+			</ul>
+		</li>
+		<li>În virgulă mobilă pozitivă/negativă</li>
+		<li class="hasChild">
+			<ul>
+				<li>de ex. latitude: 1.2896700; longitude: 103.8500700</li>
+			</ul>
+		</li>
+		<li>EPSG ar trebui indicat în metadate</li>
+		<li>Adresele ar trebui să fie reprezentate în două coloane, dacă este posibil</li>
+		<li class="hasChild">
+			<ul>
+				<li>address: de ex. 1 Sims Avenue, Singapore 123456</li>
+				<li>postal_code: de ex. 123456</li>
+			</ul>
+		</li>
+	</ul>
+
+	<h3>8. Valori nule/neglijabile</h3>
+	<ul>
+		<li>Pentru orice tip de variabilă:</li>
+	</ul>
+
+	<table>
+		<thead>
+			<tr>
+				<th>Valoare</th>
+				<th>Sens</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr>
+				<td>na</td>
+				<td>Data nu este disponibilă sau nu se aplică</td>
+			</tr>
+
+			<tr>
+				<td>-</td>
+				<td>Data este neglijabilă sau nu este semnificativă</td>
+			</tr>
+
+			<tr>
+				<td>s</td>
+				<td>Data este suprimată</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<ul>
+		<li>Dacă este posibil, explicați de ce există astfel de valori în metadate</li>
+	</ul>
+
+	<h2>Nume de coloane rezervate</h2>
+	<p>
+		Următoarele nume de coloane ar trebui utilizate numai dacă respectă definițiile din acest ghid:
+	</p>
+
+	<ul>
+		<li>year (an)</li>
+		<li>half_year (semestru)</li>
+		<li>quarter (trimestru)</li>
+		<li>month (lună)</li>
+		<li>week (săptămână)</li>
+		<li>date (data)</li>
+		<li>datetime (data și ora)</li>
+		<li>time (ora)</li>
+		<li>financial_year (exercițiu_financiar)</li>
+		<li>financial_half_year (semestru_financiar)</li>
+		<li>financial_quarter (trimestru_financiar)</li>
+		<li>latitude (latitudine)</li>
+		<li>longitude (longitudine)</li>
+		<li>x_coord</li>
+		<li>y_coord</li>
+		<li>postal_code (cod_poștal)</li>
+	</ul>
+
+{% endblock %}

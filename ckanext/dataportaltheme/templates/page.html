@@ -1,0 +1,41 @@
+{% ckan_extends %}
+
+{% block main_content %}
+	{% block flash %}
+		<div class="flash-messages">
+			{% block flash_inner %}
+				{% for message in h.flash.pop_messages() | list %}
+					<div class="alert alert-warning fade in {{ message.category }}">
+						{{ h.literal(message) }}
+					</div>
+				{% endfor %}
+			{% endblock %}
+		</div>
+	{% endblock %}
+
+	{% block toolbar %}
+		<div class="toolbar">
+			{% block breadcrumb %}
+				{% if self.breadcrumb_content() | trim %}
+					<ol class="breadcrumb">
+						{% snippet 'snippets/home_breadcrumb_item.html' %}
+						{% block breadcrumb_content %}{% endblock %}
+					</ol>
+				{% endif %}
+			{% endblock %}
+		</div>
+	{% endblock %}
+
+	{% block pre_primary %}
+	{{super()}}
+	{% endblock %}
+
+	{% block primary %}
+	{{super()}}
+	{% endblock %}
+
+	{% block secondary %}
+	{{super()}}
+	{% endblock %}
+
+{% endblock %}

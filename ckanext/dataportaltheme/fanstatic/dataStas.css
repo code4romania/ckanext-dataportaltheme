@@ -1,0 +1,74 @@
+#content, h3 {
+	font-size: 12px;
+}
+
+	#antet {
+		color: #21409A;
+		margin: 45px 0;
+	}
+
+	#content table {
+		border: 1px solid #000;
+		margin: 20px 0;
+	}
+
+		#content table th,
+		#content table td {
+			border: 1px solid #000;
+			padding: 10px;
+		}
+
+	#content ul:not(#innerNav) {
+		list-style: none;
+	}
+
+		#content ul:not(#innerNav) li:not(.hasChild)::before {
+			content: ":: ";
+		}
+
+	#innerNav {
+		list-style-position: inside;
+		padding-left: 0;
+	}
+
+		#innerNav::after {
+			display: block;
+			content: " ";
+			clear: both;
+		}
+
+		#innerNav li {
+			border: 1px solid #d2d9ea;
+			float: left;
+			margin-right: 20px;
+			padding: 10px 3px;
+			padding-right: 20px;
+			color: #000;
+			cursor: pointer;
+		}
+
+			#innerNav li a {
+				float: right;
+				color: #000;
+			}
+
+		#innerNav li.active {
+			background-color: #234398;
+			border-color: #234398;
+			color: #fff;
+		}
+
+			#innerNav li.active a {
+				color: #fff;
+			}
+
+	ul#bordered {
+		border: 1px dashed #234398;
+		padding: 10px;
+		margin-left: 30px;
+		margin-top: 10px;
+	}
+
+		ul#bordered li::before {
+			content: "„";
+		}
