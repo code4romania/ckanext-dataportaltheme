@@ -9,13 +9,10 @@ body {
   position: relative;
 }
 
-h2 {
+h1 {
   color: #21409A;
 }
 
-/* See about.html for the html */
-.backButton {
-  position: absolute;
-  top: 0;
-  left: 0;
+h2 {
+  color: #21409A;
 }

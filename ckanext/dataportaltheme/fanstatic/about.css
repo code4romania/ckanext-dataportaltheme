@@ -1,5 +1,6 @@
 .backButton {
-	top: 25px;
+	position: absolute;
+	top: 50px;
 }
 
 #aboutLogo {
