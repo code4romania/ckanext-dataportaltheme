@@ -9,7 +9,7 @@
     <ul class="categories">
       {% for group in h.all_groups() %}
       <li>
-        <a  href="#" class="category">
+        <a  href="/group/{{group.name}}" class="category">
           <div class="image-wrapper">
             <img src="{{group.image_display_url}}" alt="">
           </div>
