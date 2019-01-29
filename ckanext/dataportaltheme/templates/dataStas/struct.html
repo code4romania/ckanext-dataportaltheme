@@ -239,4 +239,127 @@
 			</tr>
 		</tbody>
 	</table>
+
+	<h3>5. Variabile textuale</h3>
+	<ul>
+		<li>Ar trebui să se utilizeze codificarea UTF-8</li>
+		<li class="hasChild"><ul><li>Acest lucru permite ca o serie de caractere speciale, cum ar fi caracterele chinezești, să poată fi decodificate de utilizatori</li></ul></li>
+		<li>Nu există separatoare de rânduri în interiorul celulelor</li>
+	</ul>
+
+	<h3>6. Variabile numerice</h3>
+	<ul>
+		<li>Fără  virgule</li>
+		<li class="hasChild"><ul><li>De ex. „1000” în loc de „1,000”</li></ul></li>
+		<li>Fără  unități de măsură</li>
+		<li class="hasChild"><ul><li>Unitățile ar trebui să fie în metadate</li></ul></li>
+		<li>Exprimați numărul complet, dacă este posibil</li>
+		<li class="hasChild">
+			<ul>
+				<li>Dacă este rotunjit, indicați în metadate</li>
+				<li>De ex. „1200000” în loc de „1.2” (milioane)</li>
+			</ul>
+		</li>
+		<li>Fără rotunjiri, dacă este posibil</li>
+		<li class="hasChild">
+			<ul>
+				<li>Dați numerele brute, pe cât posibil</li>
+				<li>Dacă este necesară rotunjirea, încercați să furnizați cel puțin 2 zecimale de precizie</li>
+			</ul>
+		</li>
+		<li>Procentele pot fi exprimate ca o proporție a numerelor 1 sau 100.</li>
+		<li class="hasChild">
+			<ul>
+				<li>De ex. 20% poate fi exprimat ca 20 sau 0.2</li>
+				<li>Reprezentarea procentelor trebuie să fie consecventă în fiecare fișier CSV</li>
+				<li>Agențiile trebuie să indice modul în care procentele sunt exprimate în schemă</li>
+			</ul>
+		</li>
+	</ul>
+
+	<h3>7. Variabile de localizare</h3>
+	<ul>
+		<li>Coordonate în EPSG 4326 sau EPSG 3414:</li>
+		<li>Ar trebui să fie reprezentate în două coloane</li>
+		<li class="hasChild">
+			<ul>
+				<li>EPSG 4326: latitude (latitudine) și longitude (longitudine) sau</li>
+				<li>EPSG 3414: x_coord și y_coord</li>
+			</ul>
+		</li>
+		<li>În virgulă mobilă pozitivă/negativă</li>
+		<li class="hasChild">
+			<ul>
+				<li>de ex. latitude: 1.2896700; longitude: 103.8500700</li>
+			</ul>
+		</li>
+		<li>EPSG ar trebui indicat în metadate</li>
+		<li>Adresele ar trebui să fie reprezentate în două coloane, dacă este posibil</li>
+		<li class="hasChild">
+			<ul>
+				<li>address: de ex. 1 Sims Avenue, Singapore 123456</li>
+				<li>postal_code: de ex. 123456</li>
+			</ul>
+		</li>
+	</ul>
+
+	<h3>8. Valori nule/neglijabile</h3>
+	<ul>
+		<li>Pentru orice tip de variabilă:</li>
+	</ul>
+
+	<table>
+		<thead>
+			<tr>
+				<th>Valoare</th>
+				<th>Sens</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr>
+				<td>na</td>
+				<td>Data nu este disponibilă sau nu se aplică</td>
+			</tr>
+
+			<tr>
+				<td>-</td>
+				<td>Data este neglijabilă sau nu este semnificativă</td>
+			</tr>
+
+			<tr>
+				<td>s</td>
+				<td>Data este suprimată</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<ul>
+		<li>Dacă este posibil, explicați de ce există astfel de valori în metadate</li>
+	</ul>
+
+	<h2>Nume de coloane rezervate</h2>
+	<p>
+		Următoarele nume de coloane ar trebui utilizate numai dacă respectă definițiile din acest ghid:
+	</p>
+
+	<ul>
+		<li>year (an)</li>
+		<li>half_year (semestru)</li>
+		<li>quarter (trimestru)</li>
+		<li>month (lună)</li>
+		<li>week (săptămână)</li>
+		<li>date (data)</li>
+		<li>datetime (data și ora)</li>
+		<li>time (ora)</li>
+		<li>financial_year (exercițiu_financiar)</li>
+		<li>financial_half_year (semestru_financiar)</li>
+		<li>financial_quarter (trimestru_financiar)</li>
+		<li>latitude (latitudine)</li>
+		<li>longitude (longitudine)</li>
+		<li>x_coord</li>
+		<li>y_coord</li>
+		<li>postal_code (cod_poștal)</li>
+	</ul>
+
 {% endblock %}
