@@ -4,6 +4,12 @@ body {
   font-family: 'Titillium Web', sans-serif;
 }
 
+[role=main],
+.main {
+  background-image: none;
+  background-color: #fff;
+}
+
 #content {
   background-color: #fff;
   position: relative;
