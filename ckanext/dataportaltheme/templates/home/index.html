@@ -1,23 +1,27 @@
-{% ckan_extends %}
+{% extends "page_categories.html" %}
+{% set homepage_style = ( g.homepage_style or '1' ) %}
+
+{% block subtitle %}{{ _("Welcome") }}{% endblock %}
+
+{% block maintag %}{% endblock %}
+{% block toolbar %}{% endblock %}
 
 {% block styles %}
   {{ super() }}
 
-  {# Import example_theme.css using Fanstatic.
-     'dataportaltheme/' is the name that the dataportaltheme/fanstatic directory
-     was registered with when the toolkit.add_resource() function was called.
-     'dataportaltheme.css' is the path to the CSS file, relative to the root of
-     the fanstatic directory. #}
-
-
   {% resource 'dataportaltheme/categories_bar.css' %}
 {% endblock %}
 
-
-{% block primary_content %}
-    {% snippet "home/layout.html".format(homepage_style) %}
-    {% block social %}
-        {% include 'social.html' %}
-    {% endblock social %}
+{% block content %}
+  <div class="homepage layout-{{ homepage_style }}">
+    <div class="container">
+      {{ self.flash() }}
+    </div>
+    {% block primary_content %}
+        {% snippet "home/layout.html".format(homepage_style) %}
+        {% block social %}
+            {% include 'social.html' %}
+        {% endblock social %}
+    {% endblock %}
+  </div>
 {% endblock %}
-
