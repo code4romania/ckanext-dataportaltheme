@@ -1,3 +1,7 @@
+.categories-container {
+  background-color: #21409A;
+}
+
 .categories {
   list-style: none;
   padding-left: 0;
@@ -6,7 +10,7 @@
 
 .categories li {
   display: inline-block;
-  width: 12%;
+  width: 10%;
   text-align: center;
 }
 
@@ -38,6 +42,11 @@
   padding: 20px 20px 5px 20px;  
 }
 
-.categories li a:hover .image-wrapper img {
+.categories li a .image-wrapper img{
+  width: 65px;
   filter: invert(1);
+}
+
+.categories li a:hover .image-wrapper img {
+  filter: invert(0);
 }
