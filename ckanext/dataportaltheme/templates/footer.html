@@ -28,7 +28,7 @@
                 <li>Abonează-te la newsletter</li>
                 <input type="text" value="Introdu adresa de e-mail și apasă ENTER" id="newsletter"/>
                 <li><img src="{{ h.url_for_static('code-4-romania-logo.png') }}" alt="Code 4 Romania" id="code_4_logo"></li>
-                <li class="copyright">&copy; 2019 Code for Romania.<br/>
+                <li class="copyright">&copy; 2019 {% if h.current_year != 2019 %}- {{h.current_year}}{% endif %} Code for Romania.<br/>
                 Organizație neguvernamentală independentă,<br/>neafiliată politic și apolitică.</li>
             </ul>
         {% endblock %}
