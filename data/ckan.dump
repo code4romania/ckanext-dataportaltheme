@@ -1,0 +1,2717 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.5.14
+-- Dumped by pg_dump version 9.5.14
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: activity; Type: TABLE; Schema: public; Owner: ckan_default
+--
+
+CREATE TABLE public.activity (
+    id text NOT NULL,
+    "timestamp" timestamp without time zone,
+    user_id text,
+    object_id text,
+    revision_id text,
+    activity_type text,
+    data text
+);
+
+
+ALTER TABLE public.activity OWNER TO ckan_default;
+
+--
+-- Name: activity_detail; Type: TABLE; Schema: public; Owner: ckan_default
+--
+
+CREATE TABLE public.activity_detail (
+    id text NOT NULL,
+    activity_id text,
+    object_id text,
+    object_type text,
+    activity_type text,
+    data text
+);
+
+
+ALTER TABLE public.activity_detail OWNER TO ckan_default;
+
+--
+-- Name: authorization_group; Type: TABLE; Schema: public; Owner: ckan_default
+--
+
+CREATE TABLE public.authorization_group (
+    id text NOT NULL,
+    name text,
+    created timestamp without time zone
+);
+
+
+ALTER TABLE public.authorization_group OWNER TO ckan_default;
+
+--
+-- Name: authorization_group_user; Type: TABLE; Schema: public; Owner: ckan_default
+--
+
+CREATE TABLE public.authorization_group_user (
+    authorization_group_id text NOT NULL,
+    user_id text NOT NULL,
+    id text NOT NULL
+);
+
+
+ALTER TABLE public.authorization_group_user OWNER TO ckan_default;
+
+--
+-- Name: dashboard; Type: TABLE; Schema: public; Owner: ckan_default
+--
+
+CREATE TABLE public.dashboard (
+    user_id text NOT NULL,
+    activity_stream_last_viewed timestamp without time zone NOT NULL,
+    email_last_sent timestamp without time zone DEFAULT ('now'::text)::timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.dashboard OWNER TO ckan_default;
+
+--
+-- Name: group; Type: TABLE; Schema: public; Owner: ckan_default
+--
+
+CREATE TABLE public."group" (
+    id text NOT NULL,
+    name text NOT NULL,
+    title text,
+    description text,
+    created timestamp without time zone,
+    state text,
+    revision_id text,
+    type text NOT NULL,
+    approval_status text,
+    image_url text,
+    is_organization boolean DEFAULT false
+);
+
+
+ALTER TABLE public."group" OWNER TO ckan_default;
+
+--
+-- Name: group_extra; Type: TABLE; Schema: public; Owner: ckan_default
+--
+
+CREATE TABLE public.group_extra (
+    id text NOT NULL,
+    group_id text,
+    key text,
+    value text,
+    state text,
+    revision_id text
+);
+
+
+ALTER TABLE public.group_extra OWNER TO ckan_default;
+
+--
+-- Name: group_extra_revision; Type: TABLE; Schema: public; Owner: ckan_default
+--
+
+CREATE TABLE public.group_extra_revision (
+    id text NOT NULL,
+    group_id text,
+    key text,
+    value text,
+    state text,
+    revision_id text NOT NULL,
+    continuity_id text,
+    expired_id text,
+    revision_timestamp timestamp without time zone,
+    expired_timestamp timestamp without time zone,
+    current boolean
+);
+
+
+ALTER TABLE public.group_extra_revision OWNER TO ckan_default;
+
+--
+-- Name: group_revision; Type: TABLE; Schema: public; Owner: ckan_default
+--
+
+CREATE TABLE public.group_revision (
+    id text NOT NULL,
+    name text NOT NULL,
+    title text,
+    description text,
+    created timestamp without time zone,
+    state text,
+    revision_id text NOT NULL,
+    continuity_id text,
+    expired_id text,
+    revision_timestamp timestamp without time zone,
+    expired_timestamp timestamp without time zone,
+    current boolean,
+    type text NOT NULL,
+    approval_status text,
+    image_url text,
+    is_organization boolean DEFAULT false
+);
+
+
+ALTER TABLE public.group_revision OWNER TO ckan_default;
+
+--
+-- Name: member; Type: TABLE; Schema: public; Owner: ckan_default
+--
+
+CREATE TABLE public.member (
+    id text NOT NULL,
+    table_id text NOT NULL,
+    group_id text,
+    state text,
+    revision_id text,
+    table_name text NOT NULL,
+    capacity text NOT NULL
+);
+
+
+ALTER TABLE public.member OWNER TO ckan_default;
+
+--
+-- Name: member_revision; Type: TABLE; Schema: public; Owner: ckan_default
+--
+
+CREATE TABLE public.member_revision (
+    id text NOT NULL,
+    table_id text NOT NULL,
+    group_id text,
+    state text,
+    revision_id text NOT NULL,
+    continuity_id text,
+    expired_id text,
+    revision_timestamp timestamp without time zone,
+    expired_timestamp timestamp without time zone,
+    current boolean,
+    table_name text NOT NULL,
+    capacity text NOT NULL
+);
+
+
+ALTER TABLE public.member_revision OWNER TO ckan_default;
+
+--
+-- Name: migrate_version; Type: TABLE; Schema: public; Owner: ckan_default
+--
+
+CREATE TABLE public.migrate_version (
+    repository_id character varying(250) NOT NULL,
+    repository_path text,
+    version integer
+);
+
+
+ALTER TABLE public.migrate_version OWNER TO ckan_default;
+
+--
+-- Name: package; Type: TABLE; Schema: public; Owner: ckan_default
+--
+
+CREATE TABLE public.package (
+    id text NOT NULL,
+    name character varying(100) NOT NULL,
+    title text,
+    version character varying(100),
+    url text,
+    notes text,
+    license_id text,
+    revision_id text,
+    author text,
+    author_email text,
+    maintainer text,
+    maintainer_email text,
+    state text,
+    type text,
+    owner_org text,
+    private boolean DEFAULT false,
+    metadata_modified timestamp without time zone,
+    creator_user_id text,
+    metadata_created timestamp without time zone
+);
+
+
+ALTER TABLE public.package OWNER TO ckan_default;
+
+--
+-- Name: package_extra; Type: TABLE; Schema: public; Owner: ckan_default
+--
+
+CREATE TABLE public.package_extra (
+    id text NOT NULL,
+    package_id text,
+    key text,
+    value text,
+    revision_id text,
+    state text
+);
+
+
+ALTER TABLE public.package_extra OWNER TO ckan_default;
+
+--
+-- Name: package_extra_revision; Type: TABLE; Schema: public; Owner: ckan_default
+--
+
+CREATE TABLE public.package_extra_revision (
+    id text NOT NULL,
+    package_id text,
+    key text,
+    value text,
+    revision_id text NOT NULL,
+    continuity_id text,
+    state text,
+    expired_id text,
+    revision_timestamp timestamp without time zone,
+    expired_timestamp timestamp without time zone,
+    current boolean
+);
+
+
+ALTER TABLE public.package_extra_revision OWNER TO ckan_default;
+
+--
+-- Name: package_relationship; Type: TABLE; Schema: public; Owner: ckan_default
+--
+
+CREATE TABLE public.package_relationship (
+    id text NOT NULL,
+    subject_package_id text,
+    object_package_id text,
+    type text,
+    comment text,
+    revision_id text,
+    state text
+);
+
+
+ALTER TABLE public.package_relationship OWNER TO ckan_default;
+
+--
+-- Name: package_relationship_revision; Type: TABLE; Schema: public; Owner: ckan_default
+--
+
+CREATE TABLE public.package_relationship_revision (
+    id text NOT NULL,
+    subject_package_id text,
+    object_package_id text,
+    type text,
+    comment text,
+    revision_id text NOT NULL,
+    continuity_id text,
+    state text,
+    expired_id text,
+    revision_timestamp timestamp without time zone,
+    expired_timestamp timestamp without time zone,
+    current boolean
+);
+
+
+ALTER TABLE public.package_relationship_revision OWNER TO ckan_default;
+
+--
+-- Name: package_revision; Type: TABLE; Schema: public; Owner: ckan_default
+--
+
+CREATE TABLE public.package_revision (
+    id text NOT NULL,
+    name character varying(100) NOT NULL,
+    title text,
+    version character varying(100),
+    url text,
+    notes text,
+    license_id text,
+    revision_id text NOT NULL,
+    continuity_id text,
+    author text,
+    author_email text,
+    maintainer text,
+    maintainer_email text,
+    state text,
+    expired_id text,
+    revision_timestamp timestamp without time zone,
+    expired_timestamp timestamp without time zone,
+    current boolean,
+    type text,
+    owner_org text,
+    private boolean DEFAULT false,
+    metadata_modified timestamp without time zone,
+    creator_user_id text,
+    metadata_created timestamp without time zone
+);
+
+
+ALTER TABLE public.package_revision OWNER TO ckan_default;
+
+--
+-- Name: package_tag; Type: TABLE; Schema: public; Owner: ckan_default
+--
+
+CREATE TABLE public.package_tag (
+    id text NOT NULL,
+    package_id text,
+    tag_id text,
+    revision_id text,
+    state text
+);
+
+
+ALTER TABLE public.package_tag OWNER TO ckan_default;
+
+--
+-- Name: package_tag_revision; Type: TABLE; Schema: public; Owner: ckan_default
+--
+
+CREATE TABLE public.package_tag_revision (
+    id text NOT NULL,
+    package_id text,
+    tag_id text,
+    revision_id text NOT NULL,
+    continuity_id text,
+    state text,
+    expired_id text,
+    revision_timestamp timestamp without time zone,
+    expired_timestamp timestamp without time zone,
+    current boolean
+);
+
+
+ALTER TABLE public.package_tag_revision OWNER TO ckan_default;
+
+--
+-- Name: rating; Type: TABLE; Schema: public; Owner: ckan_default
+--
+
+CREATE TABLE public.rating (
+    id text NOT NULL,
+    user_id text,
+    user_ip_address text,
+    package_id text,
+    rating double precision,
+    created timestamp without time zone
+);
+
+
+ALTER TABLE public.rating OWNER TO ckan_default;
+
+--
+-- Name: resource; Type: TABLE; Schema: public; Owner: ckan_default
+--
+
+CREATE TABLE public.resource (
+    id text NOT NULL,
+    url text NOT NULL,
+    format text,
+    description text,
+    "position" integer,
+    revision_id text,
+    hash text,
+    state text,
+    extras text,
+    name text,
+    resource_type text,
+    mimetype text,
+    mimetype_inner text,
+    size bigint,
+    last_modified timestamp without time zone,
+    cache_url text,
+    cache_last_updated timestamp without time zone,
+    webstore_url text,
+    webstore_last_updated timestamp without time zone,
+    created timestamp without time zone,
+    url_type text,
+    package_id text DEFAULT ''::text NOT NULL
+);
+
+
+ALTER TABLE public.resource OWNER TO ckan_default;
+
+--
+-- Name: resource_revision; Type: TABLE; Schema: public; Owner: ckan_default
+--
+
+CREATE TABLE public.resource_revision (
+    id text NOT NULL,
+    url text NOT NULL,
+    format text,
+    description text,
+    "position" integer,
+    revision_id text NOT NULL,
+    continuity_id text,
+    hash text,
+    state text,
+    extras text,
+    expired_id text,
+    revision_timestamp timestamp without time zone,
+    expired_timestamp timestamp without time zone,
+    current boolean,
+    name text,
+    resource_type text,
+    mimetype text,
+    mimetype_inner text,
+    size bigint,
+    last_modified timestamp without time zone,
+    cache_url text,
+    cache_last_updated timestamp without time zone,
+    webstore_url text,
+    webstore_last_updated timestamp without time zone,
+    created timestamp without time zone,
+    url_type text,
+    package_id text DEFAULT ''::text NOT NULL
+);
+
+
+ALTER TABLE public.resource_revision OWNER TO ckan_default;
+
+--
+-- Name: resource_view; Type: TABLE; Schema: public; Owner: ckan_default
+--
+
+CREATE TABLE public.resource_view (
+    id text NOT NULL,
+    resource_id text,
+    title text,
+    description text,
+    view_type text NOT NULL,
+    "order" integer NOT NULL,
+    config text
+);
+
+
+ALTER TABLE public.resource_view OWNER TO ckan_default;
+
+--
+-- Name: revision; Type: TABLE; Schema: public; Owner: ckan_default
+--
+
+CREATE TABLE public.revision (
+    id text NOT NULL,
+    "timestamp" timestamp without time zone,
+    author character varying(200),
+    message text,
+    state text,
+    approved_timestamp timestamp without time zone
+);
+
+
+ALTER TABLE public.revision OWNER TO ckan_default;
+
+--
+-- Name: system_info; Type: TABLE; Schema: public; Owner: ckan_default
+--
+
+CREATE TABLE public.system_info (
+    id integer NOT NULL,
+    key character varying(100) NOT NULL,
+    value text,
+    revision_id text,
+    state text DEFAULT 'active'::text NOT NULL
+);
+
+
+ALTER TABLE public.system_info OWNER TO ckan_default;
+
+--
+-- Name: system_info_id_seq; Type: SEQUENCE; Schema: public; Owner: ckan_default
+--
+
+CREATE SEQUENCE public.system_info_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.system_info_id_seq OWNER TO ckan_default;
+
+--
+-- Name: system_info_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: ckan_default
+--
+
+ALTER SEQUENCE public.system_info_id_seq OWNED BY public.system_info.id;
+
+
+--
+-- Name: system_info_revision; Type: TABLE; Schema: public; Owner: ckan_default
+--
+
+CREATE TABLE public.system_info_revision (
+    id integer NOT NULL,
+    key character varying(100) NOT NULL,
+    value text,
+    revision_id text NOT NULL,
+    continuity_id integer,
+    state text DEFAULT 'active'::text NOT NULL,
+    expired_id text,
+    revision_timestamp timestamp without time zone,
+    expired_timestamp timestamp without time zone,
+    current boolean
+);
+
+
+ALTER TABLE public.system_info_revision OWNER TO ckan_default;
+
+--
+-- Name: tag; Type: TABLE; Schema: public; Owner: ckan_default
+--
+
+CREATE TABLE public.tag (
+    id text NOT NULL,
+    name character varying(100) NOT NULL,
+    vocabulary_id character varying(100)
+);
+
+
+ALTER TABLE public.tag OWNER TO ckan_default;
+
+--
+-- Name: task_status; Type: TABLE; Schema: public; Owner: ckan_default
+--
+
+CREATE TABLE public.task_status (
+    id text NOT NULL,
+    entity_id text NOT NULL,
+    entity_type text NOT NULL,
+    task_type text NOT NULL,
+    key text NOT NULL,
+    value text NOT NULL,
+    state text,
+    error text,
+    last_updated timestamp without time zone
+);
+
+
+ALTER TABLE public.task_status OWNER TO ckan_default;
+
+--
+-- Name: term_translation; Type: TABLE; Schema: public; Owner: ckan_default
+--
+
+CREATE TABLE public.term_translation (
+    term text NOT NULL,
+    term_translation text NOT NULL,
+    lang_code text NOT NULL
+);
+
+
+ALTER TABLE public.term_translation OWNER TO ckan_default;
+
+--
+-- Name: tracking_raw; Type: TABLE; Schema: public; Owner: ckan_default
+--
+
+CREATE TABLE public.tracking_raw (
+    user_key character varying(100) NOT NULL,
+    url text NOT NULL,
+    tracking_type character varying(10) NOT NULL,
+    access_timestamp timestamp without time zone DEFAULT now()
+);
+
+
+ALTER TABLE public.tracking_raw OWNER TO ckan_default;
+
+--
+-- Name: tracking_summary; Type: TABLE; Schema: public; Owner: ckan_default
+--
+
+CREATE TABLE public.tracking_summary (
+    url text NOT NULL,
+    package_id text,
+    tracking_type character varying(10) NOT NULL,
+    count integer NOT NULL,
+    running_total integer DEFAULT 0 NOT NULL,
+    recent_views integer DEFAULT 0 NOT NULL,
+    tracking_date date
+);
+
+
+ALTER TABLE public.tracking_summary OWNER TO ckan_default;
+
+--
+-- Name: user; Type: TABLE; Schema: public; Owner: ckan_default
+--
+
+CREATE TABLE public."user" (
+    id text NOT NULL,
+    name text NOT NULL,
+    apikey text,
+    created timestamp without time zone,
+    about text,
+    password text,
+    fullname text,
+    email text,
+    reset_key text,
+    sysadmin boolean DEFAULT false,
+    activity_streams_email_notifications boolean DEFAULT false,
+    state text DEFAULT 'active'::text NOT NULL
+);
+
+
+ALTER TABLE public."user" OWNER TO ckan_default;
+
+--
+-- Name: user_following_dataset; Type: TABLE; Schema: public; Owner: ckan_default
+--
+
+CREATE TABLE public.user_following_dataset (
+    follower_id text NOT NULL,
+    object_id text NOT NULL,
+    datetime timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.user_following_dataset OWNER TO ckan_default;
+
+--
+-- Name: user_following_group; Type: TABLE; Schema: public; Owner: ckan_default
+--
+
+CREATE TABLE public.user_following_group (
+    follower_id text NOT NULL,
+    object_id text NOT NULL,
+    datetime timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.user_following_group OWNER TO ckan_default;
+
+--
+-- Name: user_following_user; Type: TABLE; Schema: public; Owner: ckan_default
+--
+
+CREATE TABLE public.user_following_user (
+    follower_id text NOT NULL,
+    object_id text NOT NULL,
+    datetime timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.user_following_user OWNER TO ckan_default;
+
+--
+-- Name: vocabulary; Type: TABLE; Schema: public; Owner: ckan_default
+--
+
+CREATE TABLE public.vocabulary (
+    id text NOT NULL,
+    name character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.vocabulary OWNER TO ckan_default;
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.system_info ALTER COLUMN id SET DEFAULT nextval('public.system_info_id_seq'::regclass);
+
+
+--
+-- Data for Name: activity; Type: TABLE DATA; Schema: public; Owner: ckan_default
+--
+
+COPY public.activity (id, "timestamp", user_id, object_id, revision_id, activity_type, data) FROM stdin;
+35d063c7-967e-4882-8032-6e90013bc086	2019-01-25 09:32:30.604117	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	\N	new user	\N
+5d53fc8c-0d5e-4c2c-a637-82bdc94f0177	2019-01-25 09:37:42.196656	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	35256754-a1d8-437e-8ce3-4376af04907b	7f35d478-c54a-45df-b8df-e8d369e45404	new organization	{"group": {"description": "", "title": "Primaria TImisoara", "created": "2019-01-25T09:37:42.176875", "approval_status": "approved", "is_organization": true, "state": "active", "image_url": "", "revision_id": "7f35d478-c54a-45df-b8df-e8d369e45404", "type": "organization", "id": "35256754-a1d8-437e-8ce3-4376af04907b", "name": "primaria-timisoara"}}
+d78f2f85-18ff-45ac-8343-9baea71b7cbd	2019-01-26 13:19:21.995344	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	12f0c0d2-794f-4f9d-935d-748da608497d	4a8db9a9-76f7-46cc-805a-159fcc038888	new group	{"group": {"description": "", "title": "Cultura", "created": "2019-01-26T13:19:21.977519", "approval_status": "approved", "is_organization": false, "state": "active", "image_url": "", "revision_id": "4a8db9a9-76f7-46cc-805a-159fcc038888", "type": "group", "id": "12f0c0d2-794f-4f9d-935d-748da608497d", "name": "cultura"}}
+6db17442-f08a-4c47-b7b4-9d6dd1f5b427	2019-01-26 13:19:33.372717	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	625cdeb1-f004-4bef-a4f1-07e0ea583b9d	a0b38bc3-4aa9-4738-82d0-b39b384ee344	new group	{"group": {"description": "", "title": "Infrastructura", "created": "2019-01-26T13:19:33.362003", "approval_status": "approved", "is_organization": false, "state": "active", "image_url": "", "revision_id": "a0b38bc3-4aa9-4738-82d0-b39b384ee344", "type": "group", "id": "625cdeb1-f004-4bef-a4f1-07e0ea583b9d", "name": "infrastructura"}}
+8d9986e3-361d-4d1f-9a94-74bafd3b670e	2019-01-26 13:19:44.484996	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	bfa0428d-82d7-4633-aab2-8f5bbdf1ab01	9b49d38c-3c8d-4567-88be-fd349953b55f	new group	{"group": {"description": "", "title": "Mediu", "created": "2019-01-26T13:19:44.472210", "approval_status": "approved", "is_organization": false, "state": "active", "image_url": "", "revision_id": "9b49d38c-3c8d-4567-88be-fd349953b55f", "type": "group", "id": "bfa0428d-82d7-4633-aab2-8f5bbdf1ab01", "name": "mediu"}}
+73f3fe91-092e-4823-9808-d43a82e75a0e	2019-01-26 13:20:33.875193	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	95040047-f5f5-46c5-9877-d08d5ebc1544	296cd697-2a74-477f-8a1d-b4d49d92072b	changed package	{"package": {"owner_org": "35256754-a1d8-437e-8ce3-4376af04907b", "maintainer": "", "name": "persoane", "metadata_modified": "2019-01-26T13:20:33.631080", "author": "", "url": "", "notes": "", "title": "Persoane", "private": false, "maintainer_email": "", "author_email": "", "state": "active", "version": "", "creator_user_id": "adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2", "license_id": "cc-by", "revision_id": "296cd697-2a74-477f-8a1d-b4d49d92072b", "type": "dataset", "id": "95040047-f5f5-46c5-9877-d08d5ebc1544", "metadata_created": "2019-01-25T09:37:51.601465"}}
+940b6faa-afb7-430f-879b-2025712f1e9c	2019-02-13 00:54:42.778018	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	\N	changed user	\N
+604e1601-a1fc-4b39-9078-390dbf60c024	2019-02-13 00:55:39.028313	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	35256754-a1d8-437e-8ce3-4376af04907b	4211e3c2-9725-4fe4-b567-504abaf76402	changed organization	{"group": {"description": "", "title": "Primaria Timisoara", "created": "2019-01-25T09:37:42.176875", "approval_status": "approved", "is_organization": true, "state": "active", "image_url": "", "revision_id": "7f35d478-c54a-45df-b8df-e8d369e45404", "type": "organization", "id": "35256754-a1d8-437e-8ce3-4376af04907b", "name": "primaria-timisoara"}}
+81015e1d-57b7-4d0b-a698-5ec02cb8a09f	2019-02-13 01:10:49.886922	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	12f0c0d2-794f-4f9d-935d-748da608497d	ec166e31-8a31-4920-961f-27a6ae390289	changed group	{"group": {"description": "", "title": "Cultura", "created": "2019-01-26T13:19:21.977519", "approval_status": "approved", "is_organization": false, "state": "active", "image_url": "2019-02-13-011049.880498educatie.png", "revision_id": "4a8db9a9-76f7-46cc-805a-159fcc038888", "type": "group", "id": "12f0c0d2-794f-4f9d-935d-748da608497d", "name": "cultura"}}
+1b31098e-289c-4949-9a14-ff7d29f2035e	2019-02-13 01:11:08.187175	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	625cdeb1-f004-4bef-a4f1-07e0ea583b9d	75e4bcd6-2424-45a8-8e75-c80024d126ed	changed group	{"group": {"description": "", "title": "Infrastructura", "created": "2019-01-26T13:19:33.362003", "approval_status": "approved", "is_organization": false, "state": "active", "image_url": "2019-02-13-011108.177671infrastructura.png", "revision_id": "a0b38bc3-4aa9-4738-82d0-b39b384ee344", "type": "group", "id": "625cdeb1-f004-4bef-a4f1-07e0ea583b9d", "name": "infrastructura"}}
+0b231cc1-038e-4904-af0f-08e3dd52e256	2019-02-13 01:11:34.237315	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	bfa0428d-82d7-4633-aab2-8f5bbdf1ab01	000bfb48-cee7-48e8-a7df-e143224789c4	changed group	{"group": {"description": "", "title": "Mediu", "created": "2019-01-26T13:19:44.472210", "approval_status": "approved", "is_organization": false, "state": "active", "image_url": "2019-02-13-011134.226701mediu.png", "revision_id": "9b49d38c-3c8d-4567-88be-fd349953b55f", "type": "group", "id": "bfa0428d-82d7-4633-aab2-8f5bbdf1ab01", "name": "mediu"}}
+4d519afc-7156-4854-a20c-659c02a1c0c5	2019-02-13 01:11:53.065684	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	0d9f0418-b11e-425f-8340-d47964b70d26	b4790e21-a45a-4660-a8fa-c3de847eea4c	new group	{"group": {"description": "", "title": "Educație", "created": "2019-02-13T01:11:53.050813", "approval_status": "approved", "is_organization": false, "state": "active", "image_url": "2019-02-13-011153.033413educatie.png", "revision_id": "b4790e21-a45a-4660-a8fa-c3de847eea4c", "type": "group", "id": "0d9f0418-b11e-425f-8340-d47964b70d26", "name": "educatie"}}
+28507335-1ae3-4ae6-a971-93fedd4126d9	2019-02-13 01:12:31.391459	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	085a9c7c-17b8-4ee0-8fec-bf82828374bf	960367ea-b4fc-4f5e-ab79-88093c3be10b	new group	{"group": {"description": "", "title": "Justiție", "created": "2019-02-13T01:12:31.379655", "approval_status": "approved", "is_organization": false, "state": "active", "image_url": "2019-02-13-011231.367674justitie.png", "revision_id": "960367ea-b4fc-4f5e-ab79-88093c3be10b", "type": "group", "id": "085a9c7c-17b8-4ee0-8fec-bf82828374bf", "name": "justitie"}}
+7f0ee9cd-c2ad-4c9e-8a41-dabfd6e4a431	2019-02-13 01:12:45.670426	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	12f0c0d2-794f-4f9d-935d-748da608497d	86233ef5-c143-4498-a67d-80cb67c8c1ef	changed group	{"group": {"description": "", "title": "Cultură", "created": "2019-01-26T13:19:21.977519", "approval_status": "approved", "is_organization": false, "state": "active", "image_url": "2019-02-13-011049.880498educatie.png", "revision_id": "ec166e31-8a31-4920-961f-27a6ae390289", "type": "group", "id": "12f0c0d2-794f-4f9d-935d-748da608497d", "name": "cultura"}}
+e9c01a6f-3470-4fc1-96de-f8a66d81f641	2019-02-13 01:12:59.324662	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	625cdeb1-f004-4bef-a4f1-07e0ea583b9d	21e3300f-88fd-41ed-a4af-677102b52054	changed group	{"group": {"description": "", "title": "Infrastructură", "created": "2019-01-26T13:19:33.362003", "approval_status": "approved", "is_organization": false, "state": "active", "image_url": "2019-02-13-011108.177671infrastructura.png", "revision_id": "75e4bcd6-2424-45a8-8e75-c80024d126ed", "type": "group", "id": "625cdeb1-f004-4bef-a4f1-07e0ea583b9d", "name": "infrastructura"}}
+3e108ef4-9739-4ded-b423-156ef6468ae2	2019-02-13 01:13:20.048458	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	4e06306b-90c3-41c2-af20-a21bcd7714c7	fbfe4caa-f49c-44d4-8bf9-2f31c68e2d81	new group	{"group": {"description": "", "title": "Populație", "created": "2019-02-13T01:13:20.039589", "approval_status": "approved", "is_organization": false, "state": "active", "image_url": "2019-02-13-011320.024764populatie.png", "revision_id": "fbfe4caa-f49c-44d4-8bf9-2f31c68e2d81", "type": "group", "id": "4e06306b-90c3-41c2-af20-a21bcd7714c7", "name": "populatie"}}
+953d8151-5702-4f81-ba75-d246ddb5ab68	2019-02-13 01:13:39.8113	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	21d7c633-a6d7-4b06-9ba9-b7d882732eee	c0e21720-b3c6-4cb5-8949-763bf095809f	new group	{"group": {"description": "", "title": "Sănătate", "created": "2019-02-13T01:13:39.798556", "approval_status": "approved", "is_organization": false, "state": "active", "image_url": "2019-02-13-011339.772114sanatate.png", "revision_id": "c0e21720-b3c6-4cb5-8949-763bf095809f", "type": "group", "id": "21d7c633-a6d7-4b06-9ba9-b7d882732eee", "name": "sanatate"}}
+196d99a7-d90a-4acd-854b-f7a8c8431e7e	2019-02-13 01:13:51.190605	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	4e645565-fa7a-41a5-943d-e696d5c058f7	e4a67bb5-ad31-437a-b8df-e6235b346035	new group	{"group": {"description": "", "title": "Servicii Publice", "created": "2019-02-13T01:13:51.182453", "approval_status": "approved", "is_organization": false, "state": "active", "image_url": "2019-02-13-011351.169226serviciipublice.png", "revision_id": "e4a67bb5-ad31-437a-b8df-e6235b346035", "type": "group", "id": "4e645565-fa7a-41a5-943d-e696d5c058f7", "name": "servicii-publice"}}
+5c7599e9-5147-4b60-b97f-8ecf0d4d18c6	2019-02-13 01:14:02.217026	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	9eb7cbaf-396b-43fd-a26c-04c73e34c38d	525ca99d-8809-4cf4-8149-ecb9d82cd306	new group	{"group": {"description": "", "title": "Transport", "created": "2019-02-13T01:14:02.205957", "approval_status": "approved", "is_organization": false, "state": "active", "image_url": "2019-02-13-011402.188993transport.png", "revision_id": "525ca99d-8809-4cf4-8149-ecb9d82cd306", "type": "group", "id": "9eb7cbaf-396b-43fd-a26c-04c73e34c38d", "name": "transport"}}
+de3f2b8a-b796-4e95-8d09-ecc62f910484	2019-02-13 01:30:18.134629	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	99643971-905e-4a9d-bee7-670054775b14	2a50d23f-0c59-4c53-80c2-4d94aa76c167	new package	{"package": {"owner_org": "35256754-a1d8-437e-8ce3-4376af04907b", "maintainer": "Ionut Matei", "name": "institutii-culturale-aflate-in-subordinea-consiliului-local-timisoara", "metadata_modified": "2019-02-13T01:30:17.951497", "author": "", "url": "", "notes": "Institutii culturale aflate in subordinea Consiliului Local Timisoara", "title": "Institutii culturale aflate in subordinea Consiliului Local Timisoara", "private": false, "maintainer_email": "ionut.matei@primariatm.ro", "author_email": "ionut.matei@primariatm.ro", "state": "draft", "version": "", "creator_user_id": "adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2", "license_id": "cc-by", "revision_id": "2a50d23f-0c59-4c53-80c2-4d94aa76c167", "type": "dataset", "id": "99643971-905e-4a9d-bee7-670054775b14", "metadata_created": "2019-02-13T01:30:17.951490"}}
+b8bbe9df-11b9-4cdf-be48-20325537ff76	2019-02-13 01:30:36.059705	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	99643971-905e-4a9d-bee7-670054775b14	d83fc4be-028c-4af1-bc7f-da16e70c9f08	changed package	{"package": {"owner_org": "35256754-a1d8-437e-8ce3-4376af04907b", "maintainer": "Ionut Matei", "name": "institutii-culturale-aflate-in-subordinea-consiliului-local-timisoara", "metadata_modified": "2019-02-13T01:30:35.904922", "author": "", "url": "", "notes": "Institutii culturale aflate in subordinea Consiliului Local Timisoara", "title": "Institutii culturale aflate in subordinea Consiliului Local Timisoara", "private": false, "maintainer_email": "ionut.matei@primariatm.ro", "author_email": "ionut.matei@primariatm.ro", "state": "draft", "version": "", "creator_user_id": "adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2", "license_id": "cc-by", "revision_id": "2a50d23f-0c59-4c53-80c2-4d94aa76c167", "type": "dataset", "id": "99643971-905e-4a9d-bee7-670054775b14", "metadata_created": "2019-02-13T01:30:17.951490"}}
+9bdcf7bb-be5c-4030-a63b-01de0d640376	2019-02-13 01:30:36.215569	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	99643971-905e-4a9d-bee7-670054775b14	6fa1524e-4d4b-4f90-815a-6d264fac628d	changed package	{"package": {"owner_org": "35256754-a1d8-437e-8ce3-4376af04907b", "maintainer": "Ionut Matei", "name": "institutii-culturale-aflate-in-subordinea-consiliului-local-timisoara", "metadata_modified": "2019-02-13T01:30:36.124870", "author": "", "url": "", "notes": "Institutii culturale aflate in subordinea Consiliului Local Timisoara", "title": "Institutii culturale aflate in subordinea Consiliului Local Timisoara", "private": false, "maintainer_email": "ionut.matei@primariatm.ro", "author_email": "ionut.matei@primariatm.ro", "state": "active", "version": "", "creator_user_id": "adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2", "license_id": "cc-by", "revision_id": "6fa1524e-4d4b-4f90-815a-6d264fac628d", "type": "dataset", "id": "99643971-905e-4a9d-bee7-670054775b14", "metadata_created": "2019-02-13T01:30:17.951490"}}
+4de45238-4889-46c3-95aa-c9d3f4ea6849	2019-02-13 01:30:55.038607	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	99643971-905e-4a9d-bee7-670054775b14	b0598df2-6c21-45c2-b3c5-71d793d64a3f	changed package	{"package": {"owner_org": "35256754-a1d8-437e-8ce3-4376af04907b", "maintainer": "Ionut Matei", "name": "institutii-culturale-aflate-in-subordinea-consiliului-local-timisoara", "metadata_modified": "2019-02-13T01:30:54.944229", "author": "Ionut Matei", "url": "", "notes": "Institutii culturale aflate in subordinea Consiliului Local Timisoara", "title": "Institutii culturale aflate in subordinea Consiliului Local Timisoara", "private": false, "maintainer_email": "ionut.matei@primariatm.ro", "author_email": "ionut.matei@primariatm.ro", "state": "active", "version": "", "creator_user_id": "adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2", "license_id": "cc-by", "revision_id": "b0598df2-6c21-45c2-b3c5-71d793d64a3f", "type": "dataset", "id": "99643971-905e-4a9d-bee7-670054775b14", "metadata_created": "2019-02-13T01:30:17.951490"}}
+3d0dedb6-e800-43bb-994d-4bf9fc035187	2019-02-14 23:07:35.061343	107de12c-aad9-46db-a872-f55a88206b72	107de12c-aad9-46db-a872-f55a88206b72	\N	new user	\N
+1eb1e12e-ad2a-4f46-aa8d-d449b7c993ee	2019-02-14 23:20:07.774631	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	bb464f80-7710-47f5-b8f7-aa427d8d4431	13f06619-bbfb-4726-b86f-d4f2abfa2836	new organization	{"group": {"description": "", "title": "Code 4 Romania", "created": "2019-02-14T23:20:07.754235", "approval_status": "approved", "is_organization": true, "state": "active", "image_url": "2019-02-14-232007.729808logocode4single.png", "revision_id": "13f06619-bbfb-4726-b86f-d4f2abfa2836", "type": "organization", "id": "bb464f80-7710-47f5-b8f7-aa427d8d4431", "name": "code-4-romania"}}
+f923c6c9-3dde-4875-aa1e-c03ec4e6b008	2019-02-14 23:20:28.0659	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	bb464f80-7710-47f5-b8f7-aa427d8d4431	9293fdcb-1e9b-457c-964c-3cf963a620fa	changed organization	{"group": {"description": "", "title": "Code4Romania", "created": "2019-02-14T23:20:07.754235", "approval_status": "approved", "is_organization": true, "state": "active", "image_url": "2019-02-14-232007.729808logocode4single.png", "revision_id": "13f06619-bbfb-4726-b86f-d4f2abfa2836", "type": "organization", "id": "bb464f80-7710-47f5-b8f7-aa427d8d4431", "name": "code4ro"}}
+f6c6ef3d-f504-4d6a-a50e-246dfaee11fc	2019-02-14 23:22:17.683241	107de12c-aad9-46db-a872-f55a88206b72	107de12c-aad9-46db-a872-f55a88206b72	cc2262bb-dead-4e6a-b452-14584fcba50e	changed user	\N
+3c841910-7cfc-446e-8a95-184815f927ac	2019-02-14 23:23:06.283647	6088bb20-fe87-4362-ae0f-0c648c090f43	6088bb20-fe87-4362-ae0f-0c648c090f43	cc2262bb-dead-4e6a-b452-14584fcba50e	new user	\N
+1d863307-d173-4581-b9d1-72ab950183fa	2019-02-14 23:24:12.518594	5bcef303-c0d4-4c1d-86e7-bdf3f4466fa4	5bcef303-c0d4-4c1d-86e7-bdf3f4466fa4	cc2262bb-dead-4e6a-b452-14584fcba50e	new user	\N
+9d2022e8-2e7e-47b3-be2c-3c01d5bfd7ed	2019-02-14 23:26:51.187318	6088bb20-fe87-4362-ae0f-0c648c090f43	b593c17d-51d2-41c2-ad51-8f45fe9a94e5	46a362a3-6776-43f9-9f5a-bb6683ef9ea8	new package	{"package": {"owner_org": "bb464f80-7710-47f5-b8f7-aa427d8d4431", "maintainer": "Demo Memberescu", "name": "conservation-area-map", "metadata_modified": "2019-02-14T23:26:51.068469", "author": "Demo Editorescu", "url": "", "notes": "", "title": "Conservation area map", "private": false, "maintainer_email": "demo@code4.ro", "author_email": "demo@code4.ro", "state": "draft", "version": "1.3", "creator_user_id": "6088bb20-fe87-4362-ae0f-0c648c090f43", "license_id": "cc-by", "revision_id": "46a362a3-6776-43f9-9f5a-bb6683ef9ea8", "type": "dataset", "id": "b593c17d-51d2-41c2-ad51-8f45fe9a94e5", "metadata_created": "2019-02-14T23:26:51.068460"}}
+ba1cfe5a-9e8f-428b-b1cd-ec1b5c3a0829	2019-02-14 23:28:26.192142	6088bb20-fe87-4362-ae0f-0c648c090f43	b593c17d-51d2-41c2-ad51-8f45fe9a94e5	aacb529d-6aa6-44ee-9467-67ab2e8a0e28	changed package	{"package": {"owner_org": "bb464f80-7710-47f5-b8f7-aa427d8d4431", "maintainer": "Demo Memberescu", "name": "conservation-area-map", "metadata_modified": "2019-02-14T23:28:26.070962", "author": "Demo Editorescu", "url": "", "notes": "", "title": "Conservation area map", "private": false, "maintainer_email": "demo@code4.ro", "author_email": "demo@code4.ro", "state": "draft", "version": "1.3", "creator_user_id": "6088bb20-fe87-4362-ae0f-0c648c090f43", "license_id": "cc-by", "revision_id": "46a362a3-6776-43f9-9f5a-bb6683ef9ea8", "type": "dataset", "id": "b593c17d-51d2-41c2-ad51-8f45fe9a94e5", "metadata_created": "2019-02-14T23:26:51.068460"}}
+d8a7e529-134a-4072-b4a8-58a10a75efd5	2019-02-14 23:28:26.330123	6088bb20-fe87-4362-ae0f-0c648c090f43	b593c17d-51d2-41c2-ad51-8f45fe9a94e5	159efe9d-0cb7-4ba1-a514-2fa5801ed26a	changed package	{"package": {"owner_org": "bb464f80-7710-47f5-b8f7-aa427d8d4431", "maintainer": "Demo Memberescu", "name": "conservation-area-map", "metadata_modified": "2019-02-14T23:28:26.240677", "author": "Demo Editorescu", "url": "", "notes": "", "title": "Conservation area map", "private": false, "maintainer_email": "demo@code4.ro", "author_email": "demo@code4.ro", "state": "active", "version": "1.3", "creator_user_id": "6088bb20-fe87-4362-ae0f-0c648c090f43", "license_id": "cc-by", "revision_id": "159efe9d-0cb7-4ba1-a514-2fa5801ed26a", "type": "dataset", "id": "b593c17d-51d2-41c2-ad51-8f45fe9a94e5", "metadata_created": "2019-02-14T23:26:51.068460"}}
+1ecba557-1711-460e-b739-09a5a3740c2c	2019-02-14 23:34:49.990952	6088bb20-fe87-4362-ae0f-0c648c090f43	58d847d3-4e19-40d9-b36b-61dc1472747b	5adc0936-f542-41d4-98b3-05a2711b11aa	new package	{"package": {"owner_org": "bb464f80-7710-47f5-b8f7-aa427d8d4431", "maintainer": "", "name": "residents-by-ethnic-group-and-sex-end-june-annual", "metadata_modified": "2019-02-14T23:34:49.879556", "author": "", "url": "", "notes": "", "title": "Residents by ethnic group and sex. End-June annual", "private": false, "maintainer_email": "", "author_email": "", "state": "draft", "version": "", "creator_user_id": "6088bb20-fe87-4362-ae0f-0c648c090f43", "license_id": "cc-by", "revision_id": "5adc0936-f542-41d4-98b3-05a2711b11aa", "type": "dataset", "id": "58d847d3-4e19-40d9-b36b-61dc1472747b", "metadata_created": "2019-02-14T23:34:49.879548"}}
+c65e7a7a-bd28-4eb3-ac90-4e581cb66255	2019-02-14 23:35:20.838711	6088bb20-fe87-4362-ae0f-0c648c090f43	58d847d3-4e19-40d9-b36b-61dc1472747b	c8065835-f23e-4c44-94e6-3a6a9a98e6df	changed package	{"package": {"owner_org": "bb464f80-7710-47f5-b8f7-aa427d8d4431", "maintainer": "", "name": "residents-by-ethnic-group-and-sex-end-june-annual", "metadata_modified": "2019-02-14T23:35:20.691624", "author": "", "url": "", "notes": "", "title": "Residents by ethnic group and sex. End-June annual", "private": false, "maintainer_email": "", "author_email": "", "state": "draft", "version": "", "creator_user_id": "6088bb20-fe87-4362-ae0f-0c648c090f43", "license_id": "cc-by", "revision_id": "5adc0936-f542-41d4-98b3-05a2711b11aa", "type": "dataset", "id": "58d847d3-4e19-40d9-b36b-61dc1472747b", "metadata_created": "2019-02-14T23:34:49.879548"}}
+bfdc4a33-95c1-427b-913c-7d46fc0c0c3a	2019-02-14 23:35:20.979132	6088bb20-fe87-4362-ae0f-0c648c090f43	58d847d3-4e19-40d9-b36b-61dc1472747b	04f2da61-8023-44b8-8e6a-a28009a5f5b9	changed package	{"package": {"owner_org": "bb464f80-7710-47f5-b8f7-aa427d8d4431", "maintainer": "", "name": "residents-by-ethnic-group-and-sex-end-june-annual", "metadata_modified": "2019-02-14T23:35:20.894779", "author": "", "url": "", "notes": "", "title": "Residents by ethnic group and sex. End-June annual", "private": false, "maintainer_email": "", "author_email": "", "state": "active", "version": "", "creator_user_id": "6088bb20-fe87-4362-ae0f-0c648c090f43", "license_id": "cc-by", "revision_id": "04f2da61-8023-44b8-8e6a-a28009a5f5b9", "type": "dataset", "id": "58d847d3-4e19-40d9-b36b-61dc1472747b", "metadata_created": "2019-02-14T23:34:49.879548"}}
+4572388d-7810-4874-8201-705164108028	2019-02-14 23:35:42.211508	6088bb20-fe87-4362-ae0f-0c648c090f43	58d847d3-4e19-40d9-b36b-61dc1472747b	73f97efe-7435-473a-b708-e397e35e8b22	changed package	{"package": {"owner_org": "bb464f80-7710-47f5-b8f7-aa427d8d4431", "maintainer": "", "name": "residents-by-ethnic-group-and-sex-end-june-annual", "metadata_modified": "2019-02-14T23:35:42.105608", "author": "", "url": "", "notes": "", "title": "Residents by ethnic group and sex. End-June annual", "private": false, "maintainer_email": "", "author_email": "", "state": "active", "version": "", "creator_user_id": "6088bb20-fe87-4362-ae0f-0c648c090f43", "license_id": "cc-by", "revision_id": "04f2da61-8023-44b8-8e6a-a28009a5f5b9", "type": "dataset", "id": "58d847d3-4e19-40d9-b36b-61dc1472747b", "metadata_created": "2019-02-14T23:34:49.879548"}}
+b287ffae-7201-4dda-ae9f-a990eb8cb9a6	2019-02-14 23:35:58.623322	6088bb20-fe87-4362-ae0f-0c648c090f43	58d847d3-4e19-40d9-b36b-61dc1472747b	87cbf921-5f59-4789-8df2-d32a0181513a	changed package	{"package": {"owner_org": "bb464f80-7710-47f5-b8f7-aa427d8d4431", "maintainer": "", "name": "residents-by-ethnic-group-and-sex-end-june-annual", "metadata_modified": "2019-02-14T23:35:58.469583", "author": "", "url": "", "notes": "", "title": "Residents by ethnic group and sex. End-June annual", "private": false, "maintainer_email": "", "author_email": "", "state": "active", "version": "", "creator_user_id": "6088bb20-fe87-4362-ae0f-0c648c090f43", "license_id": "cc-by", "revision_id": "04f2da61-8023-44b8-8e6a-a28009a5f5b9", "type": "dataset", "id": "58d847d3-4e19-40d9-b36b-61dc1472747b", "metadata_created": "2019-02-14T23:34:49.879548"}}
+\.
+
+
+--
+-- Data for Name: activity_detail; Type: TABLE DATA; Schema: public; Owner: ckan_default
+--
+
+COPY public.activity_detail (id, activity_id, object_id, object_type, activity_type, data) FROM stdin;
+9c833391-299f-4c6f-b5f0-3efadbf5f73b	73f3fe91-092e-4823-9808-d43a82e75a0e	95040047-f5f5-46c5-9877-d08d5ebc1544	Package	changed	{"package": {"owner_org": "35256754-a1d8-437e-8ce3-4376af04907b", "maintainer": "", "name": "persoane", "metadata_modified": "2019-01-26T13:20:33.631080", "author": "", "url": "", "notes": "", "title": "Persoane", "private": false, "maintainer_email": "", "author_email": "", "state": "active", "version": "", "creator_user_id": "adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2", "license_id": "cc-by", "revision_id": "296cd697-2a74-477f-8a1d-b4d49d92072b", "type": "dataset", "id": "95040047-f5f5-46c5-9877-d08d5ebc1544", "metadata_created": "2019-01-25T09:37:51.601465"}}
+0a780ea1-0cd0-458e-8695-d79ec2cc763d	de3f2b8a-b796-4e95-8d09-ecc62f910484	99643971-905e-4a9d-bee7-670054775b14	Package	new	{"package": {"owner_org": "35256754-a1d8-437e-8ce3-4376af04907b", "maintainer": "Ionut Matei", "name": "institutii-culturale-aflate-in-subordinea-consiliului-local-timisoara", "metadata_modified": "2019-02-13T01:30:17.951497", "author": "", "url": "", "notes": "Institutii culturale aflate in subordinea Consiliului Local Timisoara", "title": "Institutii culturale aflate in subordinea Consiliului Local Timisoara", "private": false, "maintainer_email": "ionut.matei@primariatm.ro", "author_email": "ionut.matei@primariatm.ro", "state": "draft", "version": "", "creator_user_id": "adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2", "license_id": "cc-by", "revision_id": "2a50d23f-0c59-4c53-80c2-4d94aa76c167", "type": "dataset", "id": "99643971-905e-4a9d-bee7-670054775b14", "metadata_created": "2019-02-13T01:30:17.951490"}}
+9c7a5f12-2eb6-4347-923f-d24192f44726	b8bbe9df-11b9-4cdf-be48-20325537ff76	f023ae30-3498-4b38-935c-0f10bd1f9f95	Resource	new	{"resource": {"mimetype": "text/csv", "cache_url": null, "state": "active", "hash": "", "description": "", "format": "CSV", "url": "institutiile-culturale-din-timisoara.csv", "created": "2019-02-13T01:30:35.920583", "extras": {}, "cache_last_updated": null, "package_id": "99643971-905e-4a9d-bee7-670054775b14", "mimetype_inner": null, "last_modified": "2019-02-13T01:30:35.886592", "position": 0, "revision_id": "d83fc4be-028c-4af1-bc7f-da16e70c9f08", "size": 1365, "url_type": "upload", "id": "f023ae30-3498-4b38-935c-0f10bd1f9f95", "resource_type": null, "name": "Institutiile culturale din Timisoara.csv"}}
+9a2c2f35-9115-46b5-b750-79f3da15098c	9bdcf7bb-be5c-4030-a63b-01de0d640376	99643971-905e-4a9d-bee7-670054775b14	Package	changed	{"package": {"owner_org": "35256754-a1d8-437e-8ce3-4376af04907b", "maintainer": "Ionut Matei", "name": "institutii-culturale-aflate-in-subordinea-consiliului-local-timisoara", "metadata_modified": "2019-02-13T01:30:36.124870", "author": "", "url": "", "notes": "Institutii culturale aflate in subordinea Consiliului Local Timisoara", "title": "Institutii culturale aflate in subordinea Consiliului Local Timisoara", "private": false, "maintainer_email": "ionut.matei@primariatm.ro", "author_email": "ionut.matei@primariatm.ro", "state": "active", "version": "", "creator_user_id": "adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2", "license_id": "cc-by", "revision_id": "6fa1524e-4d4b-4f90-815a-6d264fac628d", "type": "dataset", "id": "99643971-905e-4a9d-bee7-670054775b14", "metadata_created": "2019-02-13T01:30:17.951490"}}
+7de927a8-ce47-417d-a804-3accfb2a17f2	4de45238-4889-46c3-95aa-c9d3f4ea6849	99643971-905e-4a9d-bee7-670054775b14	Package	changed	{"package": {"owner_org": "35256754-a1d8-437e-8ce3-4376af04907b", "maintainer": "Ionut Matei", "name": "institutii-culturale-aflate-in-subordinea-consiliului-local-timisoara", "metadata_modified": "2019-02-13T01:30:54.944229", "author": "Ionut Matei", "url": "", "notes": "Institutii culturale aflate in subordinea Consiliului Local Timisoara", "title": "Institutii culturale aflate in subordinea Consiliului Local Timisoara", "private": false, "maintainer_email": "ionut.matei@primariatm.ro", "author_email": "ionut.matei@primariatm.ro", "state": "active", "version": "", "creator_user_id": "adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2", "license_id": "cc-by", "revision_id": "b0598df2-6c21-45c2-b3c5-71d793d64a3f", "type": "dataset", "id": "99643971-905e-4a9d-bee7-670054775b14", "metadata_created": "2019-02-13T01:30:17.951490"}}
+72796e88-8ff5-44e0-b870-db64aab262c9	9d2022e8-2e7e-47b3-be2c-3c01d5bfd7ed	b593c17d-51d2-41c2-ad51-8f45fe9a94e5	Package	new	{"package": {"owner_org": "bb464f80-7710-47f5-b8f7-aa427d8d4431", "maintainer": "Demo Memberescu", "name": "conservation-area-map", "metadata_modified": "2019-02-14T23:26:51.068469", "author": "Demo Editorescu", "url": "", "notes": "", "title": "Conservation area map", "private": false, "maintainer_email": "demo@code4.ro", "author_email": "demo@code4.ro", "state": "draft", "version": "1.3", "creator_user_id": "6088bb20-fe87-4362-ae0f-0c648c090f43", "license_id": "cc-by", "revision_id": "46a362a3-6776-43f9-9f5a-bb6683ef9ea8", "type": "dataset", "id": "b593c17d-51d2-41c2-ad51-8f45fe9a94e5", "metadata_created": "2019-02-14T23:26:51.068460"}}
+ad1dd57a-6fcc-4097-9577-c7eb7af0bf54	9d2022e8-2e7e-47b3-be2c-3c01d5bfd7ed	37553338-af2b-41a5-af68-13a4da336ea4	tag	added	{"tag": {"vocabulary_id": null, "id": "bbbfcde1-4112-4a4c-8daf-61e7afb29213", "name": "conservation"}, "package": {"owner_org": "bb464f80-7710-47f5-b8f7-aa427d8d4431", "maintainer": "Demo Memberescu", "name": "conservation-area-map", "metadata_modified": "2019-02-14T23:26:51.068469", "author": "Demo Editorescu", "url": "", "notes": "", "title": "Conservation area map", "private": false, "maintainer_email": "demo@code4.ro", "author_email": "demo@code4.ro", "state": "draft", "version": "1.3", "creator_user_id": "6088bb20-fe87-4362-ae0f-0c648c090f43", "license_id": "cc-by", "revision_id": "46a362a3-6776-43f9-9f5a-bb6683ef9ea8", "type": "dataset", "id": "b593c17d-51d2-41c2-ad51-8f45fe9a94e5", "metadata_created": "2019-02-14T23:26:51.068460"}}
+8e5ca626-3a78-4fe1-8a9c-14bc4450babf	9d2022e8-2e7e-47b3-be2c-3c01d5bfd7ed	5521e788-eb3f-4669-969f-c6efc0ca0253	tag	added	{"tag": {"vocabulary_id": null, "id": "b6731f80-dd94-4e6d-aa30-2e09593919d2", "name": "map"}, "package": {"owner_org": "bb464f80-7710-47f5-b8f7-aa427d8d4431", "maintainer": "Demo Memberescu", "name": "conservation-area-map", "metadata_modified": "2019-02-14T23:26:51.068469", "author": "Demo Editorescu", "url": "", "notes": "", "title": "Conservation area map", "private": false, "maintainer_email": "demo@code4.ro", "author_email": "demo@code4.ro", "state": "draft", "version": "1.3", "creator_user_id": "6088bb20-fe87-4362-ae0f-0c648c090f43", "license_id": "cc-by", "revision_id": "46a362a3-6776-43f9-9f5a-bb6683ef9ea8", "type": "dataset", "id": "b593c17d-51d2-41c2-ad51-8f45fe9a94e5", "metadata_created": "2019-02-14T23:26:51.068460"}}
+ee3e514d-dbbc-40d4-aed0-dc55e16389f9	ba1cfe5a-9e8f-428b-b1cd-ec1b5c3a0829	8fc9d704-e4f7-448c-8174-8847b2f08f14	Resource	new	{"resource": {"mimetype": "application/vnd.google-earth.kml+xml", "cache_url": null, "state": "active", "hash": "", "description": "", "format": "KML", "url": "ura_conservation_area.kml", "created": "2019-02-14T23:28:26.086321", "extras": {}, "cache_last_updated": null, "package_id": "b593c17d-51d2-41c2-ad51-8f45fe9a94e5", "mimetype_inner": null, "last_modified": "2019-02-14T23:28:26.051144", "position": 0, "revision_id": "aacb529d-6aa6-44ee-9467-67ab2e8a0e28", "size": 833539, "url_type": "upload", "id": "8fc9d704-e4f7-448c-8174-8847b2f08f14", "resource_type": null, "name": "URA_CONSERVATION_AREA.kml"}}
+f294fc7d-8c2e-4fda-9906-91893f73a393	d8a7e529-134a-4072-b4a8-58a10a75efd5	b593c17d-51d2-41c2-ad51-8f45fe9a94e5	Package	changed	{"package": {"owner_org": "bb464f80-7710-47f5-b8f7-aa427d8d4431", "maintainer": "Demo Memberescu", "name": "conservation-area-map", "metadata_modified": "2019-02-14T23:28:26.240677", "author": "Demo Editorescu", "url": "", "notes": "", "title": "Conservation area map", "private": false, "maintainer_email": "demo@code4.ro", "author_email": "demo@code4.ro", "state": "active", "version": "1.3", "creator_user_id": "6088bb20-fe87-4362-ae0f-0c648c090f43", "license_id": "cc-by", "revision_id": "159efe9d-0cb7-4ba1-a514-2fa5801ed26a", "type": "dataset", "id": "b593c17d-51d2-41c2-ad51-8f45fe9a94e5", "metadata_created": "2019-02-14T23:26:51.068460"}}
+903bf9c8-a97c-49e1-bdd1-62d45e77ec65	1ecba557-1711-460e-b739-09a5a3740c2c	58d847d3-4e19-40d9-b36b-61dc1472747b	Package	new	{"package": {"owner_org": "bb464f80-7710-47f5-b8f7-aa427d8d4431", "maintainer": "", "name": "residents-by-ethnic-group-and-sex-end-june-annual", "metadata_modified": "2019-02-14T23:34:49.879556", "author": "", "url": "", "notes": "", "title": "Residents by ethnic group and sex. End-June annual", "private": false, "maintainer_email": "", "author_email": "", "state": "draft", "version": "", "creator_user_id": "6088bb20-fe87-4362-ae0f-0c648c090f43", "license_id": "cc-by", "revision_id": "5adc0936-f542-41d4-98b3-05a2711b11aa", "type": "dataset", "id": "58d847d3-4e19-40d9-b36b-61dc1472747b", "metadata_created": "2019-02-14T23:34:49.879548"}}
+74a51d77-9847-4575-899f-46276963af36	c65e7a7a-bd28-4eb3-ac90-4e581cb66255	d9b76cfa-2785-473e-8648-a9d7c4925ae6	Resource	new	{"resource": {"mimetype": "text/csv", "cache_url": null, "state": "active", "hash": "", "description": "", "format": "CSV", "url": "singapore-residents-by-age-group-ethnic-group-and-sex-end-june-annual.csv", "created": "2019-02-14T23:35:20.705690", "extras": {}, "cache_last_updated": null, "package_id": "58d847d3-4e19-40d9-b36b-61dc1472747b", "mimetype_inner": null, "last_modified": "2019-02-14T23:35:20.673350", "position": 0, "revision_id": "c8065835-f23e-4c44-94e6-3a6a9a98e6df", "size": 897739, "url_type": "upload", "id": "d9b76cfa-2785-473e-8648-a9d7c4925ae6", "resource_type": null, "name": "singapore-residents-by-age-group-ethnic-group-and-sex-end-june-annual.csv"}}
+8d7c4404-2255-47a8-8143-a7146f5cb35b	bfdc4a33-95c1-427b-913c-7d46fc0c0c3a	58d847d3-4e19-40d9-b36b-61dc1472747b	Package	changed	{"package": {"owner_org": "bb464f80-7710-47f5-b8f7-aa427d8d4431", "maintainer": "", "name": "residents-by-ethnic-group-and-sex-end-june-annual", "metadata_modified": "2019-02-14T23:35:20.894779", "author": "", "url": "", "notes": "", "title": "Residents by ethnic group and sex. End-June annual", "private": false, "maintainer_email": "", "author_email": "", "state": "active", "version": "", "creator_user_id": "6088bb20-fe87-4362-ae0f-0c648c090f43", "license_id": "cc-by", "revision_id": "04f2da61-8023-44b8-8e6a-a28009a5f5b9", "type": "dataset", "id": "58d847d3-4e19-40d9-b36b-61dc1472747b", "metadata_created": "2019-02-14T23:34:49.879548"}}
+708d6906-8703-45f2-a66f-3771de05fd0c	4572388d-7810-4874-8201-705164108028	74d7e11c-34bc-4399-97d7-01fd8e8ab728	Resource	new	{"resource": {"mimetype": "text/plain", "cache_url": null, "state": "active", "hash": "", "description": "", "format": "TXT", "url": "metadata-resident-population-by-ethnicity-gender-and-age-group.txt", "created": "2019-02-14T23:35:42.116724", "extras": {}, "cache_last_updated": null, "package_id": "58d847d3-4e19-40d9-b36b-61dc1472747b", "mimetype_inner": null, "last_modified": "2019-02-14T23:35:42.086352", "position": 1, "revision_id": "73f97efe-7435-473a-b708-e397e35e8b22", "size": 3719, "url_type": "upload", "id": "74d7e11c-34bc-4399-97d7-01fd8e8ab728", "resource_type": null, "name": "metadata-resident-population-by-ethnicity-gender-and-age-group.txt"}}
+e26d3b8c-a774-4d65-87bb-f1b4290ba874	b287ffae-7201-4dda-ae9f-a990eb8cb9a6	10bed5c9-230c-4af9-b5c7-45a56d5cc4a2	Resource	new	{"resource": {"mimetype": "text/csv", "cache_url": null, "state": "active", "hash": "", "description": "", "format": "CSV", "url": "singapore-residents-by-ethnic-group-and-sex-end-june-annual.csv", "created": "2019-02-14T23:35:58.482890", "extras": {}, "cache_last_updated": null, "package_id": "58d847d3-4e19-40d9-b36b-61dc1472747b", "mimetype_inner": null, "last_modified": "2019-02-14T23:35:58.448148", "position": 2, "revision_id": "87cbf921-5f59-4789-8df2-d32a0181513a", "size": 29570, "url_type": "upload", "id": "10bed5c9-230c-4af9-b5c7-45a56d5cc4a2", "resource_type": null, "name": "singapore-residents-by-ethnic-group-and-sex-end-june-annual.csv"}}
+\.
+
+
+--
+-- Data for Name: authorization_group; Type: TABLE DATA; Schema: public; Owner: ckan_default
+--
+
+COPY public.authorization_group (id, name, created) FROM stdin;
+\.
+
+
+--
+-- Data for Name: authorization_group_user; Type: TABLE DATA; Schema: public; Owner: ckan_default
+--
+
+COPY public.authorization_group_user (authorization_group_id, user_id, id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: dashboard; Type: TABLE DATA; Schema: public; Owner: ckan_default
+--
+
+COPY public.dashboard (user_id, activity_stream_last_viewed, email_last_sent) FROM stdin;
+adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	2019-02-14 23:07:51.043162	2019-01-25 09:32:30.616453
+5bcef303-c0d4-4c1d-86e7-bdf3f4466fa4	2019-02-14 23:24:12.625472	2019-02-14 23:24:12.524188
+6088bb20-fe87-4362-ae0f-0c648c090f43	2019-02-14 23:25:31.471418	2019-02-14 23:23:06.29055
+107de12c-aad9-46db-a872-f55a88206b72	2019-02-14 23:49:46.59493	2019-02-14 23:07:35.077425
+\.
+
+
+--
+-- Data for Name: group; Type: TABLE DATA; Schema: public; Owner: ckan_default
+--
+
+COPY public."group" (id, name, title, description, created, state, revision_id, type, approval_status, image_url, is_organization) FROM stdin;
+35256754-a1d8-437e-8ce3-4376af04907b	primaria-timisoara	Primaria Timisoara		2019-01-25 09:37:42.176875	active	4211e3c2-9725-4fe4-b567-504abaf76402	organization	approved		t
+bfa0428d-82d7-4633-aab2-8f5bbdf1ab01	mediu	Mediu		2019-01-26 13:19:44.47221	active	000bfb48-cee7-48e8-a7df-e143224789c4	group	approved	2019-02-13-011134.226701mediu.png	f
+0d9f0418-b11e-425f-8340-d47964b70d26	educatie	Educație		2019-02-13 01:11:53.050813	active	b4790e21-a45a-4660-a8fa-c3de847eea4c	group	approved	2019-02-13-011153.033413educatie.png	f
+085a9c7c-17b8-4ee0-8fec-bf82828374bf	justitie	Justiție		2019-02-13 01:12:31.379655	active	960367ea-b4fc-4f5e-ab79-88093c3be10b	group	approved	2019-02-13-011231.367674justitie.png	f
+12f0c0d2-794f-4f9d-935d-748da608497d	cultura	Cultură		2019-01-26 13:19:21.977519	active	86233ef5-c143-4498-a67d-80cb67c8c1ef	group	approved	2019-02-13-011049.880498educatie.png	f
+625cdeb1-f004-4bef-a4f1-07e0ea583b9d	infrastructura	Infrastructură		2019-01-26 13:19:33.362003	active	21e3300f-88fd-41ed-a4af-677102b52054	group	approved	2019-02-13-011108.177671infrastructura.png	f
+4e06306b-90c3-41c2-af20-a21bcd7714c7	populatie	Populație		2019-02-13 01:13:20.039589	active	fbfe4caa-f49c-44d4-8bf9-2f31c68e2d81	group	approved	2019-02-13-011320.024764populatie.png	f
+21d7c633-a6d7-4b06-9ba9-b7d882732eee	sanatate	Sănătate		2019-02-13 01:13:39.798556	active	c0e21720-b3c6-4cb5-8949-763bf095809f	group	approved	2019-02-13-011339.772114sanatate.png	f
+4e645565-fa7a-41a5-943d-e696d5c058f7	servicii-publice	Servicii Publice		2019-02-13 01:13:51.182453	active	e4a67bb5-ad31-437a-b8df-e6235b346035	group	approved	2019-02-13-011351.169226serviciipublice.png	f
+9eb7cbaf-396b-43fd-a26c-04c73e34c38d	transport	Transport		2019-02-13 01:14:02.205957	active	525ca99d-8809-4cf4-8149-ecb9d82cd306	group	approved	2019-02-13-011402.188993transport.png	f
+bb464f80-7710-47f5-b8f7-aa427d8d4431	code4ro	Code4Romania		2019-02-14 23:20:07.754235	active	9293fdcb-1e9b-457c-964c-3cf963a620fa	organization	approved	2019-02-14-232007.729808logocode4single.png	t
+\.
+
+
+--
+-- Data for Name: group_extra; Type: TABLE DATA; Schema: public; Owner: ckan_default
+--
+
+COPY public.group_extra (id, group_id, key, value, state, revision_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: group_extra_revision; Type: TABLE DATA; Schema: public; Owner: ckan_default
+--
+
+COPY public.group_extra_revision (id, group_id, key, value, state, revision_id, continuity_id, expired_id, revision_timestamp, expired_timestamp, current) FROM stdin;
+\.
+
+
+--
+-- Data for Name: group_revision; Type: TABLE DATA; Schema: public; Owner: ckan_default
+--
+
+COPY public.group_revision (id, name, title, description, created, state, revision_id, continuity_id, expired_id, revision_timestamp, expired_timestamp, current, type, approval_status, image_url, is_organization) FROM stdin;
+35256754-a1d8-437e-8ce3-4376af04907b	primaria-timisoara	Primaria TImisoara		2019-01-25 09:37:42.176875	active	7f35d478-c54a-45df-b8df-e8d369e45404	35256754-a1d8-437e-8ce3-4376af04907b	\N	2019-01-25 09:37:42.159963	2019-02-13 00:55:39.021237	\N	organization	approved		t
+35256754-a1d8-437e-8ce3-4376af04907b	primaria-timisoara	Primaria Timisoara		2019-01-25 09:37:42.176875	active	4211e3c2-9725-4fe4-b567-504abaf76402	35256754-a1d8-437e-8ce3-4376af04907b	\N	2019-02-13 00:55:39.021237	9999-12-31 00:00:00	\N	organization	approved		t
+12f0c0d2-794f-4f9d-935d-748da608497d	cultura	Cultura		2019-01-26 13:19:21.977519	active	4a8db9a9-76f7-46cc-805a-159fcc038888	12f0c0d2-794f-4f9d-935d-748da608497d	\N	2019-01-26 13:19:21.960933	2019-02-13 01:10:49.883766	\N	group	approved		f
+625cdeb1-f004-4bef-a4f1-07e0ea583b9d	infrastructura	Infrastructura		2019-01-26 13:19:33.362003	active	a0b38bc3-4aa9-4738-82d0-b39b384ee344	625cdeb1-f004-4bef-a4f1-07e0ea583b9d	\N	2019-01-26 13:19:33.344103	2019-02-13 01:11:08.182483	\N	group	approved		f
+bfa0428d-82d7-4633-aab2-8f5bbdf1ab01	mediu	Mediu		2019-01-26 13:19:44.47221	active	9b49d38c-3c8d-4567-88be-fd349953b55f	bfa0428d-82d7-4633-aab2-8f5bbdf1ab01	\N	2019-01-26 13:19:44.455278	2019-02-13 01:11:34.231948	\N	group	approved		f
+bfa0428d-82d7-4633-aab2-8f5bbdf1ab01	mediu	Mediu		2019-01-26 13:19:44.47221	active	000bfb48-cee7-48e8-a7df-e143224789c4	bfa0428d-82d7-4633-aab2-8f5bbdf1ab01	\N	2019-02-13 01:11:34.231948	9999-12-31 00:00:00	\N	group	approved	2019-02-13-011134.226701mediu.png	f
+0d9f0418-b11e-425f-8340-d47964b70d26	educatie	Educație		2019-02-13 01:11:53.050813	active	b4790e21-a45a-4660-a8fa-c3de847eea4c	0d9f0418-b11e-425f-8340-d47964b70d26	\N	2019-02-13 01:11:53.036393	9999-12-31 00:00:00	\N	group	approved	2019-02-13-011153.033413educatie.png	f
+085a9c7c-17b8-4ee0-8fec-bf82828374bf	justitie	Justiție		2019-02-13 01:12:31.379655	active	960367ea-b4fc-4f5e-ab79-88093c3be10b	085a9c7c-17b8-4ee0-8fec-bf82828374bf	\N	2019-02-13 01:12:31.370159	9999-12-31 00:00:00	\N	group	approved	2019-02-13-011231.367674justitie.png	f
+12f0c0d2-794f-4f9d-935d-748da608497d	cultura	Cultura		2019-01-26 13:19:21.977519	active	ec166e31-8a31-4920-961f-27a6ae390289	12f0c0d2-794f-4f9d-935d-748da608497d	\N	2019-02-13 01:10:49.883766	2019-02-13 01:12:45.66552	\N	group	approved	2019-02-13-011049.880498educatie.png	f
+12f0c0d2-794f-4f9d-935d-748da608497d	cultura	Cultură		2019-01-26 13:19:21.977519	active	86233ef5-c143-4498-a67d-80cb67c8c1ef	12f0c0d2-794f-4f9d-935d-748da608497d	\N	2019-02-13 01:12:45.66552	9999-12-31 00:00:00	\N	group	approved	2019-02-13-011049.880498educatie.png	f
+625cdeb1-f004-4bef-a4f1-07e0ea583b9d	infrastructura	Infrastructura		2019-01-26 13:19:33.362003	active	75e4bcd6-2424-45a8-8e75-c80024d126ed	625cdeb1-f004-4bef-a4f1-07e0ea583b9d	\N	2019-02-13 01:11:08.182483	2019-02-13 01:12:59.319938	\N	group	approved	2019-02-13-011108.177671infrastructura.png	f
+625cdeb1-f004-4bef-a4f1-07e0ea583b9d	infrastructura	Infrastructură		2019-01-26 13:19:33.362003	active	21e3300f-88fd-41ed-a4af-677102b52054	625cdeb1-f004-4bef-a4f1-07e0ea583b9d	\N	2019-02-13 01:12:59.319938	9999-12-31 00:00:00	\N	group	approved	2019-02-13-011108.177671infrastructura.png	f
+4e06306b-90c3-41c2-af20-a21bcd7714c7	populatie	Populație		2019-02-13 01:13:20.039589	active	fbfe4caa-f49c-44d4-8bf9-2f31c68e2d81	4e06306b-90c3-41c2-af20-a21bcd7714c7	\N	2019-02-13 01:13:20.027686	9999-12-31 00:00:00	\N	group	approved	2019-02-13-011320.024764populatie.png	f
+21d7c633-a6d7-4b06-9ba9-b7d882732eee	sanatate	Sănătate		2019-02-13 01:13:39.798556	active	c0e21720-b3c6-4cb5-8949-763bf095809f	21d7c633-a6d7-4b06-9ba9-b7d882732eee	\N	2019-02-13 01:13:39.7746	9999-12-31 00:00:00	\N	group	approved	2019-02-13-011339.772114sanatate.png	f
+4e645565-fa7a-41a5-943d-e696d5c058f7	servicii-publice	Servicii Publice		2019-02-13 01:13:51.182453	active	e4a67bb5-ad31-437a-b8df-e6235b346035	4e645565-fa7a-41a5-943d-e696d5c058f7	\N	2019-02-13 01:13:51.171835	9999-12-31 00:00:00	\N	group	approved	2019-02-13-011351.169226serviciipublice.png	f
+9eb7cbaf-396b-43fd-a26c-04c73e34c38d	transport	Transport		2019-02-13 01:14:02.205957	active	525ca99d-8809-4cf4-8149-ecb9d82cd306	9eb7cbaf-396b-43fd-a26c-04c73e34c38d	\N	2019-02-13 01:14:02.191784	9999-12-31 00:00:00	\N	group	approved	2019-02-13-011402.188993transport.png	f
+bb464f80-7710-47f5-b8f7-aa427d8d4431	code4ro	Code4Romania		2019-02-14 23:20:07.754235	active	9293fdcb-1e9b-457c-964c-3cf963a620fa	bb464f80-7710-47f5-b8f7-aa427d8d4431	\N	2019-02-14 23:20:28.061145	9999-12-31 00:00:00	\N	organization	approved	2019-02-14-232007.729808logocode4single.png	t
+bb464f80-7710-47f5-b8f7-aa427d8d4431	code-4-romania	Code 4 Romania		2019-02-14 23:20:07.754235	active	13f06619-bbfb-4726-b86f-d4f2abfa2836	bb464f80-7710-47f5-b8f7-aa427d8d4431	\N	2019-02-14 23:20:07.733791	2019-02-14 23:20:28.061145	\N	organization	approved	2019-02-14-232007.729808logocode4single.png	t
+\.
+
+
+--
+-- Data for Name: member; Type: TABLE DATA; Schema: public; Owner: ckan_default
+--
+
+COPY public.member (id, table_id, group_id, state, revision_id, table_name, capacity) FROM stdin;
+35a2867c-7b13-484a-b257-d30de49a367d	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	35256754-a1d8-437e-8ce3-4376af04907b	active	7f35d478-c54a-45df-b8df-e8d369e45404	user	admin
+33b91e2f-599c-46fa-91d5-419527d1e843	95040047-f5f5-46c5-9877-d08d5ebc1544	35256754-a1d8-437e-8ce3-4376af04907b	active	e0921270-9169-46b3-b086-518158d21139	package	organization
+7b711ada-bdcc-4293-8a2a-b515b64b65d5	95040047-f5f5-46c5-9877-d08d5ebc1544	35256754-a1d8-437e-8ce3-4376af04907b	deleted	e092d4ca-937a-4453-93e6-087ea5c3df6b	package	public
+c8bfc555-1bd6-418c-862b-d3d5b7295495	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	12f0c0d2-794f-4f9d-935d-748da608497d	active	4a8db9a9-76f7-46cc-805a-159fcc038888	user	admin
+4b3076ff-abda-4502-abf0-4d68164114a8	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	625cdeb1-f004-4bef-a4f1-07e0ea583b9d	active	a0b38bc3-4aa9-4738-82d0-b39b384ee344	user	admin
+c8f0d11b-40a1-4417-83a4-d34026946435	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	bfa0428d-82d7-4633-aab2-8f5bbdf1ab01	active	9b49d38c-3c8d-4567-88be-fd349953b55f	user	admin
+8cfe4e3c-d2b8-439b-bb9e-2d53cc0d1a3b	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	0d9f0418-b11e-425f-8340-d47964b70d26	active	b4790e21-a45a-4660-a8fa-c3de847eea4c	user	admin
+88323e8c-cd67-4394-859d-7ad18a7d0f79	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	085a9c7c-17b8-4ee0-8fec-bf82828374bf	active	960367ea-b4fc-4f5e-ab79-88093c3be10b	user	admin
+5e9fa575-b93d-4f74-ace7-a7a9bb0b6957	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	4e06306b-90c3-41c2-af20-a21bcd7714c7	active	fbfe4caa-f49c-44d4-8bf9-2f31c68e2d81	user	admin
+1f668f6e-6f9e-4d35-a168-7bc3bbae8d4f	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	21d7c633-a6d7-4b06-9ba9-b7d882732eee	active	c0e21720-b3c6-4cb5-8949-763bf095809f	user	admin
+dd21603f-ab2e-446c-8923-892d9d3a0129	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	4e645565-fa7a-41a5-943d-e696d5c058f7	active	e4a67bb5-ad31-437a-b8df-e6235b346035	user	admin
+08c7825d-e06d-4544-8aee-8ce85ad9a0c1	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	9eb7cbaf-396b-43fd-a26c-04c73e34c38d	active	525ca99d-8809-4cf4-8149-ecb9d82cd306	user	admin
+7ac58a03-5b65-4a78-b2ce-75b4ff65a9db	99643971-905e-4a9d-bee7-670054775b14	35256754-a1d8-437e-8ce3-4376af04907b	active	2a50d23f-0c59-4c53-80c2-4d94aa76c167	package	organization
+3c91bbca-30b7-484b-a139-3ac351ef90f2	99643971-905e-4a9d-bee7-670054775b14	35256754-a1d8-437e-8ce3-4376af04907b	deleted	d83fc4be-028c-4af1-bc7f-da16e70c9f08	package	public
+420a62ca-80ff-4c0c-a013-9b7ba35a1e3c	99643971-905e-4a9d-bee7-670054775b14	4e645565-fa7a-41a5-943d-e696d5c058f7	active	a6864e5f-0977-438d-b814-83ea2c4d4aaa	package	public
+f95c3f02-da62-4503-9667-ec3c8488e177	95040047-f5f5-46c5-9877-d08d5ebc1544	625cdeb1-f004-4bef-a4f1-07e0ea583b9d	deleted	199f91d4-c238-4e3d-9ccc-e49cc743206c	package	public
+bf4c26fc-86e0-4bab-b764-e6754c449e30	95040047-f5f5-46c5-9877-d08d5ebc1544	4e06306b-90c3-41c2-af20-a21bcd7714c7	active	6da1fcff-436e-401a-a057-bdc0dd63f42b	package	public
+a3df896b-1203-44f3-8dd7-593c47d2183f	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	bb464f80-7710-47f5-b8f7-aa427d8d4431	active	13f06619-bbfb-4726-b86f-d4f2abfa2836	user	admin
+f86cfd32-8c91-461a-b1a2-3aec213c83fd	107de12c-aad9-46db-a872-f55a88206b72	bb464f80-7710-47f5-b8f7-aa427d8d4431	active	cc2262bb-dead-4e6a-b452-14584fcba50e	user	admin
+78748dfe-7985-4516-ab33-9ba3001125a3	6088bb20-fe87-4362-ae0f-0c648c090f43	bb464f80-7710-47f5-b8f7-aa427d8d4431	active	35018f8c-c2bf-4c19-a106-aaf8a62d04cb	user	editor
+c9e061d9-a522-4dcf-8ce8-ce1396087837	5bcef303-c0d4-4c1d-86e7-bdf3f4466fa4	bb464f80-7710-47f5-b8f7-aa427d8d4431	active	a9c01c51-a22e-4b16-a710-8d676e4d0285	user	member
+cd12c7dc-bb37-4ae9-8782-0431240b82ed	b593c17d-51d2-41c2-ad51-8f45fe9a94e5	bb464f80-7710-47f5-b8f7-aa427d8d4431	active	46a362a3-6776-43f9-9f5a-bb6683ef9ea8	package	organization
+924ca9cc-8f18-4c10-90d2-68e300d72ac1	b593c17d-51d2-41c2-ad51-8f45fe9a94e5	bb464f80-7710-47f5-b8f7-aa427d8d4431	deleted	aacb529d-6aa6-44ee-9467-67ab2e8a0e28	package	public
+3643507e-11ce-483c-ac55-398a296d6dc5	58d847d3-4e19-40d9-b36b-61dc1472747b	bb464f80-7710-47f5-b8f7-aa427d8d4431	active	5adc0936-f542-41d4-98b3-05a2711b11aa	package	organization
+533d7732-19b0-44b9-9925-862412af730d	58d847d3-4e19-40d9-b36b-61dc1472747b	bb464f80-7710-47f5-b8f7-aa427d8d4431	deleted	c8065835-f23e-4c44-94e6-3a6a9a98e6df	package	public
+ef196512-859a-4b38-bc14-c8bc550cad6f	6088bb20-fe87-4362-ae0f-0c648c090f43	4e06306b-90c3-41c2-af20-a21bcd7714c7	active	4699306f-4e93-45f7-a418-e080afb95d87	user	member
+41474eb9-9718-4237-80a1-95f503dff5e4	107de12c-aad9-46db-a872-f55a88206b72	4e06306b-90c3-41c2-af20-a21bcd7714c7	active	f234b0ef-4029-4fc4-990c-9b0b6d0942d3	user	member
+2d57def7-c0c1-4efd-bd52-8bb09d3d7789	b593c17d-51d2-41c2-ad51-8f45fe9a94e5	4e06306b-90c3-41c2-af20-a21bcd7714c7	active	2c826c9a-ed0d-4173-b752-7bff45285b0a	package	public
+cb597fdd-fa80-472c-a2d3-f5c74f21a04d	107de12c-aad9-46db-a872-f55a88206b72	bfa0428d-82d7-4633-aab2-8f5bbdf1ab01	active	c4ce6d73-81fd-4c4d-be5e-c2d0f3c452f9	user	member
+5f77823a-2f2f-47e7-8b84-cd1530d1210e	6088bb20-fe87-4362-ae0f-0c648c090f43	bfa0428d-82d7-4633-aab2-8f5bbdf1ab01	active	2195a41c-f489-42e6-9fa2-599fb33c5b16	user	member
+f24fb88f-bdb5-4779-a317-c38f7ab8b14c	b593c17d-51d2-41c2-ad51-8f45fe9a94e5	bfa0428d-82d7-4633-aab2-8f5bbdf1ab01	active	b7975e98-6657-4ec5-a286-6a4cbda3e07f	package	public
+ab8d9965-4058-411b-87e2-bdd6a28d68c2	58d847d3-4e19-40d9-b36b-61dc1472747b	4e06306b-90c3-41c2-af20-a21bcd7714c7	active	0c1347d8-1cb1-4129-80ff-7e43b9d2759f	package	public
+\.
+
+
+--
+-- Data for Name: member_revision; Type: TABLE DATA; Schema: public; Owner: ckan_default
+--
+
+COPY public.member_revision (id, table_id, group_id, state, revision_id, continuity_id, expired_id, revision_timestamp, expired_timestamp, current, table_name, capacity) FROM stdin;
+35a2867c-7b13-484a-b257-d30de49a367d	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	35256754-a1d8-437e-8ce3-4376af04907b	active	7f35d478-c54a-45df-b8df-e8d369e45404	35a2867c-7b13-484a-b257-d30de49a367d	\N	2019-01-25 09:37:42.159963	9999-12-31 00:00:00	\N	user	admin
+33b91e2f-599c-46fa-91d5-419527d1e843	95040047-f5f5-46c5-9877-d08d5ebc1544	35256754-a1d8-437e-8ce3-4376af04907b	active	e0921270-9169-46b3-b086-518158d21139	33b91e2f-599c-46fa-91d5-419527d1e843	\N	2019-01-25 09:37:51.588731	9999-12-31 00:00:00	\N	package	organization
+7b711ada-bdcc-4293-8a2a-b515b64b65d5	95040047-f5f5-46c5-9877-d08d5ebc1544	35256754-a1d8-437e-8ce3-4376af04907b	deleted	e092d4ca-937a-4453-93e6-087ea5c3df6b	7b711ada-bdcc-4293-8a2a-b515b64b65d5	\N	2019-01-25 09:37:58.568705	9999-12-31 00:00:00	\N	package	public
+7b711ada-bdcc-4293-8a2a-b515b64b65d5	95040047-f5f5-46c5-9877-d08d5ebc1544	35256754-a1d8-437e-8ce3-4376af04907b	active	e0921270-9169-46b3-b086-518158d21139	7b711ada-bdcc-4293-8a2a-b515b64b65d5	\N	2019-01-25 09:37:51.588731	2019-01-25 09:37:58.568705	\N	package	public
+c8bfc555-1bd6-418c-862b-d3d5b7295495	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	12f0c0d2-794f-4f9d-935d-748da608497d	active	4a8db9a9-76f7-46cc-805a-159fcc038888	c8bfc555-1bd6-418c-862b-d3d5b7295495	\N	2019-01-26 13:19:21.960933	9999-12-31 00:00:00	\N	user	admin
+4b3076ff-abda-4502-abf0-4d68164114a8	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	625cdeb1-f004-4bef-a4f1-07e0ea583b9d	active	a0b38bc3-4aa9-4738-82d0-b39b384ee344	4b3076ff-abda-4502-abf0-4d68164114a8	\N	2019-01-26 13:19:33.344103	9999-12-31 00:00:00	\N	user	admin
+c8f0d11b-40a1-4417-83a4-d34026946435	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	bfa0428d-82d7-4633-aab2-8f5bbdf1ab01	active	9b49d38c-3c8d-4567-88be-fd349953b55f	c8f0d11b-40a1-4417-83a4-d34026946435	\N	2019-01-26 13:19:44.455278	9999-12-31 00:00:00	\N	user	admin
+8cfe4e3c-d2b8-439b-bb9e-2d53cc0d1a3b	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	0d9f0418-b11e-425f-8340-d47964b70d26	active	b4790e21-a45a-4660-a8fa-c3de847eea4c	8cfe4e3c-d2b8-439b-bb9e-2d53cc0d1a3b	\N	2019-02-13 01:11:53.036393	9999-12-31 00:00:00	\N	user	admin
+88323e8c-cd67-4394-859d-7ad18a7d0f79	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	085a9c7c-17b8-4ee0-8fec-bf82828374bf	active	960367ea-b4fc-4f5e-ab79-88093c3be10b	88323e8c-cd67-4394-859d-7ad18a7d0f79	\N	2019-02-13 01:12:31.370159	9999-12-31 00:00:00	\N	user	admin
+5e9fa575-b93d-4f74-ace7-a7a9bb0b6957	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	4e06306b-90c3-41c2-af20-a21bcd7714c7	active	fbfe4caa-f49c-44d4-8bf9-2f31c68e2d81	5e9fa575-b93d-4f74-ace7-a7a9bb0b6957	\N	2019-02-13 01:13:20.027686	9999-12-31 00:00:00	\N	user	admin
+1f668f6e-6f9e-4d35-a168-7bc3bbae8d4f	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	21d7c633-a6d7-4b06-9ba9-b7d882732eee	active	c0e21720-b3c6-4cb5-8949-763bf095809f	1f668f6e-6f9e-4d35-a168-7bc3bbae8d4f	\N	2019-02-13 01:13:39.7746	9999-12-31 00:00:00	\N	user	admin
+dd21603f-ab2e-446c-8923-892d9d3a0129	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	4e645565-fa7a-41a5-943d-e696d5c058f7	active	e4a67bb5-ad31-437a-b8df-e6235b346035	dd21603f-ab2e-446c-8923-892d9d3a0129	\N	2019-02-13 01:13:51.171835	9999-12-31 00:00:00	\N	user	admin
+08c7825d-e06d-4544-8aee-8ce85ad9a0c1	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	9eb7cbaf-396b-43fd-a26c-04c73e34c38d	active	525ca99d-8809-4cf4-8149-ecb9d82cd306	08c7825d-e06d-4544-8aee-8ce85ad9a0c1	\N	2019-02-13 01:14:02.191784	9999-12-31 00:00:00	\N	user	admin
+7ac58a03-5b65-4a78-b2ce-75b4ff65a9db	99643971-905e-4a9d-bee7-670054775b14	35256754-a1d8-437e-8ce3-4376af04907b	active	2a50d23f-0c59-4c53-80c2-4d94aa76c167	7ac58a03-5b65-4a78-b2ce-75b4ff65a9db	\N	2019-02-13 01:30:17.94236	9999-12-31 00:00:00	\N	package	organization
+3c91bbca-30b7-484b-a139-3ac351ef90f2	99643971-905e-4a9d-bee7-670054775b14	35256754-a1d8-437e-8ce3-4376af04907b	deleted	d83fc4be-028c-4af1-bc7f-da16e70c9f08	3c91bbca-30b7-484b-a139-3ac351ef90f2	\N	2019-02-13 01:30:35.903828	9999-12-31 00:00:00	\N	package	public
+3c91bbca-30b7-484b-a139-3ac351ef90f2	99643971-905e-4a9d-bee7-670054775b14	35256754-a1d8-437e-8ce3-4376af04907b	active	2a50d23f-0c59-4c53-80c2-4d94aa76c167	3c91bbca-30b7-484b-a139-3ac351ef90f2	\N	2019-02-13 01:30:17.94236	2019-02-13 01:30:35.903828	\N	package	public
+420a62ca-80ff-4c0c-a013-9b7ba35a1e3c	99643971-905e-4a9d-bee7-670054775b14	4e645565-fa7a-41a5-943d-e696d5c058f7	active	a6864e5f-0977-438d-b814-83ea2c4d4aaa	420a62ca-80ff-4c0c-a013-9b7ba35a1e3c	\N	2019-02-13 01:31:21.043428	9999-12-31 00:00:00	\N	package	public
+f95c3f02-da62-4503-9667-ec3c8488e177	95040047-f5f5-46c5-9877-d08d5ebc1544	625cdeb1-f004-4bef-a4f1-07e0ea583b9d	active	89eb55df-3fd0-4a07-9794-159a34df631d	f95c3f02-da62-4503-9667-ec3c8488e177	\N	2019-01-26 13:20:43.312283	2019-02-13 01:31:33.144121	\N	package	public
+f95c3f02-da62-4503-9667-ec3c8488e177	95040047-f5f5-46c5-9877-d08d5ebc1544	625cdeb1-f004-4bef-a4f1-07e0ea583b9d	deleted	199f91d4-c238-4e3d-9ccc-e49cc743206c	f95c3f02-da62-4503-9667-ec3c8488e177	\N	2019-02-13 01:31:33.144121	9999-12-31 00:00:00	\N	package	public
+bf4c26fc-86e0-4bab-b764-e6754c449e30	95040047-f5f5-46c5-9877-d08d5ebc1544	4e06306b-90c3-41c2-af20-a21bcd7714c7	active	6da1fcff-436e-401a-a057-bdc0dd63f42b	bf4c26fc-86e0-4bab-b764-e6754c449e30	\N	2019-02-13 01:31:36.84141	9999-12-31 00:00:00	\N	package	public
+a3df896b-1203-44f3-8dd7-593c47d2183f	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	bb464f80-7710-47f5-b8f7-aa427d8d4431	active	13f06619-bbfb-4726-b86f-d4f2abfa2836	a3df896b-1203-44f3-8dd7-593c47d2183f	\N	2019-02-14 23:20:07.733791	9999-12-31 00:00:00	\N	user	admin
+f86cfd32-8c91-461a-b1a2-3aec213c83fd	107de12c-aad9-46db-a872-f55a88206b72	bb464f80-7710-47f5-b8f7-aa427d8d4431	active	cc2262bb-dead-4e6a-b452-14584fcba50e	f86cfd32-8c91-461a-b1a2-3aec213c83fd	\N	2019-02-14 23:21:07.956704	9999-12-31 00:00:00	\N	user	admin
+78748dfe-7985-4516-ab33-9ba3001125a3	6088bb20-fe87-4362-ae0f-0c648c090f43	bb464f80-7710-47f5-b8f7-aa427d8d4431	active	35018f8c-c2bf-4c19-a106-aaf8a62d04cb	78748dfe-7985-4516-ab33-9ba3001125a3	\N	2019-02-14 23:24:46.507567	9999-12-31 00:00:00	\N	user	editor
+c9e061d9-a522-4dcf-8ce8-ce1396087837	5bcef303-c0d4-4c1d-86e7-bdf3f4466fa4	bb464f80-7710-47f5-b8f7-aa427d8d4431	active	a9c01c51-a22e-4b16-a710-8d676e4d0285	c9e061d9-a522-4dcf-8ce8-ce1396087837	\N	2019-02-14 23:24:54.362019	9999-12-31 00:00:00	\N	user	member
+cd12c7dc-bb37-4ae9-8782-0431240b82ed	b593c17d-51d2-41c2-ad51-8f45fe9a94e5	bb464f80-7710-47f5-b8f7-aa427d8d4431	active	46a362a3-6776-43f9-9f5a-bb6683ef9ea8	cd12c7dc-bb37-4ae9-8782-0431240b82ed	\N	2019-02-14 23:26:51.05364	9999-12-31 00:00:00	\N	package	organization
+924ca9cc-8f18-4c10-90d2-68e300d72ac1	b593c17d-51d2-41c2-ad51-8f45fe9a94e5	bb464f80-7710-47f5-b8f7-aa427d8d4431	deleted	aacb529d-6aa6-44ee-9467-67ab2e8a0e28	924ca9cc-8f18-4c10-90d2-68e300d72ac1	\N	2019-02-14 23:28:26.070218	9999-12-31 00:00:00	\N	package	public
+924ca9cc-8f18-4c10-90d2-68e300d72ac1	b593c17d-51d2-41c2-ad51-8f45fe9a94e5	bb464f80-7710-47f5-b8f7-aa427d8d4431	active	46a362a3-6776-43f9-9f5a-bb6683ef9ea8	924ca9cc-8f18-4c10-90d2-68e300d72ac1	\N	2019-02-14 23:26:51.05364	2019-02-14 23:28:26.070218	\N	package	public
+3643507e-11ce-483c-ac55-398a296d6dc5	58d847d3-4e19-40d9-b36b-61dc1472747b	bb464f80-7710-47f5-b8f7-aa427d8d4431	active	5adc0936-f542-41d4-98b3-05a2711b11aa	3643507e-11ce-483c-ac55-398a296d6dc5	\N	2019-02-14 23:34:49.869297	9999-12-31 00:00:00	\N	package	organization
+533d7732-19b0-44b9-9925-862412af730d	58d847d3-4e19-40d9-b36b-61dc1472747b	bb464f80-7710-47f5-b8f7-aa427d8d4431	deleted	c8065835-f23e-4c44-94e6-3a6a9a98e6df	533d7732-19b0-44b9-9925-862412af730d	\N	2019-02-14 23:35:20.690838	9999-12-31 00:00:00	\N	package	public
+533d7732-19b0-44b9-9925-862412af730d	58d847d3-4e19-40d9-b36b-61dc1472747b	bb464f80-7710-47f5-b8f7-aa427d8d4431	active	5adc0936-f542-41d4-98b3-05a2711b11aa	533d7732-19b0-44b9-9925-862412af730d	\N	2019-02-14 23:34:49.869297	2019-02-14 23:35:20.690838	\N	package	public
+ef196512-859a-4b38-bc14-c8bc550cad6f	6088bb20-fe87-4362-ae0f-0c648c090f43	4e06306b-90c3-41c2-af20-a21bcd7714c7	active	4699306f-4e93-45f7-a418-e080afb95d87	ef196512-859a-4b38-bc14-c8bc550cad6f	\N	2019-02-14 23:51:05.934949	9999-12-31 00:00:00	\N	user	member
+41474eb9-9718-4237-80a1-95f503dff5e4	107de12c-aad9-46db-a872-f55a88206b72	4e06306b-90c3-41c2-af20-a21bcd7714c7	active	f234b0ef-4029-4fc4-990c-9b0b6d0942d3	41474eb9-9718-4237-80a1-95f503dff5e4	\N	2019-02-14 23:51:24.617277	9999-12-31 00:00:00	\N	user	member
+2d57def7-c0c1-4efd-bd52-8bb09d3d7789	b593c17d-51d2-41c2-ad51-8f45fe9a94e5	4e06306b-90c3-41c2-af20-a21bcd7714c7	active	2c826c9a-ed0d-4173-b752-7bff45285b0a	2d57def7-c0c1-4efd-bd52-8bb09d3d7789	\N	2019-02-14 23:51:32.55893	9999-12-31 00:00:00	\N	package	public
+cb597fdd-fa80-472c-a2d3-f5c74f21a04d	107de12c-aad9-46db-a872-f55a88206b72	bfa0428d-82d7-4633-aab2-8f5bbdf1ab01	active	c4ce6d73-81fd-4c4d-be5e-c2d0f3c452f9	cb597fdd-fa80-472c-a2d3-f5c74f21a04d	\N	2019-02-14 23:52:28.962125	9999-12-31 00:00:00	\N	user	member
+5f77823a-2f2f-47e7-8b84-cd1530d1210e	6088bb20-fe87-4362-ae0f-0c648c090f43	bfa0428d-82d7-4633-aab2-8f5bbdf1ab01	active	2195a41c-f489-42e6-9fa2-599fb33c5b16	5f77823a-2f2f-47e7-8b84-cd1530d1210e	\N	2019-02-14 23:52:38.248573	9999-12-31 00:00:00	\N	user	member
+f24fb88f-bdb5-4779-a317-c38f7ab8b14c	b593c17d-51d2-41c2-ad51-8f45fe9a94e5	bfa0428d-82d7-4633-aab2-8f5bbdf1ab01	active	b7975e98-6657-4ec5-a286-6a4cbda3e07f	f24fb88f-bdb5-4779-a317-c38f7ab8b14c	\N	2019-02-14 23:52:54.562696	9999-12-31 00:00:00	\N	package	public
+ab8d9965-4058-411b-87e2-bdd6a28d68c2	58d847d3-4e19-40d9-b36b-61dc1472747b	4e06306b-90c3-41c2-af20-a21bcd7714c7	active	0c1347d8-1cb1-4129-80ff-7e43b9d2759f	ab8d9965-4058-411b-87e2-bdd6a28d68c2	\N	2019-02-14 23:53:05.191796	9999-12-31 00:00:00	\N	package	public
+\.
+
+
+--
+-- Data for Name: migrate_version; Type: TABLE DATA; Schema: public; Owner: ckan_default
+--
+
+COPY public.migrate_version (repository_id, repository_path, version) FROM stdin;
+Ckan	/home/vagrant/ckan/lib/default/src/ckan/ckan/migration	86
+\.
+
+
+--
+-- Data for Name: package; Type: TABLE DATA; Schema: public; Owner: ckan_default
+--
+
+COPY public.package (id, name, title, version, url, notes, license_id, revision_id, author, author_email, maintainer, maintainer_email, state, type, owner_org, private, metadata_modified, creator_user_id, metadata_created) FROM stdin;
+58d847d3-4e19-40d9-b36b-61dc1472747b	residents-by-ethnic-group-and-sex-end-june-annual	Residents by ethnic group and sex. End-June annual				cc-by	04f2da61-8023-44b8-8e6a-a28009a5f5b9					active	dataset	bb464f80-7710-47f5-b8f7-aa427d8d4431	f	2019-02-14 23:39:45.57846	6088bb20-fe87-4362-ae0f-0c648c090f43	2019-02-14 23:34:49.879548
+95040047-f5f5-46c5-9877-d08d5ebc1544	persoane	Persoane				cc-by	296cd697-2a74-477f-8a1d-b4d49d92072b					active	dataset	35256754-a1d8-437e-8ce3-4376af04907b	f	2019-01-26 13:20:33.63108	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	2019-01-25 09:37:51.601465
+99643971-905e-4a9d-bee7-670054775b14	institutii-culturale-aflate-in-subordinea-consiliului-local-timisoara	Institutii culturale aflate in subordinea Consiliului Local Timisoara			Institutii culturale aflate in subordinea Consiliului Local Timisoara	cc-by	b0598df2-6c21-45c2-b3c5-71d793d64a3f	Ionut Matei	ionut.matei@primariatm.ro	Ionut Matei	ionut.matei@primariatm.ro	active	dataset	35256754-a1d8-437e-8ce3-4376af04907b	f	2019-02-13 01:30:54.944229	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	2019-02-13 01:30:17.95149
+b593c17d-51d2-41c2-ad51-8f45fe9a94e5	conservation-area-map	Conservation area map	1.3			cc-by	159efe9d-0cb7-4ba1-a514-2fa5801ed26a	Demo Editorescu	demo@code4.ro	Demo Memberescu	demo@code4.ro	active	dataset	bb464f80-7710-47f5-b8f7-aa427d8d4431	f	2019-02-14 23:28:26.240677	6088bb20-fe87-4362-ae0f-0c648c090f43	2019-02-14 23:26:51.06846
+\.
+
+
+--
+-- Data for Name: package_extra; Type: TABLE DATA; Schema: public; Owner: ckan_default
+--
+
+COPY public.package_extra (id, package_id, key, value, revision_id, state) FROM stdin;
+\.
+
+
+--
+-- Data for Name: package_extra_revision; Type: TABLE DATA; Schema: public; Owner: ckan_default
+--
+
+COPY public.package_extra_revision (id, package_id, key, value, revision_id, continuity_id, state, expired_id, revision_timestamp, expired_timestamp, current) FROM stdin;
+\.
+
+
+--
+-- Data for Name: package_relationship; Type: TABLE DATA; Schema: public; Owner: ckan_default
+--
+
+COPY public.package_relationship (id, subject_package_id, object_package_id, type, comment, revision_id, state) FROM stdin;
+\.
+
+
+--
+-- Data for Name: package_relationship_revision; Type: TABLE DATA; Schema: public; Owner: ckan_default
+--
+
+COPY public.package_relationship_revision (id, subject_package_id, object_package_id, type, comment, revision_id, continuity_id, state, expired_id, revision_timestamp, expired_timestamp, current) FROM stdin;
+\.
+
+
+--
+-- Data for Name: package_revision; Type: TABLE DATA; Schema: public; Owner: ckan_default
+--
+
+COPY public.package_revision (id, name, title, version, url, notes, license_id, revision_id, continuity_id, author, author_email, maintainer, maintainer_email, state, expired_id, revision_timestamp, expired_timestamp, current, type, owner_org, private, metadata_modified, creator_user_id, metadata_created) FROM stdin;
+95040047-f5f5-46c5-9877-d08d5ebc1544	persoane	Persoane				cc-by	e0921270-9169-46b3-b086-518158d21139	95040047-f5f5-46c5-9877-d08d5ebc1544					draft	\N	2019-01-25 09:37:51.588731	2019-01-25 09:37:58.813119	\N	dataset	35256754-a1d8-437e-8ce3-4376af04907b	t	2019-01-25 09:37:51.601475	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	2019-01-25 09:37:51.601465
+95040047-f5f5-46c5-9877-d08d5ebc1544	persoane	Persoane				cc-by	72f80d2a-17bc-4ff6-8ef0-20fde97cc019	95040047-f5f5-46c5-9877-d08d5ebc1544					active	\N	2019-01-25 09:37:58.813119	2019-01-26 13:20:33.630054	\N	dataset	35256754-a1d8-437e-8ce3-4376af04907b	t	2019-01-25 09:37:58.81414	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	2019-01-25 09:37:51.601465
+95040047-f5f5-46c5-9877-d08d5ebc1544	persoane	Persoane				cc-by	296cd697-2a74-477f-8a1d-b4d49d92072b	95040047-f5f5-46c5-9877-d08d5ebc1544					active	\N	2019-01-26 13:20:33.630054	9999-12-31 00:00:00	\N	dataset	35256754-a1d8-437e-8ce3-4376af04907b	f	2019-01-26 13:20:33.63108	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	2019-01-25 09:37:51.601465
+99643971-905e-4a9d-bee7-670054775b14	institutii-culturale-aflate-in-subordinea-consiliului-local-timisoara	Institutii culturale aflate in subordinea Consiliului Local Timisoara			Institutii culturale aflate in subordinea Consiliului Local Timisoara	cc-by	2a50d23f-0c59-4c53-80c2-4d94aa76c167	99643971-905e-4a9d-bee7-670054775b14		ionut.matei@primariatm.ro	Ionut Matei	ionut.matei@primariatm.ro	draft	\N	2019-02-13 01:30:17.94236	2019-02-13 01:30:36.12398	\N	dataset	35256754-a1d8-437e-8ce3-4376af04907b	f	2019-02-13 01:30:17.951497	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	2019-02-13 01:30:17.95149
+99643971-905e-4a9d-bee7-670054775b14	institutii-culturale-aflate-in-subordinea-consiliului-local-timisoara	Institutii culturale aflate in subordinea Consiliului Local Timisoara			Institutii culturale aflate in subordinea Consiliului Local Timisoara	cc-by	b0598df2-6c21-45c2-b3c5-71d793d64a3f	99643971-905e-4a9d-bee7-670054775b14	Ionut Matei	ionut.matei@primariatm.ro	Ionut Matei	ionut.matei@primariatm.ro	active	\N	2019-02-13 01:30:54.9434	9999-12-31 00:00:00	\N	dataset	35256754-a1d8-437e-8ce3-4376af04907b	f	2019-02-13 01:30:54.944229	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	2019-02-13 01:30:17.95149
+99643971-905e-4a9d-bee7-670054775b14	institutii-culturale-aflate-in-subordinea-consiliului-local-timisoara	Institutii culturale aflate in subordinea Consiliului Local Timisoara			Institutii culturale aflate in subordinea Consiliului Local Timisoara	cc-by	6fa1524e-4d4b-4f90-815a-6d264fac628d	99643971-905e-4a9d-bee7-670054775b14		ionut.matei@primariatm.ro	Ionut Matei	ionut.matei@primariatm.ro	active	\N	2019-02-13 01:30:36.12398	2019-02-13 01:30:54.9434	\N	dataset	35256754-a1d8-437e-8ce3-4376af04907b	f	2019-02-13 01:30:36.12487	adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	2019-02-13 01:30:17.95149
+b593c17d-51d2-41c2-ad51-8f45fe9a94e5	conservation-area-map	Conservation area map	1.3			cc-by	46a362a3-6776-43f9-9f5a-bb6683ef9ea8	b593c17d-51d2-41c2-ad51-8f45fe9a94e5	Demo Editorescu	demo@code4.ro	Demo Memberescu	demo@code4.ro	draft	\N	2019-02-14 23:26:51.05364	2019-02-14 23:28:26.239874	\N	dataset	bb464f80-7710-47f5-b8f7-aa427d8d4431	f	2019-02-14 23:26:51.068469	6088bb20-fe87-4362-ae0f-0c648c090f43	2019-02-14 23:26:51.06846
+b593c17d-51d2-41c2-ad51-8f45fe9a94e5	conservation-area-map	Conservation area map	1.3			cc-by	159efe9d-0cb7-4ba1-a514-2fa5801ed26a	b593c17d-51d2-41c2-ad51-8f45fe9a94e5	Demo Editorescu	demo@code4.ro	Demo Memberescu	demo@code4.ro	active	\N	2019-02-14 23:28:26.239874	9999-12-31 00:00:00	\N	dataset	bb464f80-7710-47f5-b8f7-aa427d8d4431	f	2019-02-14 23:28:26.240677	6088bb20-fe87-4362-ae0f-0c648c090f43	2019-02-14 23:26:51.06846
+58d847d3-4e19-40d9-b36b-61dc1472747b	residents-by-ethnic-group-and-sex-end-june-annual	Residents by ethnic group and sex. End-June annual				cc-by	5adc0936-f542-41d4-98b3-05a2711b11aa	58d847d3-4e19-40d9-b36b-61dc1472747b					draft	\N	2019-02-14 23:34:49.869297	2019-02-14 23:35:20.89419	\N	dataset	bb464f80-7710-47f5-b8f7-aa427d8d4431	f	2019-02-14 23:34:49.879556	6088bb20-fe87-4362-ae0f-0c648c090f43	2019-02-14 23:34:49.879548
+58d847d3-4e19-40d9-b36b-61dc1472747b	residents-by-ethnic-group-and-sex-end-june-annual	Residents by ethnic group and sex. End-June annual				cc-by	04f2da61-8023-44b8-8e6a-a28009a5f5b9	58d847d3-4e19-40d9-b36b-61dc1472747b					active	\N	2019-02-14 23:35:20.89419	9999-12-31 00:00:00	\N	dataset	bb464f80-7710-47f5-b8f7-aa427d8d4431	f	2019-02-14 23:35:20.894779	6088bb20-fe87-4362-ae0f-0c648c090f43	2019-02-14 23:34:49.879548
+\.
+
+
+--
+-- Data for Name: package_tag; Type: TABLE DATA; Schema: public; Owner: ckan_default
+--
+
+COPY public.package_tag (id, package_id, tag_id, revision_id, state) FROM stdin;
+37553338-af2b-41a5-af68-13a4da336ea4	b593c17d-51d2-41c2-ad51-8f45fe9a94e5	bbbfcde1-4112-4a4c-8daf-61e7afb29213	46a362a3-6776-43f9-9f5a-bb6683ef9ea8	active
+5521e788-eb3f-4669-969f-c6efc0ca0253	b593c17d-51d2-41c2-ad51-8f45fe9a94e5	b6731f80-dd94-4e6d-aa30-2e09593919d2	46a362a3-6776-43f9-9f5a-bb6683ef9ea8	active
+\.
+
+
+--
+-- Data for Name: package_tag_revision; Type: TABLE DATA; Schema: public; Owner: ckan_default
+--
+
+COPY public.package_tag_revision (id, package_id, tag_id, revision_id, continuity_id, state, expired_id, revision_timestamp, expired_timestamp, current) FROM stdin;
+37553338-af2b-41a5-af68-13a4da336ea4	b593c17d-51d2-41c2-ad51-8f45fe9a94e5	bbbfcde1-4112-4a4c-8daf-61e7afb29213	46a362a3-6776-43f9-9f5a-bb6683ef9ea8	37553338-af2b-41a5-af68-13a4da336ea4	active	\N	2019-02-14 23:26:51.05364	9999-12-31 00:00:00	\N
+5521e788-eb3f-4669-969f-c6efc0ca0253	b593c17d-51d2-41c2-ad51-8f45fe9a94e5	b6731f80-dd94-4e6d-aa30-2e09593919d2	46a362a3-6776-43f9-9f5a-bb6683ef9ea8	5521e788-eb3f-4669-969f-c6efc0ca0253	active	\N	2019-02-14 23:26:51.05364	9999-12-31 00:00:00	\N
+\.
+
+
+--
+-- Data for Name: rating; Type: TABLE DATA; Schema: public; Owner: ckan_default
+--
+
+COPY public.rating (id, user_id, user_ip_address, package_id, rating, created) FROM stdin;
+\.
+
+
+--
+-- Data for Name: resource; Type: TABLE DATA; Schema: public; Owner: ckan_default
+--
+
+COPY public.resource (id, url, format, description, "position", revision_id, hash, state, extras, name, resource_type, mimetype, mimetype_inner, size, last_modified, cache_url, cache_last_updated, webstore_url, webstore_last_updated, created, url_type, package_id) FROM stdin;
+f3a9629d-31a9-477f-b782-8a12304708b6	demo_persoane_2.csv	CSV		0	e092d4ca-937a-4453-93e6-087ea5c3df6b		active	\N	demo_persoane_2.csv	\N	text/csv	\N	79	2019-01-25 09:37:58.556847	\N	\N	\N	\N	2019-01-25 09:37:58.586429	upload	95040047-f5f5-46c5-9877-d08d5ebc1544
+f023ae30-3498-4b38-935c-0f10bd1f9f95	institutiile-culturale-din-timisoara.csv	CSV		0	d83fc4be-028c-4af1-bc7f-da16e70c9f08		active	\N	Institutiile culturale din Timisoara.csv	\N	text/csv	\N	1365	2019-02-13 01:30:35.886592	\N	\N	\N	\N	2019-02-13 01:30:35.920583	upload	99643971-905e-4a9d-bee7-670054775b14
+8fc9d704-e4f7-448c-8174-8847b2f08f14	ura_conservation_area.kml	KML		0	aacb529d-6aa6-44ee-9467-67ab2e8a0e28		active	\N	URA_CONSERVATION_AREA.kml	\N	application/vnd.google-earth.kml+xml	\N	833539	2019-02-14 23:28:26.051144	\N	\N	\N	\N	2019-02-14 23:28:26.086321	upload	b593c17d-51d2-41c2-ad51-8f45fe9a94e5
+d9b76cfa-2785-473e-8648-a9d7c4925ae6	singapore-residents-by-age-group-ethnic-group-and-sex-end-june-annual.csv	CSV		0	c8065835-f23e-4c44-94e6-3a6a9a98e6df		active	\N	singapore-residents-by-age-group-ethnic-group-and-sex-end-june-annual.csv	\N	text/csv	\N	897739	2019-02-14 23:35:20.67335	\N	\N	\N	\N	2019-02-14 23:35:20.70569	upload	58d847d3-4e19-40d9-b36b-61dc1472747b
+74d7e11c-34bc-4399-97d7-01fd8e8ab728	metadata-resident-population-by-ethnicity-gender-and-age-group.txt	TXT		1	73f97efe-7435-473a-b708-e397e35e8b22		active	\N	metadata-resident-population-by-ethnicity-gender-and-age-group.txt	\N	text/plain	\N	3719	2019-02-14 23:35:42.086352	\N	\N	\N	\N	2019-02-14 23:35:42.116724	upload	58d847d3-4e19-40d9-b36b-61dc1472747b
+10bed5c9-230c-4af9-b5c7-45a56d5cc4a2	singapore-residents-by-ethnic-group-and-sex-end-june-annual.csv	CSV		2	87cbf921-5f59-4789-8df2-d32a0181513a		active	\N	singapore-residents-by-ethnic-group-and-sex-end-june-annual.csv	\N	text/csv	\N	29570	2019-02-14 23:35:58.448148	\N	\N	\N	\N	2019-02-14 23:35:58.48289	upload	58d847d3-4e19-40d9-b36b-61dc1472747b
+\.
+
+
+--
+-- Data for Name: resource_revision; Type: TABLE DATA; Schema: public; Owner: ckan_default
+--
+
+COPY public.resource_revision (id, url, format, description, "position", revision_id, continuity_id, hash, state, extras, expired_id, revision_timestamp, expired_timestamp, current, name, resource_type, mimetype, mimetype_inner, size, last_modified, cache_url, cache_last_updated, webstore_url, webstore_last_updated, created, url_type, package_id) FROM stdin;
+f3a9629d-31a9-477f-b782-8a12304708b6	demo_persoane_2.csv	CSV		0	e092d4ca-937a-4453-93e6-087ea5c3df6b	f3a9629d-31a9-477f-b782-8a12304708b6		active	\N	\N	2019-01-25 09:37:58.568705	9999-12-31 00:00:00	\N	demo_persoane_2.csv	\N	text/csv	\N	79	2019-01-25 09:37:58.556847	\N	\N	\N	\N	2019-01-25 09:37:58.586429	upload	95040047-f5f5-46c5-9877-d08d5ebc1544
+f023ae30-3498-4b38-935c-0f10bd1f9f95	institutiile-culturale-din-timisoara.csv	CSV		0	d83fc4be-028c-4af1-bc7f-da16e70c9f08	f023ae30-3498-4b38-935c-0f10bd1f9f95		active	\N	\N	2019-02-13 01:30:35.903828	9999-12-31 00:00:00	\N	Institutiile culturale din Timisoara.csv	\N	text/csv	\N	1365	2019-02-13 01:30:35.886592	\N	\N	\N	\N	2019-02-13 01:30:35.920583	upload	99643971-905e-4a9d-bee7-670054775b14
+8fc9d704-e4f7-448c-8174-8847b2f08f14	ura_conservation_area.kml	KML		0	aacb529d-6aa6-44ee-9467-67ab2e8a0e28	8fc9d704-e4f7-448c-8174-8847b2f08f14		active	\N	\N	2019-02-14 23:28:26.070218	9999-12-31 00:00:00	\N	URA_CONSERVATION_AREA.kml	\N	application/vnd.google-earth.kml+xml	\N	833539	2019-02-14 23:28:26.051144	\N	\N	\N	\N	2019-02-14 23:28:26.086321	upload	b593c17d-51d2-41c2-ad51-8f45fe9a94e5
+d9b76cfa-2785-473e-8648-a9d7c4925ae6	singapore-residents-by-age-group-ethnic-group-and-sex-end-june-annual.csv	CSV		0	c8065835-f23e-4c44-94e6-3a6a9a98e6df	d9b76cfa-2785-473e-8648-a9d7c4925ae6		active	\N	\N	2019-02-14 23:35:20.690838	9999-12-31 00:00:00	\N	singapore-residents-by-age-group-ethnic-group-and-sex-end-june-annual.csv	\N	text/csv	\N	897739	2019-02-14 23:35:20.67335	\N	\N	\N	\N	2019-02-14 23:35:20.70569	upload	58d847d3-4e19-40d9-b36b-61dc1472747b
+74d7e11c-34bc-4399-97d7-01fd8e8ab728	metadata-resident-population-by-ethnicity-gender-and-age-group.txt	TXT		1	73f97efe-7435-473a-b708-e397e35e8b22	74d7e11c-34bc-4399-97d7-01fd8e8ab728		active	\N	\N	2019-02-14 23:35:42.104821	9999-12-31 00:00:00	\N	metadata-resident-population-by-ethnicity-gender-and-age-group.txt	\N	text/plain	\N	3719	2019-02-14 23:35:42.086352	\N	\N	\N	\N	2019-02-14 23:35:42.116724	upload	58d847d3-4e19-40d9-b36b-61dc1472747b
+10bed5c9-230c-4af9-b5c7-45a56d5cc4a2	singapore-residents-by-ethnic-group-and-sex-end-june-annual.csv	CSV		2	87cbf921-5f59-4789-8df2-d32a0181513a	10bed5c9-230c-4af9-b5c7-45a56d5cc4a2		active	\N	\N	2019-02-14 23:35:58.468685	9999-12-31 00:00:00	\N	singapore-residents-by-ethnic-group-and-sex-end-june-annual.csv	\N	text/csv	\N	29570	2019-02-14 23:35:58.448148	\N	\N	\N	\N	2019-02-14 23:35:58.48289	upload	58d847d3-4e19-40d9-b36b-61dc1472747b
+\.
+
+
+--
+-- Data for Name: resource_view; Type: TABLE DATA; Schema: public; Owner: ckan_default
+--
+
+COPY public.resource_view (id, resource_id, title, description, view_type, "order", config) FROM stdin;
+a80e6266-d7cf-437a-a873-1a8ebd66932f	f3a9629d-31a9-477f-b782-8a12304708b6	Data Explorer		recline_view	0	\N
+34c86c53-6087-48bd-87b7-35f17ca5595e	f023ae30-3498-4b38-935c-0f10bd1f9f95	Data Explorer		recline_view	0	\N
+e1c54f41-f2a6-4bb4-92d2-5908eb92749b	d9b76cfa-2785-473e-8648-a9d7c4925ae6	Data Explorer		recline_view	0	\N
+b67b9c67-a55e-445d-92e7-6154fb46e5db	74d7e11c-34bc-4399-97d7-01fd8e8ab728	Text		text_view	0	\N
+4ca21965-ec78-4b79-9104-2e066298d241	10bed5c9-230c-4af9-b5c7-45a56d5cc4a2	Data Explorer		recline_view	0	\N
+\.
+
+
+--
+-- Data for Name: revision; Type: TABLE DATA; Schema: public; Owner: ckan_default
+--
+
+COPY public.revision (id, "timestamp", author, message, state, approved_timestamp) FROM stdin;
+743248e3-44a7-4a5e-8c2b-b3391f7b531e	2019-01-25 09:31:35.116444	system	Add versioning to groups, group_extras and package_groups	active	2019-01-25 09:31:35.116444
+c8cce895-f708-402e-83a7-e09846393c5a	2019-01-25 09:31:35.359218	admin	Admin: make sure every object has a row in a revision table	active	2019-01-25 09:31:35.359218
+7f35d478-c54a-45df-b8df-e8d369e45404	2019-01-25 09:37:42.159963	admin		active	\N
+dba27a6a-29b4-4307-ab71-bc687f04f48e	2019-01-25 09:37:42.225853	admin	REST API: Create member object 	active	\N
+e0921270-9169-46b3-b086-518158d21139	2019-01-25 09:37:51.588731	admin		active	\N
+e092d4ca-937a-4453-93e6-087ea5c3df6b	2019-01-25 09:37:58.568705	admin	REST API: Update object persoane	active	\N
+72f80d2a-17bc-4ff6-8ef0-20fde97cc019	2019-01-25 09:37:58.813119	admin	REST API: Update object persoane	active	\N
+4a8db9a9-76f7-46cc-805a-159fcc038888	2019-01-26 13:19:21.960933	admin		active	\N
+37c34192-08f8-45d1-9337-14d070ab885a	2019-01-26 13:19:22.015185	admin	REST API: Create member object 	active	\N
+a0b38bc3-4aa9-4738-82d0-b39b384ee344	2019-01-26 13:19:33.344103	admin		active	\N
+63121f15-bf95-4109-8052-e0ded6f7edcd	2019-01-26 13:19:33.38976	admin	REST API: Create member object 	active	\N
+9b49d38c-3c8d-4567-88be-fd349953b55f	2019-01-26 13:19:44.455278	admin		active	\N
+7d33c799-21de-4db4-a1ce-1bb3fbeb9220	2019-01-26 13:19:44.507045	admin	REST API: Create member object 	active	\N
+296cd697-2a74-477f-8a1d-b4d49d92072b	2019-01-26 13:20:33.630054	admin		active	\N
+89eb55df-3fd0-4a07-9794-159a34df631d	2019-01-26 13:20:43.312283	admin	REST API: Create member object 	active	\N
+3d9b76bf-cda0-46e9-88bb-05d14e1fe186	2019-01-26 13:49:46.301172	\N	Set ckan.site_custom_css setting in system_info table	active	\N
+040b43ee-7717-4a6f-bc04-4954f1a20e02	2019-01-26 13:49:46.321158	\N	Set ckan.main_css setting in system_info table	active	\N
+e0975837-0a95-4d0b-9ced-5acbeb30d0fb	2019-01-26 13:49:46.336204	\N	Set ckan.site_title setting in system_info table	active	\N
+b86a07a9-9224-4c32-879f-3e6759b15461	2019-01-26 13:49:46.349454	\N	Set ckan.site_about setting in system_info table	active	\N
+e7e4fc42-e0a9-4696-b89b-b42c62cd9964	2019-01-26 13:49:46.361608	\N	Set ckan.site_logo setting in system_info table	active	\N
+f4e5c359-db2f-4d5d-991a-f1f3f62602b3	2019-01-26 13:49:46.380005	\N	Set ckan.site_description setting in system_info table	active	\N
+91410fea-d5a6-422c-a1d0-e0f40c85da73	2019-01-26 13:49:46.39338	\N	Set ckan.site_intro_text setting in system_info table	active	\N
+b3996d71-dcb6-4a92-8192-3ed4c0c64b31	2019-01-26 13:49:46.406314	\N	Set ckan.homepage_style setting in system_info table	active	\N
+12c984e0-6048-4a34-9306-a230e5207203	2019-01-26 13:49:46.420696	\N	Set ckan.config_update setting in system_info table	active	\N
+1b76f272-2c6e-41a5-ab40-2e15ee95d5ad	2019-01-26 16:16:21.202865	\N	Set ckan.site_logo setting in system_info table	active	\N
+37744a13-ac24-44f4-8b35-b5e78bbabf09	2019-01-26 16:16:21.226027	\N	Set ckan.config_update setting in system_info table	active	\N
+4211e3c2-9725-4fe4-b567-504abaf76402	2019-02-13 00:55:39.021237	admin		active	\N
+ec166e31-8a31-4920-961f-27a6ae390289	2019-02-13 01:10:49.883766	admin		active	\N
+75e4bcd6-2424-45a8-8e75-c80024d126ed	2019-02-13 01:11:08.182483	admin		active	\N
+000bfb48-cee7-48e8-a7df-e143224789c4	2019-02-13 01:11:34.231948	admin		active	\N
+b4790e21-a45a-4660-a8fa-c3de847eea4c	2019-02-13 01:11:53.036393	admin		active	\N
+2a583229-d9fb-4b6e-876a-d19b441c9fb6	2019-02-13 01:11:53.080943	admin	REST API: Create member object 	active	\N
+960367ea-b4fc-4f5e-ab79-88093c3be10b	2019-02-13 01:12:31.370159	admin		active	\N
+6fcb0d19-dcb9-4065-ba65-ad2e55d21eb4	2019-02-13 01:12:31.40703	admin	REST API: Create member object 	active	\N
+86233ef5-c143-4498-a67d-80cb67c8c1ef	2019-02-13 01:12:45.66552	admin		active	\N
+21e3300f-88fd-41ed-a4af-677102b52054	2019-02-13 01:12:59.319938	admin		active	\N
+fbfe4caa-f49c-44d4-8bf9-2f31c68e2d81	2019-02-13 01:13:20.027686	admin		active	\N
+1823b4b6-9190-4228-94f1-29226ecc803d	2019-02-13 01:13:20.066495	admin	REST API: Create member object 	active	\N
+c0e21720-b3c6-4cb5-8949-763bf095809f	2019-02-13 01:13:39.7746	admin		active	\N
+273278d9-95d4-421c-abdd-99cd0baa23ff	2019-02-13 01:13:39.82422	admin	REST API: Create member object 	active	\N
+e4a67bb5-ad31-437a-b8df-e6235b346035	2019-02-13 01:13:51.171835	admin		active	\N
+cf2b81ae-ad96-4c7b-a327-c15fe39db3e2	2019-02-13 01:13:51.206675	admin	REST API: Create member object 	active	\N
+525ca99d-8809-4cf4-8149-ecb9d82cd306	2019-02-13 01:14:02.191784	admin		active	\N
+7b16b240-32ca-4cda-bfad-4172ea30b247	2019-02-13 01:14:02.235783	admin	REST API: Create member object 	active	\N
+2a50d23f-0c59-4c53-80c2-4d94aa76c167	2019-02-13 01:30:17.94236	admin		active	\N
+d83fc4be-028c-4af1-bc7f-da16e70c9f08	2019-02-13 01:30:35.903828	admin	REST API: Update object institutii-culturale-aflate-in-subordinea-consiliului-local-timisoara	active	\N
+6fa1524e-4d4b-4f90-815a-6d264fac628d	2019-02-13 01:30:36.12398	admin	REST API: Update object institutii-culturale-aflate-in-subordinea-consiliului-local-timisoara	active	\N
+b0598df2-6c21-45c2-b3c5-71d793d64a3f	2019-02-13 01:30:54.9434	admin		active	\N
+a6864e5f-0977-438d-b814-83ea2c4d4aaa	2019-02-13 01:31:21.043428	admin	REST API: Create member object 	active	\N
+199f91d4-c238-4e3d-9ccc-e49cc743206c	2019-02-13 01:31:33.144121	admin	REST API: Delete Member: persoane	active	\N
+6da1fcff-436e-401a-a057-bdc0dd63f42b	2019-02-13 01:31:36.84141	admin	REST API: Create member object 	active	\N
+13f06619-bbfb-4726-b86f-d4f2abfa2836	2019-02-14 23:20:07.733791	admin		active	\N
+47ae7259-3a89-43d7-92a9-77f8fdfd9e3f	2019-02-14 23:20:07.79652	admin	REST API: Create member object 	active	\N
+9293fdcb-1e9b-457c-964c-3cf963a620fa	2019-02-14 23:20:28.061145	admin		active	\N
+cc2262bb-dead-4e6a-b452-14584fcba50e	2019-02-14 23:21:07.956704	admin	REST API: Create member object 	active	\N
+35018f8c-c2bf-4c19-a106-aaf8a62d04cb	2019-02-14 23:24:46.507567	admin	REST API: Create member object 	active	\N
+a9c01c51-a22e-4b16-a710-8d676e4d0285	2019-02-14 23:24:54.362019	admin	REST API: Create member object 	active	\N
+46a362a3-6776-43f9-9f5a-bb6683ef9ea8	2019-02-14 23:26:51.05364	editor		active	\N
+aacb529d-6aa6-44ee-9467-67ab2e8a0e28	2019-02-14 23:28:26.070218	editor	REST API: Update object conservation-area-map	active	\N
+159efe9d-0cb7-4ba1-a514-2fa5801ed26a	2019-02-14 23:28:26.239874	editor	REST API: Update object conservation-area-map	active	\N
+5adc0936-f542-41d4-98b3-05a2711b11aa	2019-02-14 23:34:49.869297	editor		active	\N
+c8065835-f23e-4c44-94e6-3a6a9a98e6df	2019-02-14 23:35:20.690838	editor	REST API: Update object residents-by-ethnic-group-and-sex-end-june-annual	active	\N
+04f2da61-8023-44b8-8e6a-a28009a5f5b9	2019-02-14 23:35:20.89419	editor	REST API: Update object residents-by-ethnic-group-and-sex-end-june-annual	active	\N
+73f97efe-7435-473a-b708-e397e35e8b22	2019-02-14 23:35:42.104821	editor	REST API: Update object residents-by-ethnic-group-and-sex-end-june-annual	active	\N
+87cbf921-5f59-4789-8df2-d32a0181513a	2019-02-14 23:35:58.468685	editor	REST API: Update object residents-by-ethnic-group-and-sex-end-june-annual	active	\N
+ae354730-bf96-415c-96b2-47a296a05871	2019-02-14 23:39:45.576752	editor	REST API: Update object residents-by-ethnic-group-and-sex-end-june-annual	active	\N
+4699306f-4e93-45f7-a418-e080afb95d87	2019-02-14 23:51:05.934949	admin	REST API: Create member object 	active	\N
+f234b0ef-4029-4fc4-990c-9b0b6d0942d3	2019-02-14 23:51:24.617277	admin	REST API: Create member object 	active	\N
+2c826c9a-ed0d-4173-b752-7bff45285b0a	2019-02-14 23:51:32.55893	demo	REST API: Create member object 	active	\N
+c4ce6d73-81fd-4c4d-be5e-c2d0f3c452f9	2019-02-14 23:52:28.962125	admin	REST API: Create member object 	active	\N
+2195a41c-f489-42e6-9fa2-599fb33c5b16	2019-02-14 23:52:38.248573	admin	REST API: Create member object 	active	\N
+b7975e98-6657-4ec5-a286-6a4cbda3e07f	2019-02-14 23:52:54.562696	demo	REST API: Create member object 	active	\N
+0c1347d8-1cb1-4129-80ff-7e43b9d2759f	2019-02-14 23:53:05.191796	demo	REST API: Create member object 	active	\N
+\.
+
+
+--
+-- Data for Name: system_info; Type: TABLE DATA; Schema: public; Owner: ckan_default
+--
+
+COPY public.system_info (id, key, value, revision_id, state) FROM stdin;
+1	ckan.site_custom_css		3d9b76bf-cda0-46e9-88bb-05d14e1fe186	active
+2	ckan.main_css	/base/css/main.css	040b43ee-7717-4a6f-bc04-4954f1a20e02	active
+3	ckan.site_title	CKAN	e0975837-0a95-4d0b-9ced-5acbeb30d0fb	active
+4	ckan.site_about		b86a07a9-9224-4c32-879f-3e6759b15461	active
+6	ckan.site_description		f4e5c359-db2f-4d5d-991a-f1f3f62602b3	active
+7	ckan.site_intro_text		91410fea-d5a6-422c-a1d0-e0f40c85da73	active
+8	ckan.homepage_style	2	b3996d71-dcb6-4a92-8192-3ed4c0c64b31	active
+5	ckan.site_logo	/uploads/admin/2019-01-26-161621.194127logo.png	1b76f272-2c6e-41a5-ab40-2e15ee95d5ad	active
+9	ckan.config_update	1548519381.22	37744a13-ac24-44f4-8b35-b5e78bbabf09	active
+\.
+
+
+--
+-- Name: system_info_id_seq; Type: SEQUENCE SET; Schema: public; Owner: ckan_default
+--
+
+SELECT pg_catalog.setval('public.system_info_id_seq', 9, true);
+
+
+--
+-- Data for Name: system_info_revision; Type: TABLE DATA; Schema: public; Owner: ckan_default
+--
+
+COPY public.system_info_revision (id, key, value, revision_id, continuity_id, state, expired_id, revision_timestamp, expired_timestamp, current) FROM stdin;
+1	ckan.site_custom_css		3d9b76bf-cda0-46e9-88bb-05d14e1fe186	1	active	\N	2019-01-26 13:49:46.301172	9999-12-31 00:00:00	\N
+2	ckan.main_css	/base/css/main.css	040b43ee-7717-4a6f-bc04-4954f1a20e02	2	active	\N	2019-01-26 13:49:46.321158	9999-12-31 00:00:00	\N
+3	ckan.site_title	CKAN	e0975837-0a95-4d0b-9ced-5acbeb30d0fb	3	active	\N	2019-01-26 13:49:46.336204	9999-12-31 00:00:00	\N
+4	ckan.site_about		b86a07a9-9224-4c32-879f-3e6759b15461	4	active	\N	2019-01-26 13:49:46.349454	9999-12-31 00:00:00	\N
+6	ckan.site_description		f4e5c359-db2f-4d5d-991a-f1f3f62602b3	6	active	\N	2019-01-26 13:49:46.380005	9999-12-31 00:00:00	\N
+7	ckan.site_intro_text		91410fea-d5a6-422c-a1d0-e0f40c85da73	7	active	\N	2019-01-26 13:49:46.39338	9999-12-31 00:00:00	\N
+8	ckan.homepage_style	2	b3996d71-dcb6-4a92-8192-3ed4c0c64b31	8	active	\N	2019-01-26 13:49:46.406314	9999-12-31 00:00:00	\N
+5	ckan.site_logo	/base/images/ckan-logo.png	e7e4fc42-e0a9-4696-b89b-b42c62cd9964	5	active	\N	2019-01-26 13:49:46.361608	2019-01-26 16:16:21.202865	\N
+5	ckan.site_logo	/uploads/admin/2019-01-26-161621.194127logo.png	1b76f272-2c6e-41a5-ab40-2e15ee95d5ad	5	active	\N	2019-01-26 16:16:21.202865	9999-12-31 00:00:00	\N
+9	ckan.config_update	1548519381.22	37744a13-ac24-44f4-8b35-b5e78bbabf09	9	active	\N	2019-01-26 16:16:21.226027	9999-12-31 00:00:00	\N
+9	ckan.config_update	1548510586.42	12c984e0-6048-4a34-9306-a230e5207203	9	active	\N	2019-01-26 13:49:46.420696	2019-01-26 16:16:21.226027	\N
+\.
+
+
+--
+-- Data for Name: tag; Type: TABLE DATA; Schema: public; Owner: ckan_default
+--
+
+COPY public.tag (id, name, vocabulary_id) FROM stdin;
+bbbfcde1-4112-4a4c-8daf-61e7afb29213	conservation	\N
+b6731f80-dd94-4e6d-aa30-2e09593919d2	map	\N
+\.
+
+
+--
+-- Data for Name: task_status; Type: TABLE DATA; Schema: public; Owner: ckan_default
+--
+
+COPY public.task_status (id, entity_id, entity_type, task_type, key, value, state, error, last_updated) FROM stdin;
+ce55386d-5fff-4db4-8f36-926d2b84ad71	f3a9629d-31a9-477f-b782-8a12304708b6	resource	datapusher	datapusher	{}	error	{"message": "Could not connect to DataPusher.", "details": "HTTPConnectionPool(host='127.0.0.1', port=8800): Max retries exceeded with url: /job (Caused by NewConnectionError('<requests.packages.urllib3.connection.HTTPConnection object at 0x7fac48236090>: Failed to establish a new connection: [Errno 111] Connection refused',))"}	2019-01-25 09:37:58.672966
+350c4e4d-d36f-4515-8f22-97747e7be403	f023ae30-3498-4b38-935c-0f10bd1f9f95	resource	datapusher	datapusher	{}	error	{"message": "Could not connect to DataPusher.", "details": "HTTPConnectionPool(host='127.0.0.1', port=8800): Max retries exceeded with url: /job (Caused by NewConnectionError('<requests.packages.urllib3.connection.HTTPConnection object at 0x7f3d9407ec90>: Failed to establish a new connection: [Errno 111] Connection refused',))"}	2019-02-13 01:30:36.000113
+50d8fab8-5003-4a06-9fbd-3a0607f74fe6	d9b76cfa-2785-473e-8648-a9d7c4925ae6	resource	datapusher	datapusher	{}	error	{"message": "Could not connect to DataPusher.", "details": "HTTPConnectionPool(host='127.0.0.1', port=8800): Max retries exceeded with url: /job (Caused by NewConnectionError('<requests.packages.urllib3.connection.HTTPConnection object at 0x7fc15deeb450>: Failed to establish a new connection: [Errno 111] Connection refused',))"}	2019-02-14 23:35:20.774221
+1e9aecc8-967c-4f44-9c74-2d0740fa7c36	10bed5c9-230c-4af9-b5c7-45a56d5cc4a2	resource	datapusher	datapusher	{}	error	{"message": "Could not connect to DataPusher.", "details": "HTTPConnectionPool(host='127.0.0.1', port=8800): Max retries exceeded with url: /job (Caused by NewConnectionError('<requests.packages.urllib3.connection.HTTPConnection object at 0x7fc15ddf0d10>: Failed to establish a new connection: [Errno 111] Connection refused',))"}	2019-02-14 23:35:58.553093
+\.
+
+
+--
+-- Data for Name: term_translation; Type: TABLE DATA; Schema: public; Owner: ckan_default
+--
+
+COPY public.term_translation (term, term_translation, lang_code) FROM stdin;
+\.
+
+
+--
+-- Data for Name: tracking_raw; Type: TABLE DATA; Schema: public; Owner: ckan_default
+--
+
+COPY public.tracking_raw (user_key, url, tracking_type, access_timestamp) FROM stdin;
+\.
+
+
+--
+-- Data for Name: tracking_summary; Type: TABLE DATA; Schema: public; Owner: ckan_default
+--
+
+COPY public.tracking_summary (url, package_id, tracking_type, count, running_total, recent_views, tracking_date) FROM stdin;
+\.
+
+
+--
+-- Data for Name: user; Type: TABLE DATA; Schema: public; Owner: ckan_default
+--
+
+COPY public."user" (id, name, apikey, created, about, password, fullname, email, reset_key, sysadmin, activity_streams_email_notifications, state) FROM stdin;
+6933a483-f8c0-4fe8-b69a-186567ae4edf	default	6f779d9a-ca1d-420c-b45f-8b533ce027bf	2019-01-25 09:32:18.807308	\N	$pbkdf2-sha512$25000$de5dSylFaK01ZuydMyZESA$f3hd2tDAC/uxLeqmBTSGZvtrwsGOdQk1SEmIVOKoxUYOPEUr2Qna1sdnmxDRhls02ZY8rCL.myr91/KufVQqBg	\N	\N	\N	t	f	active
+adb901a5-2aa8-4c6b-bc7a-9eeff64e87c2	admin	815174e9-8a95-4d43-88c5-832adb2be273	2019-01-25 09:32:30.601314		$pbkdf2-sha512$25000$pBSiNIaQMgZAqJUypnQOAQ$Y5J0X0U9OJiuUmYikrtpEifcgNv2mCS3HNQmFw.Mdy5ip/dBjvk3nzwQJWmVrFKGUaZKK3sceSDnlyJgpDXHIQ		costin.bleotu@code4.ro	\N	t	f	active
+107de12c-aad9-46db-a872-f55a88206b72	demo	3eaef2de-a7f9-4aec-b9db-5b17359c1a7a	2019-02-14 23:07:35.057784		$pbkdf2-sha512$25000$EkIoBWCMca7VmrPWem/t3Q$mDpJ/nchc1p5Hci2265i7JxHzlG0DAGH/RDkZ7MsaP1aeHszKbSGkxUxo7rQGuezo7SzFJvc7bGSwkH44.dGew	Demo Adminulescu	demo@code4.ro	\N	f	f	active
+6088bb20-fe87-4362-ae0f-0c648c090f43	editor	fb714d75-e84c-4ec5-89ba-17e78e755959	2019-02-14 23:23:06.281276	\N	$pbkdf2-sha512$25000$lDKG8J5zTonR.p8zxvgfIw$mqDauahtvkAZlaOKjZt6YUn5g0RVu9S6A6RyCNmfixz6YT//0y5fgDhu0WdpGKYZyzbAI4E1GU.jKk7hTwfd5A	Demo Editorescu	demo@code4.ro	\N	f	f	active
+5bcef303-c0d4-4c1d-86e7-bdf3f4466fa4	member	2b87847d-597d-4515-9199-20ff94d0a3e9	2019-02-14 23:24:12.51609	\N	$pbkdf2-sha512$25000$5nzPmfPe.19LCSFkjLH2Pg$FDJFcrk..Pm4oLO2woC5udZmHhQ4hWEQE.sTe9aerR6HaDzyb8eIgcsFMJDfKS0eSk3NZAmR388wANR0C5MqVw	Demo Memberescu	demo@code4.ro	\N	f	f	active
+\.
+
+
+--
+-- Data for Name: user_following_dataset; Type: TABLE DATA; Schema: public; Owner: ckan_default
+--
+
+COPY public.user_following_dataset (follower_id, object_id, datetime) FROM stdin;
+\.
+
+
+--
+-- Data for Name: user_following_group; Type: TABLE DATA; Schema: public; Owner: ckan_default
+--
+
+COPY public.user_following_group (follower_id, object_id, datetime) FROM stdin;
+\.
+
+
+--
+-- Data for Name: user_following_user; Type: TABLE DATA; Schema: public; Owner: ckan_default
+--
+
+COPY public.user_following_user (follower_id, object_id, datetime) FROM stdin;
+\.
+
+
+--
+-- Data for Name: vocabulary; Type: TABLE DATA; Schema: public; Owner: ckan_default
+--
+
+COPY public.vocabulary (id, name) FROM stdin;
+\.
+
+
+--
+-- Name: activity_detail_pkey; Type: CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.activity_detail
+    ADD CONSTRAINT activity_detail_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: activity_pkey; Type: CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.activity
+    ADD CONSTRAINT activity_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: authorization_group_pkey; Type: CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.authorization_group
+    ADD CONSTRAINT authorization_group_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: authorization_group_user_pkey; Type: CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.authorization_group_user
+    ADD CONSTRAINT authorization_group_user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: dashboard_pkey; Type: CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.dashboard
+    ADD CONSTRAINT dashboard_pkey PRIMARY KEY (user_id);
+
+
+--
+-- Name: group_extra_pkey; Type: CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.group_extra
+    ADD CONSTRAINT group_extra_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: group_extra_revision_pkey; Type: CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.group_extra_revision
+    ADD CONSTRAINT group_extra_revision_pkey PRIMARY KEY (id, revision_id);
+
+
+--
+-- Name: group_name_key; Type: CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public."group"
+    ADD CONSTRAINT group_name_key UNIQUE (name);
+
+
+--
+-- Name: group_pkey; Type: CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public."group"
+    ADD CONSTRAINT group_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: group_revision_pkey; Type: CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.group_revision
+    ADD CONSTRAINT group_revision_pkey PRIMARY KEY (id, revision_id);
+
+
+--
+-- Name: member_pkey; Type: CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.member
+    ADD CONSTRAINT member_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: member_revision_pkey; Type: CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.member_revision
+    ADD CONSTRAINT member_revision_pkey PRIMARY KEY (id, revision_id);
+
+
+--
+-- Name: migrate_version_pkey; Type: CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.migrate_version
+    ADD CONSTRAINT migrate_version_pkey PRIMARY KEY (repository_id);
+
+
+--
+-- Name: package_extra_pkey; Type: CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.package_extra
+    ADD CONSTRAINT package_extra_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: package_extra_revision_pkey; Type: CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.package_extra_revision
+    ADD CONSTRAINT package_extra_revision_pkey PRIMARY KEY (id, revision_id);
+
+
+--
+-- Name: package_name_key; Type: CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.package
+    ADD CONSTRAINT package_name_key UNIQUE (name);
+
+
+--
+-- Name: package_pkey; Type: CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.package
+    ADD CONSTRAINT package_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: package_relationship_pkey; Type: CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.package_relationship
+    ADD CONSTRAINT package_relationship_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: package_relationship_revision_pkey; Type: CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.package_relationship_revision
+    ADD CONSTRAINT package_relationship_revision_pkey PRIMARY KEY (id, revision_id);
+
+
+--
+-- Name: package_revision_pkey; Type: CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.package_revision
+    ADD CONSTRAINT package_revision_pkey PRIMARY KEY (id, revision_id);
+
+
+--
+-- Name: package_tag_pkey; Type: CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.package_tag
+    ADD CONSTRAINT package_tag_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: package_tag_revision_pkey; Type: CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.package_tag_revision
+    ADD CONSTRAINT package_tag_revision_pkey PRIMARY KEY (id, revision_id);
+
+
+--
+-- Name: rating_pkey; Type: CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.rating
+    ADD CONSTRAINT rating_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: resource_pkey; Type: CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.resource
+    ADD CONSTRAINT resource_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: resource_revision_pkey; Type: CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.resource_revision
+    ADD CONSTRAINT resource_revision_pkey PRIMARY KEY (id, revision_id);
+
+
+--
+-- Name: resource_view_pkey; Type: CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.resource_view
+    ADD CONSTRAINT resource_view_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: revision_pkey; Type: CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.revision
+    ADD CONSTRAINT revision_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: system_info_key_key; Type: CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.system_info
+    ADD CONSTRAINT system_info_key_key UNIQUE (key);
+
+
+--
+-- Name: system_info_pkey; Type: CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.system_info
+    ADD CONSTRAINT system_info_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: system_info_revision_pkey; Type: CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.system_info_revision
+    ADD CONSTRAINT system_info_revision_pkey PRIMARY KEY (id, revision_id);
+
+
+--
+-- Name: tag_name_vocabulary_id_key; Type: CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.tag
+    ADD CONSTRAINT tag_name_vocabulary_id_key UNIQUE (name, vocabulary_id);
+
+
+--
+-- Name: tag_pkey; Type: CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.tag
+    ADD CONSTRAINT tag_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: task_status_entity_id_task_type_key_key; Type: CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.task_status
+    ADD CONSTRAINT task_status_entity_id_task_type_key_key UNIQUE (entity_id, task_type, key);
+
+
+--
+-- Name: task_status_pkey; Type: CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.task_status
+    ADD CONSTRAINT task_status_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: user_following_dataset_pkey; Type: CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.user_following_dataset
+    ADD CONSTRAINT user_following_dataset_pkey PRIMARY KEY (follower_id, object_id);
+
+
+--
+-- Name: user_following_group_pkey; Type: CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.user_following_group
+    ADD CONSTRAINT user_following_group_pkey PRIMARY KEY (follower_id, object_id);
+
+
+--
+-- Name: user_following_user_pkey; Type: CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.user_following_user
+    ADD CONSTRAINT user_following_user_pkey PRIMARY KEY (follower_id, object_id);
+
+
+--
+-- Name: user_name_key; Type: CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public."user"
+    ADD CONSTRAINT user_name_key UNIQUE (name);
+
+
+--
+-- Name: user_pkey; Type: CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public."user"
+    ADD CONSTRAINT user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: vocabulary_name_key; Type: CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.vocabulary
+    ADD CONSTRAINT vocabulary_name_key UNIQUE (name);
+
+
+--
+-- Name: vocabulary_pkey; Type: CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.vocabulary
+    ADD CONSTRAINT vocabulary_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: idx_activity_detail_activity_id; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_activity_detail_activity_id ON public.activity_detail USING btree (activity_id);
+
+
+--
+-- Name: idx_activity_object_id; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_activity_object_id ON public.activity USING btree (object_id, "timestamp");
+
+
+--
+-- Name: idx_activity_user_id; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_activity_user_id ON public.activity USING btree (user_id, "timestamp");
+
+
+--
+-- Name: idx_extra_grp_id_pkg_id; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_extra_grp_id_pkg_id ON public.member USING btree (group_id, table_id);
+
+
+--
+-- Name: idx_extra_id_pkg_id; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_extra_id_pkg_id ON public.package_extra USING btree (id, package_id);
+
+
+--
+-- Name: idx_extra_pkg_id; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_extra_pkg_id ON public.package_extra USING btree (package_id);
+
+
+--
+-- Name: idx_group_current; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_group_current ON public.group_revision USING btree (current);
+
+
+--
+-- Name: idx_group_extra_current; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_group_extra_current ON public.group_extra_revision USING btree (current);
+
+
+--
+-- Name: idx_group_extra_period; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_group_extra_period ON public.group_extra_revision USING btree (revision_timestamp, expired_timestamp, id);
+
+
+--
+-- Name: idx_group_extra_period_group; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_group_extra_period_group ON public.group_extra_revision USING btree (revision_timestamp, expired_timestamp, group_id);
+
+
+--
+-- Name: idx_group_id; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_group_id ON public."group" USING btree (id);
+
+
+--
+-- Name: idx_group_name; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_group_name ON public."group" USING btree (name);
+
+
+--
+-- Name: idx_group_period; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_group_period ON public.group_revision USING btree (revision_timestamp, expired_timestamp, id);
+
+
+--
+-- Name: idx_group_pkg_id; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_group_pkg_id ON public.member USING btree (table_id);
+
+
+--
+-- Name: idx_member_continuity_id; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_member_continuity_id ON public.member_revision USING btree (continuity_id);
+
+
+--
+-- Name: idx_package_continuity_id; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_package_continuity_id ON public.package_revision USING btree (continuity_id);
+
+
+--
+-- Name: idx_package_creator_user_id; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_package_creator_user_id ON public.package USING btree (creator_user_id);
+
+
+--
+-- Name: idx_package_current; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_package_current ON public.package_revision USING btree (current);
+
+
+--
+-- Name: idx_package_extra_continuity_id; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_package_extra_continuity_id ON public.package_extra_revision USING btree (continuity_id);
+
+
+--
+-- Name: idx_package_extra_current; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_package_extra_current ON public.package_extra_revision USING btree (current);
+
+
+--
+-- Name: idx_package_extra_package_id; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_package_extra_package_id ON public.package_extra_revision USING btree (package_id, current);
+
+
+--
+-- Name: idx_package_extra_period; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_package_extra_period ON public.package_extra_revision USING btree (revision_timestamp, expired_timestamp, id);
+
+
+--
+-- Name: idx_package_extra_period_package; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_package_extra_period_package ON public.package_extra_revision USING btree (revision_timestamp, expired_timestamp, package_id);
+
+
+--
+-- Name: idx_package_extra_rev_id; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_package_extra_rev_id ON public.package_extra_revision USING btree (revision_id);
+
+
+--
+-- Name: idx_package_group_current; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_package_group_current ON public.member_revision USING btree (current);
+
+
+--
+-- Name: idx_package_group_group_id; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_package_group_group_id ON public.member USING btree (group_id);
+
+
+--
+-- Name: idx_package_group_id; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_package_group_id ON public.member USING btree (id);
+
+
+--
+-- Name: idx_package_group_period_package_group; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_package_group_period_package_group ON public.member_revision USING btree (revision_timestamp, expired_timestamp, table_id, group_id);
+
+
+--
+-- Name: idx_package_group_pkg_id; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_package_group_pkg_id ON public.member USING btree (table_id);
+
+
+--
+-- Name: idx_package_group_pkg_id_group_id; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_package_group_pkg_id_group_id ON public.member USING btree (group_id, table_id);
+
+
+--
+-- Name: idx_package_period; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_package_period ON public.package_revision USING btree (revision_timestamp, expired_timestamp, id);
+
+
+--
+-- Name: idx_package_relationship_current; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_package_relationship_current ON public.package_relationship_revision USING btree (current);
+
+
+--
+-- Name: idx_package_resource_id; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_package_resource_id ON public.resource USING btree (id);
+
+
+--
+-- Name: idx_package_resource_rev_id; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_package_resource_rev_id ON public.resource_revision USING btree (revision_id);
+
+
+--
+-- Name: idx_package_resource_url; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_package_resource_url ON public.resource USING btree (url);
+
+
+--
+-- Name: idx_package_tag_continuity_id; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_package_tag_continuity_id ON public.package_tag_revision USING btree (continuity_id);
+
+
+--
+-- Name: idx_package_tag_current; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_package_tag_current ON public.package_tag_revision USING btree (current);
+
+
+--
+-- Name: idx_package_tag_id; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_package_tag_id ON public.package_tag USING btree (id);
+
+
+--
+-- Name: idx_package_tag_pkg_id; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_package_tag_pkg_id ON public.package_tag USING btree (package_id);
+
+
+--
+-- Name: idx_package_tag_pkg_id_tag_id; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_package_tag_pkg_id_tag_id ON public.package_tag USING btree (tag_id, package_id);
+
+
+--
+-- Name: idx_package_tag_revision_id; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_package_tag_revision_id ON public.package_tag_revision USING btree (id);
+
+
+--
+-- Name: idx_package_tag_revision_pkg_id; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_package_tag_revision_pkg_id ON public.package_tag_revision USING btree (package_id);
+
+
+--
+-- Name: idx_package_tag_revision_pkg_id_tag_id; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_package_tag_revision_pkg_id_tag_id ON public.package_tag_revision USING btree (tag_id, package_id);
+
+
+--
+-- Name: idx_package_tag_revision_rev_id; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_package_tag_revision_rev_id ON public.package_tag_revision USING btree (revision_id);
+
+
+--
+-- Name: idx_package_tag_revision_tag_id; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_package_tag_revision_tag_id ON public.package_tag_revision USING btree (tag_id);
+
+
+--
+-- Name: idx_package_tag_tag_id; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_package_tag_tag_id ON public.package_tag USING btree (tag_id);
+
+
+--
+-- Name: idx_period_package_relationship; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_period_package_relationship ON public.package_relationship_revision USING btree (revision_timestamp, expired_timestamp, object_package_id, subject_package_id);
+
+
+--
+-- Name: idx_period_package_tag; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_period_package_tag ON public.package_tag_revision USING btree (revision_timestamp, expired_timestamp, package_id, tag_id);
+
+
+--
+-- Name: idx_pkg_id; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_pkg_id ON public.package USING btree (id);
+
+
+--
+-- Name: idx_pkg_lname; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_pkg_lname ON public.package USING btree (lower((name)::text));
+
+
+--
+-- Name: idx_pkg_name; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_pkg_name ON public.package USING btree (name);
+
+
+--
+-- Name: idx_pkg_rev_id; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_pkg_rev_id ON public.package USING btree (revision_id);
+
+
+--
+-- Name: idx_pkg_revision_id; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_pkg_revision_id ON public.package_revision USING btree (id);
+
+
+--
+-- Name: idx_pkg_revision_name; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_pkg_revision_name ON public.package_revision USING btree (name);
+
+
+--
+-- Name: idx_pkg_revision_rev_id; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_pkg_revision_rev_id ON public.package_revision USING btree (revision_id);
+
+
+--
+-- Name: idx_pkg_sid; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_pkg_sid ON public.package USING btree (id, state);
+
+
+--
+-- Name: idx_pkg_slname; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_pkg_slname ON public.package USING btree (lower((name)::text), state);
+
+
+--
+-- Name: idx_pkg_sname; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_pkg_sname ON public.package USING btree (name, state);
+
+
+--
+-- Name: idx_pkg_srev_id; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_pkg_srev_id ON public.package USING btree (revision_id, state);
+
+
+--
+-- Name: idx_pkg_stitle; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_pkg_stitle ON public.package USING btree (title, state);
+
+
+--
+-- Name: idx_pkg_suname; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_pkg_suname ON public.package USING btree (upper((name)::text), state);
+
+
+--
+-- Name: idx_pkg_title; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_pkg_title ON public.package USING btree (title);
+
+
+--
+-- Name: idx_pkg_uname; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_pkg_uname ON public.package USING btree (upper((name)::text));
+
+
+--
+-- Name: idx_rating_id; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_rating_id ON public.rating USING btree (id);
+
+
+--
+-- Name: idx_rating_package_id; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_rating_package_id ON public.rating USING btree (package_id);
+
+
+--
+-- Name: idx_rating_user_id; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_rating_user_id ON public.rating USING btree (user_id);
+
+
+--
+-- Name: idx_resource_continuity_id; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_resource_continuity_id ON public.resource_revision USING btree (continuity_id);
+
+
+--
+-- Name: idx_resource_current; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_resource_current ON public.resource_revision USING btree (current);
+
+
+--
+-- Name: idx_resource_period; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_resource_period ON public.resource_revision USING btree (revision_timestamp, expired_timestamp, id);
+
+
+--
+-- Name: idx_rev_state; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_rev_state ON public.revision USING btree (state);
+
+
+--
+-- Name: idx_revision_author; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_revision_author ON public.revision USING btree (author);
+
+
+--
+-- Name: idx_tag_id; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_tag_id ON public.tag USING btree (id);
+
+
+--
+-- Name: idx_tag_name; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_tag_name ON public.tag USING btree (name);
+
+
+--
+-- Name: idx_user_id; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_user_id ON public."user" USING btree (id);
+
+
+--
+-- Name: idx_user_name; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_user_name ON public."user" USING btree (name);
+
+
+--
+-- Name: idx_user_name_index; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX idx_user_name_index ON public."user" USING btree ((
+CASE
+    WHEN ((fullname IS NULL) OR (fullname = ''::text)) THEN name
+    ELSE fullname
+END));
+
+
+--
+-- Name: term; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX term ON public.term_translation USING btree (term);
+
+
+--
+-- Name: term_lang; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX term_lang ON public.term_translation USING btree (term, lang_code);
+
+
+--
+-- Name: tracking_raw_access_timestamp; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX tracking_raw_access_timestamp ON public.tracking_raw USING btree (access_timestamp);
+
+
+--
+-- Name: tracking_raw_url; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX tracking_raw_url ON public.tracking_raw USING btree (url);
+
+
+--
+-- Name: tracking_raw_user_key; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX tracking_raw_user_key ON public.tracking_raw USING btree (user_key);
+
+
+--
+-- Name: tracking_summary_date; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX tracking_summary_date ON public.tracking_summary USING btree (tracking_date);
+
+
+--
+-- Name: tracking_summary_package_id; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX tracking_summary_package_id ON public.tracking_summary USING btree (package_id);
+
+
+--
+-- Name: tracking_summary_url; Type: INDEX; Schema: public; Owner: ckan_default
+--
+
+CREATE INDEX tracking_summary_url ON public.tracking_summary USING btree (url);
+
+
+--
+-- Name: activity_detail_activity_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.activity_detail
+    ADD CONSTRAINT activity_detail_activity_id_fkey FOREIGN KEY (activity_id) REFERENCES public.activity(id);
+
+
+--
+-- Name: authorization_group_user_authorization_group_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.authorization_group_user
+    ADD CONSTRAINT authorization_group_user_authorization_group_id_fkey FOREIGN KEY (authorization_group_id) REFERENCES public.authorization_group(id);
+
+
+--
+-- Name: authorization_group_user_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.authorization_group_user
+    ADD CONSTRAINT authorization_group_user_user_id_fkey FOREIGN KEY (user_id) REFERENCES public."user"(id);
+
+
+--
+-- Name: dashboard_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.dashboard
+    ADD CONSTRAINT dashboard_user_id_fkey FOREIGN KEY (user_id) REFERENCES public."user"(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: group_extra_group_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.group_extra
+    ADD CONSTRAINT group_extra_group_id_fkey FOREIGN KEY (group_id) REFERENCES public."group"(id);
+
+
+--
+-- Name: group_extra_revision_continuity_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.group_extra_revision
+    ADD CONSTRAINT group_extra_revision_continuity_id_fkey FOREIGN KEY (continuity_id) REFERENCES public.group_extra(id);
+
+
+--
+-- Name: group_extra_revision_group_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.group_extra_revision
+    ADD CONSTRAINT group_extra_revision_group_id_fkey FOREIGN KEY (group_id) REFERENCES public."group"(id);
+
+
+--
+-- Name: group_extra_revision_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.group_extra
+    ADD CONSTRAINT group_extra_revision_id_fkey FOREIGN KEY (revision_id) REFERENCES public.revision(id);
+
+
+--
+-- Name: group_extra_revision_revision_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.group_extra_revision
+    ADD CONSTRAINT group_extra_revision_revision_id_fkey FOREIGN KEY (revision_id) REFERENCES public.revision(id);
+
+
+--
+-- Name: group_revision_continuity_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.group_revision
+    ADD CONSTRAINT group_revision_continuity_id_fkey FOREIGN KEY (continuity_id) REFERENCES public."group"(id);
+
+
+--
+-- Name: group_revision_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public."group"
+    ADD CONSTRAINT group_revision_id_fkey FOREIGN KEY (revision_id) REFERENCES public.revision(id);
+
+
+--
+-- Name: group_revision_revision_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.group_revision
+    ADD CONSTRAINT group_revision_revision_id_fkey FOREIGN KEY (revision_id) REFERENCES public.revision(id);
+
+
+--
+-- Name: member_group_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.member
+    ADD CONSTRAINT member_group_id_fkey FOREIGN KEY (group_id) REFERENCES public."group"(id);
+
+
+--
+-- Name: member_revision_continuity_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.member_revision
+    ADD CONSTRAINT member_revision_continuity_id_fkey FOREIGN KEY (continuity_id) REFERENCES public.member(id);
+
+
+--
+-- Name: member_revision_group_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.member_revision
+    ADD CONSTRAINT member_revision_group_id_fkey FOREIGN KEY (group_id) REFERENCES public."group"(id);
+
+
+--
+-- Name: member_revision_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.member
+    ADD CONSTRAINT member_revision_id_fkey FOREIGN KEY (revision_id) REFERENCES public.revision(id);
+
+
+--
+-- Name: member_revision_revision_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.member_revision
+    ADD CONSTRAINT member_revision_revision_id_fkey FOREIGN KEY (revision_id) REFERENCES public.revision(id);
+
+
+--
+-- Name: package_extra_package_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.package_extra
+    ADD CONSTRAINT package_extra_package_id_fkey FOREIGN KEY (package_id) REFERENCES public.package(id);
+
+
+--
+-- Name: package_extra_revision_continuity_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.package_extra_revision
+    ADD CONSTRAINT package_extra_revision_continuity_id_fkey FOREIGN KEY (continuity_id) REFERENCES public.package_extra(id);
+
+
+--
+-- Name: package_extra_revision_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.package_extra
+    ADD CONSTRAINT package_extra_revision_id_fkey FOREIGN KEY (revision_id) REFERENCES public.revision(id);
+
+
+--
+-- Name: package_extra_revision_package_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.package_extra_revision
+    ADD CONSTRAINT package_extra_revision_package_id_fkey FOREIGN KEY (package_id) REFERENCES public.package(id);
+
+
+--
+-- Name: package_extra_revision_revision_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.package_extra_revision
+    ADD CONSTRAINT package_extra_revision_revision_id_fkey FOREIGN KEY (revision_id) REFERENCES public.revision(id);
+
+
+--
+-- Name: package_relationship_object_package_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.package_relationship
+    ADD CONSTRAINT package_relationship_object_package_id_fkey FOREIGN KEY (object_package_id) REFERENCES public.package(id);
+
+
+--
+-- Name: package_relationship_revision_continuity_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.package_relationship_revision
+    ADD CONSTRAINT package_relationship_revision_continuity_id_fkey FOREIGN KEY (continuity_id) REFERENCES public.package_relationship(id);
+
+
+--
+-- Name: package_relationship_revision_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.package_relationship
+    ADD CONSTRAINT package_relationship_revision_id_fkey FOREIGN KEY (revision_id) REFERENCES public.revision(id);
+
+
+--
+-- Name: package_relationship_revision_object_package_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.package_relationship_revision
+    ADD CONSTRAINT package_relationship_revision_object_package_id_fkey FOREIGN KEY (object_package_id) REFERENCES public.package(id);
+
+
+--
+-- Name: package_relationship_revision_revision_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.package_relationship_revision
+    ADD CONSTRAINT package_relationship_revision_revision_id_fkey FOREIGN KEY (revision_id) REFERENCES public.revision(id);
+
+
+--
+-- Name: package_relationship_revision_subject_package_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.package_relationship_revision
+    ADD CONSTRAINT package_relationship_revision_subject_package_id_fkey FOREIGN KEY (subject_package_id) REFERENCES public.package(id);
+
+
+--
+-- Name: package_relationship_subject_package_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.package_relationship
+    ADD CONSTRAINT package_relationship_subject_package_id_fkey FOREIGN KEY (subject_package_id) REFERENCES public.package(id);
+
+
+--
+-- Name: package_revision_continuity_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.package_revision
+    ADD CONSTRAINT package_revision_continuity_id_fkey FOREIGN KEY (continuity_id) REFERENCES public.package(id);
+
+
+--
+-- Name: package_revision_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.package
+    ADD CONSTRAINT package_revision_id_fkey FOREIGN KEY (revision_id) REFERENCES public.revision(id);
+
+
+--
+-- Name: package_revision_revision_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.package_revision
+    ADD CONSTRAINT package_revision_revision_id_fkey FOREIGN KEY (revision_id) REFERENCES public.revision(id);
+
+
+--
+-- Name: package_tag_package_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.package_tag
+    ADD CONSTRAINT package_tag_package_id_fkey FOREIGN KEY (package_id) REFERENCES public.package(id);
+
+
+--
+-- Name: package_tag_revision_continuity_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.package_tag_revision
+    ADD CONSTRAINT package_tag_revision_continuity_id_fkey FOREIGN KEY (continuity_id) REFERENCES public.package_tag(id);
+
+
+--
+-- Name: package_tag_revision_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.package_tag
+    ADD CONSTRAINT package_tag_revision_id_fkey FOREIGN KEY (revision_id) REFERENCES public.revision(id);
+
+
+--
+-- Name: package_tag_revision_package_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.package_tag_revision
+    ADD CONSTRAINT package_tag_revision_package_id_fkey FOREIGN KEY (package_id) REFERENCES public.package(id);
+
+
+--
+-- Name: package_tag_revision_revision_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.package_tag_revision
+    ADD CONSTRAINT package_tag_revision_revision_id_fkey FOREIGN KEY (revision_id) REFERENCES public.revision(id);
+
+
+--
+-- Name: package_tag_revision_tag_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.package_tag_revision
+    ADD CONSTRAINT package_tag_revision_tag_id_fkey FOREIGN KEY (tag_id) REFERENCES public.tag(id);
+
+
+--
+-- Name: package_tag_tag_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.package_tag
+    ADD CONSTRAINT package_tag_tag_id_fkey FOREIGN KEY (tag_id) REFERENCES public.tag(id);
+
+
+--
+-- Name: rating_package_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.rating
+    ADD CONSTRAINT rating_package_id_fkey FOREIGN KEY (package_id) REFERENCES public.package(id);
+
+
+--
+-- Name: rating_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.rating
+    ADD CONSTRAINT rating_user_id_fkey FOREIGN KEY (user_id) REFERENCES public."user"(id);
+
+
+--
+-- Name: resource_revision_continuity_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.resource_revision
+    ADD CONSTRAINT resource_revision_continuity_id_fkey FOREIGN KEY (continuity_id) REFERENCES public.resource(id);
+
+
+--
+-- Name: resource_revision_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.resource
+    ADD CONSTRAINT resource_revision_id_fkey FOREIGN KEY (revision_id) REFERENCES public.revision(id);
+
+
+--
+-- Name: resource_revision_revision_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.resource_revision
+    ADD CONSTRAINT resource_revision_revision_id_fkey FOREIGN KEY (revision_id) REFERENCES public.revision(id);
+
+
+--
+-- Name: resource_view_resource_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.resource_view
+    ADD CONSTRAINT resource_view_resource_id_fkey FOREIGN KEY (resource_id) REFERENCES public.resource(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: system_info_revision_continuity_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.system_info_revision
+    ADD CONSTRAINT system_info_revision_continuity_id_fkey FOREIGN KEY (continuity_id) REFERENCES public.system_info(id);
+
+
+--
+-- Name: system_info_revision_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.system_info
+    ADD CONSTRAINT system_info_revision_id_fkey FOREIGN KEY (revision_id) REFERENCES public.revision(id);
+
+
+--
+-- Name: system_info_revision_revision_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.system_info_revision
+    ADD CONSTRAINT system_info_revision_revision_id_fkey FOREIGN KEY (revision_id) REFERENCES public.revision(id);
+
+
+--
+-- Name: tag_vocabulary_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.tag
+    ADD CONSTRAINT tag_vocabulary_id_fkey FOREIGN KEY (vocabulary_id) REFERENCES public.vocabulary(id);
+
+
+--
+-- Name: user_following_dataset_follower_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.user_following_dataset
+    ADD CONSTRAINT user_following_dataset_follower_id_fkey FOREIGN KEY (follower_id) REFERENCES public."user"(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: user_following_dataset_object_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.user_following_dataset
+    ADD CONSTRAINT user_following_dataset_object_id_fkey FOREIGN KEY (object_id) REFERENCES public.package(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: user_following_group_group_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.user_following_group
+    ADD CONSTRAINT user_following_group_group_id_fkey FOREIGN KEY (object_id) REFERENCES public."group"(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: user_following_group_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.user_following_group
+    ADD CONSTRAINT user_following_group_user_id_fkey FOREIGN KEY (follower_id) REFERENCES public."user"(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: user_following_user_follower_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.user_following_user
+    ADD CONSTRAINT user_following_user_follower_id_fkey FOREIGN KEY (follower_id) REFERENCES public."user"(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: user_following_user_object_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ckan_default
+--
+
+ALTER TABLE ONLY public.user_following_user
+    ADD CONSTRAINT user_following_user_object_id_fkey FOREIGN KEY (object_id) REFERENCES public."user"(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: SCHEMA public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+

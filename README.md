@@ -32,12 +32,6 @@ Activate virtualenv
 source /usr/lib/ckan/default/bin/activate
 ```
 
------------------
-Create admin user
------------------
-```
-paster --plugin=ckan sysadmin add admin -c /etc/ckan/default/development.ini
-```
 
 -----------------------------
 Start CKAN development server
@@ -49,7 +43,23 @@ paster serve /etc/ckan/default/development.ini --reload
 
 Now you can access ckan instance on http://127.0.0.1:5000
 
+You have 4 available users:
+```
+admin (pasword: "changeme") - sysadmin
+demo (pasword: "changeme") - admin user in Code4 Organization
+editor (pasword: "changeme") - editor user in Code4 Organization
+member (pasword: "changeme") - regular user(member) in Code4 Organization
+```
+
 # Happy Hacking :)
+
+-----------------
+Restore the database
+-----------------
+```
+paster --plugin=ckan db clean -c /etc/ckan/default/development.ini
+sudo -u postgres pg_restore --clean --if-exists -d ckan_default < /data/ckan.dump
+```
 
 # CKAN Documentation
 [CKAN Docs](https://docs.ckan.org/en/2.8/)  
