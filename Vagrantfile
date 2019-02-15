@@ -24,6 +24,7 @@ Vagrant.configure("2") do |config|
   # accessing "localhost:8080" will access port 80 on the guest machine.
   # NOTE: This will enable public access to the opened port
   config.vm.network "forwarded_port", guest: 80, host: 8080
+  config.vm.network "forwarded_port", guest: 8800, host: 8800
   config.vm.network "forwarded_port", guest: 5000, host: 5000
 
   # Create a forwarded port mapping which allows access to a specific port
@@ -46,6 +47,7 @@ Vagrant.configure("2") do |config|
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
   config.vm.synced_folder "etc/", "/etc/ckan/default"
+  config.vm.synced_folder "data/", "/data"
   # config.vm.synced_folder "src/", "/usr/lib/ckan/default/src"
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -67,17 +69,20 @@ Vagrant.configure("2") do |config|
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", inline: <<-SHELL
     sudo apt-get update
-    sudo apt-get install -y python-dev postgresql libpq-dev python-pip python-virtualenv git-core solr-jetty openjdk-8-jdk redis-server
+    sudo apt-get install -y python-dev postgresql libpq-dev python-pip python-virtualenv git-core solr-jetty openjdk-8-jdk redis-server build-essential libxslt1-dev libxml2-dev git libffi-dev
+
     mkdir -p /home/vagrant/ckan/lib
     sudo ln -s /home/vagrant/ckan/lib /usr/lib/ckan
     mkdir -p /home/vagrant/ckan/etc
     sudo ln -s /home/vagrant/ckan/etc /etc/ckan
     sudo mkdir -p /usr/lib/ckan/default
     sudo chown `whoami` /usr/lib/ckan/default
-    sudo mkdir /var/lib/ckan
+    sudo mkdir -p /var/lib/ckan/storage
+    cp -r /data/storage/* /var/lib/ckan/storage
     sudo chown -R vagrant:vagrant /var/lib/ckan
     sudo chown -R vagrant:vagrant /usr/lib/ckan
     virtualenv --no-site-packages /usr/lib/ckan/default
+    virtualenv --no-site-packages /usr/lib/ckan/datapusher
     . /usr/lib/ckan/default/bin/activate
     pip install setuptools==36.1
     pip install -e 'git+https://github.com/ckan/ckan.git@ckan-2.8.2#egg=ckan'
@@ -88,8 +93,11 @@ Vagrant.configure("2") do |config|
     deactivate
     . /usr/lib/ckan/default/bin/activate
     sudo -u postgres psql -c "CREATE USER ckan_default WITH PASSWORD 'ckan_default';"
+    sudo -u postgres psql -c "CREATE USER datastore_default WITH PASSWORD 'ckan_default';"
     sudo -u postgres createdb -O ckan_default ckan_default -E utf-8
+    sudo -u postgres createdb -O ckan_default datastore_default -E utf-8
     sudo -u postgres psql -c "GRANT ALL ON DATABASE ckan_default TO ckan_default;"
+    sudo -u postgres psql -c "GRANT ALL ON DATABASE datastore_default TO ckan_default;"
     cp /etc/ckan/default/pg_hba.conf /etc/postgresql/9.5/main/pg_hba.conf
     sudo service postgresql restart
     cp /etc/ckan/default/jetty8 /etc/default/jetty
@@ -98,8 +106,38 @@ Vagrant.configure("2") do |config|
     sudo ln -s /usr/lib/ckan/default/src/ckan/ckan/config/solr/schema.xml /etc/solr/conf/schema.xml
     sudo service jetty8 restart
     cd /usr/lib/ckan/default/src/ckan
-    paster db init -c /etc/ckan/default/development.ini
-    sudo chown -R vagrant:vagrant /var/lib/ckan
-    sudo chown -R vagrant:vagrant /usr/lib/ckan
+    paster db clean -c /etc/ckan/default/development.ini
+    sudo -u postgres psql "postgresql://ckan_default:ckan_default@localhost/ckan_default"  < /data/ckan.dump 
+    paster --plugin=ckan search-index rebuild --config=/etc/ckan/default/development.ini
+    deactivate
+    sudo chown -R vagrant:vagrant /var/lib/ckan/
+    sudo chown -R vagrant:vagrant /usr/lib/ckan/
+    # . /usr/lib/ckan/datapusher/bin/activate
+
+    # mkdir /usr/lib/ckan/datapusher/src
+    # cd /usr/lib/ckan/datapusher/src
+
+    # git clone -b 0.0.14 https://github.com/ckan/datapusher.git
+
+    # cd datapusher
+    # pip install -r requirements.txt
+    # python setup.py develop
+
+
+    # # sudo cp deployment/datapusher.conf /etc/apache2/sites-available/datapusher.conf
+    # # sudo cp deployment/datapusher.wsgi /etc/ckan/
+
+    # #copy the standard DataPusher settings.
+    # # sudo cp deployment/datapusher_settings.py /etc/ckan/
+
+    
+    # sudo sh -c 'echo "NameVirtualHost *:8800" >> /etc/apache2/ports.conf'
+    # sudo sh -c 'echo "Listen 8800" >> /etc/apache2/ports.conf'
+
+
+    # sudo chown -R vagrant:vagrant /var/lib/ckan/
+    # sudo chown -R vagrant:vagrant /usr/lib/ckan/
+    # sudo service apache2 reload
+    # sudo a2ensite datapusher
   SHELL
 end
