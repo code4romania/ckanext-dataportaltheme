@@ -3,7 +3,7 @@ ckanext-dataportaltheme
 
 DataPortal base theme
 
-[UI prototipe](ma.com/file/P60qSupJkefpT7K4rT5PQuva/Data-Portal?node-id=0%3A1)
+[UI prototipe](https://www.figma.com/file/P60qSupJkefpT7K4rT5PQuva/Data-Portal?node-id=0%3A1)
 
 ------------
 Requirements
