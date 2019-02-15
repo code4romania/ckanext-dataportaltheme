@@ -50,11 +50,11 @@
 
 .categories li a .image-wrapper img{
   width: 45px;
-  filter: invert(0);
+  filter: invert(1);
 }
 
 .categories li a:hover .image-wrapper img {
-  filter: invert(1);
+  filter: invert(0);
 }
 
 .categories li a .text {
