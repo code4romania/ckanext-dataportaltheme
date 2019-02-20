@@ -69,7 +69,7 @@ Vagrant.configure("2") do |config|
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", inline: <<-SHELL
     sudo apt-get update
-    sudo apt-get install -y python-dev postgresql libpq-dev python-pip python-virtualenv git-core solr-jetty openjdk-8-jdk redis-server build-essential libxslt1-dev libxml2-dev git libffi-dev
+    sudo apt-get install -y python-dev postgresql libpq-dev python-pip python-virtualenv git-core solr-jetty openjdk-8-jdk redis-server build-essential libxslt1-dev libxml2-dev git libffi-dev apache2 libapache2-mod-wsgi
 
     mkdir -p /home/vagrant/ckan/lib
     sudo ln -s /home/vagrant/ckan/lib /usr/lib/ckan
@@ -112,32 +112,33 @@ Vagrant.configure("2") do |config|
     deactivate
     sudo chown -R vagrant:vagrant /var/lib/ckan/
     sudo chown -R vagrant:vagrant /usr/lib/ckan/
-    # . /usr/lib/ckan/datapusher/bin/activate
+    . /usr/lib/ckan/datapusher/bin/activate
 
-    # mkdir /usr/lib/ckan/datapusher/src
-    # cd /usr/lib/ckan/datapusher/src
+    mkdir /usr/lib/ckan/datapusher/src
+    cd /usr/lib/ckan/datapusher/src
 
-    # git clone -b 0.0.14 https://github.com/ckan/datapusher.git
+    git clone -b 0.0.14 https://github.com/ckan/datapusher.git
 
-    # cd datapusher
-    # pip install -r requirements.txt
-    # python setup.py develop
+    cd datapusher
+    pip install -r requirements.txt
+    python setup.py develop
 
 
-    # # sudo cp deployment/datapusher.conf /etc/apache2/sites-available/datapusher.conf
-    # # sudo cp deployment/datapusher.wsgi /etc/ckan/
+    sudo cp deployment/datapusher.apache2-4.conf /etc/apache2/sites-available/datapusher.conf
+    sudo cp deployment/datapusher.wsgi /etc/ckan/
 
     # #copy the standard DataPusher settings.
-    # # sudo cp deployment/datapusher_settings.py /etc/ckan/
+    sudo cp deployment/datapusher_settings.py /etc/ckan/
 
     
-    # sudo sh -c 'echo "NameVirtualHost *:8800" >> /etc/apache2/ports.conf'
-    # sudo sh -c 'echo "Listen 8800" >> /etc/apache2/ports.conf'
+    sudo sh -c 'echo "NameVirtualHost *:8800" >> /etc/apache2/ports.conf'
+    sudo sh -c 'echo "Listen 8800" >> /etc/apache2/ports.conf'
+    echo "ServerName localhost" | sudo tee /etc/apache2/conf-available/fqdn.conf
+    sudo a2enconf fqdn
 
-
-    # sudo chown -R vagrant:vagrant /var/lib/ckan/
-    # sudo chown -R vagrant:vagrant /usr/lib/ckan/
-    # sudo service apache2 reload
-    # sudo a2ensite datapusher
+    sudo chown -R vagrant:vagrant /var/lib/ckan/
+    sudo chown -R vagrant:vagrant /usr/lib/ckan/
+    sudo a2ensite datapusher
+    sudo service apache2 reload
   SHELL
 end
