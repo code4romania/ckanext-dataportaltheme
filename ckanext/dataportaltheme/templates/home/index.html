@@ -19,6 +19,33 @@
     </div>
     {% block primary_content %}
         {% snippet "home/layout.html".format(homepage_style) %}
+        {% block medium_extension %}
+          <div class="container">
+            <div class="row row2">
+              <div class="col-md-12">
+                <h3>MEDIUM</h3>
+              </div>
+            </div>
+          </div>
+        {% endblock medium_extension %}
+
+          <div class="main">
+            <div class="container">
+              <div class="row row2">
+                <div class="col-md-12">
+                  Implică-te:
+                </div>
+                {% block github_extension %}
+                  <div class="col-md-6">
+                    <h3>GITHUB</h3>
+                  </div>
+                {% endblock github_extension %}
+                <div class="col-md-6">
+                    <h3>Vreau sa am un portal de date in orasul meu</h3>
+                </div>
+              </div>
+            </div>
+          </div>
         {% block social %}
             {% include 'social.html' %}
         {% endblock social %}
