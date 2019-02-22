@@ -69,7 +69,7 @@ Vagrant.configure("2") do |config|
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", inline: <<-SHELL
     sudo apt-get update
-    sudo apt-get install -y python-dev postgresql libpq-dev python-pip python-virtualenv git-core solr-jetty openjdk-8-jdk redis-server build-essential libxslt1-dev libxml2-dev git libffi-dev apache2 libapache2-mod-wsgi
+    sudo apt-get install -y python-dev postgresql libpq-dev python-pip python-virtualenv git-core solr-jetty openjdk-8-jdk redis-server build-essential libxslt1-dev libxml2-dev git libffi-dev apache2 libapache2-mod-wsgi supervisor
 
     mkdir -p /home/vagrant/ckan/lib
     sudo ln -s /home/vagrant/ckan/lib /usr/lib/ckan
@@ -78,7 +78,9 @@ Vagrant.configure("2") do |config|
     sudo mkdir -p /usr/lib/ckan/default
     sudo chown `whoami` /usr/lib/ckan/default
     sudo mkdir -p /var/lib/ckan/storage
+    # sudo mkdir -p /var/lib/ckan/resources
     cp -r /data/storage/* /var/lib/ckan/storage
+    # sudo cp -r /data/resources/* /var/lib/ckan/resources
     sudo chown -R vagrant:vagrant /var/lib/ckan
     sudo chown -R vagrant:vagrant /usr/lib/ckan
     virtualenv --no-site-packages /usr/lib/ckan/default
@@ -96,8 +98,18 @@ Vagrant.configure("2") do |config|
     sudo -u postgres psql -c "CREATE USER datastore_default WITH PASSWORD 'ckan_default';"
     sudo -u postgres createdb -O ckan_default ckan_default -E utf-8
     sudo -u postgres createdb -O ckan_default datastore_default -E utf-8
+    sudo -u postgres createdb -O ckan_default xloader_jobs -E utf-8
     sudo -u postgres psql -c "GRANT ALL ON DATABASE ckan_default TO ckan_default;"
+    sudo -u postgres psql -c "GRANT ALL ON DATABASE xloader_jobs TO ckan_default;"
     sudo -u postgres psql -c "GRANT ALL ON DATABASE datastore_default TO ckan_default;"
+    cd /tmp
+    git clone https://github.com/ckan/ckanext-xloader
+    cd ckanext-xloader
+    sudo -u postgres psql datastore_default -f /tmp/ckanext-xloader/full_text_function.sql
+    pip install ckanext-xloader
+    pip install -r requirements.txt
+    pip install -U requests[security]
+    sudo -u postgres psql datastore_default -f /tmp/ckanext-xloader/full_text_function.sql
     cp /etc/ckan/default/pg_hba.conf /etc/postgresql/9.5/main/pg_hba.conf
     sudo service postgresql restart
     cp /etc/ckan/default/jetty8 /etc/default/jetty
@@ -107,38 +119,47 @@ Vagrant.configure("2") do |config|
     sudo service jetty8 restart
     cd /usr/lib/ckan/default/src/ckan
     paster db clean -c /etc/ckan/default/development.ini
-    sudo -u postgres psql "postgresql://ckan_default:ckan_default@localhost/ckan_default"  < /data/ckan.dump 
+    # sudo -u postgres psql postgres ckan_default  < /data/ckan_default.dump 
+    # sudo -u postgres psql postgres datastore_default  < /data/datastore_default.dump 
+    # sudo -u postgres psql postgres xloader_jobs  < /data/xloader_jobs.dump 
+    sudo -u postgres pg_restore --clean --if-exists -d ckan_default  < /data/ckan_default.dump 
+    sudo -u postgres pg_restore --clean --if-exists -d datastore_default  < /data/datastore_default.dump 
+    sudo -u postgres pg_restore --clean --if-exists -d xloader_jobs  < /data/xloader_jobs.dump 
     paster --plugin=ckan search-index rebuild --config=/etc/ckan/default/development.ini
+    paster --plugin=ckan datastore set-permissions -c /etc/ckan/default/development.ini | sudo -u postgres psql ckan_default --set ON_ERROR_STOP=1
     deactivate
     sudo chown -R vagrant:vagrant /var/lib/ckan/
     sudo chown -R vagrant:vagrant /usr/lib/ckan/
-    . /usr/lib/ckan/datapusher/bin/activate
+    sudo cp /etc/ckan/default/supervisor/xloader.conf /etc/supervisor/conf.d
+    sudo service supervisor restart
 
-    mkdir /usr/lib/ckan/datapusher/src
-    cd /usr/lib/ckan/datapusher/src
+    # . /usr/lib/ckan/datapusher/bin/activate
 
-    git clone -b 0.0.14 https://github.com/ckan/datapusher.git
+    # mkdir /usr/lib/ckan/datapusher/src
+    # cd /usr/lib/ckan/datapusher/src
 
-    cd datapusher
-    pip install -r requirements.txt
-    python setup.py develop
+    # git clone -b 0.0.14 https://github.com/ckan/datapusher.git
+
+    # cd datapusher
+    # pip install -r requirements.txt
+    # python setup.py develop
 
 
-    sudo cp deployment/datapusher.apache2-4.conf /etc/apache2/sites-available/datapusher.conf
-    sudo cp deployment/datapusher.wsgi /etc/ckan/
+    # sudo cp deployment/datapusher.apache2-4.conf /etc/apache2/sites-available/datapusher.conf
+    # sudo cp deployment/datapusher.wsgi /etc/ckan/
 
-    # #copy the standard DataPusher settings.
-    sudo cp deployment/datapusher_settings.py /etc/ckan/
+    # # #copy the standard DataPusher settings.
+    # sudo cp deployment/datapusher_settings.py /etc/ckan/
 
     
-    sudo sh -c 'echo "NameVirtualHost *:8800" >> /etc/apache2/ports.conf'
-    sudo sh -c 'echo "Listen 8800" >> /etc/apache2/ports.conf'
-    echo "ServerName localhost" | sudo tee /etc/apache2/conf-available/fqdn.conf
-    sudo a2enconf fqdn
+    # sudo sh -c 'echo "NameVirtualHost *:8800" >> /etc/apache2/ports.conf'
+    # sudo sh -c 'echo "Listen 8800" >> /etc/apache2/ports.conf'
+    # echo "ServerName localhost" | sudo tee /etc/apache2/conf-available/fqdn.conf
+    # sudo a2enconf fqdn
 
-    sudo chown -R vagrant:vagrant /var/lib/ckan/
-    sudo chown -R vagrant:vagrant /usr/lib/ckan/
-    sudo a2ensite datapusher
-    sudo service apache2 reload
+    # sudo chown -R vagrant:vagrant /var/lib/ckan/
+    # sudo chown -R vagrant:vagrant /usr/lib/ckan/
+    # sudo a2ensite datapusher
+    # sudo service apache2 reload
   SHELL
 end
