@@ -2,7 +2,7 @@ import routes.mapper
 import ckan.lib.base as base
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
-
+from datetime import datetime
 
 def all_groups():
     '''Return a sorted list of the groups with the most datasets.'''
@@ -56,7 +56,10 @@ class DataportalthemePlugin(plugins.SingletonPlugin):
         # Template helper function names should begin with the name of the
         # extension they belong to, to avoid clashing with functions from
         # other extensions.
-        return {'all_groups': all_groups}
+        return {
+            'all_groups': all_groups,
+            'current_year': datetime.now().year
+        }
 
 class PortalController(base.BaseController):
     def dataStatsEsentiale(self):

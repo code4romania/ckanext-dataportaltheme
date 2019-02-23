@@ -4,21 +4,23 @@
   </div>
 </div>
 
-<div class="container">
-  <div class="row">
-    <ul class="categories">
-      {% for group in h.all_groups() %}
-      <li>
-        <a  href="/group/{{group.name}}" class="category">
-          <div class="image-wrapper">
-            <img src="{{group.image_display_url}}" alt="">
-          </div>
-          <div class="text">
-            {{group.display_name}}
-          </div>
-        </a>
-      </li>
-      {% endfor %}
-    </ul>
+<div class="categories-container">
+  <div class="container">
+    <div class="row">
+      <ul class="categories">
+        {% for group in h.all_groups() %}
+        <li>
+          <a href="/group/{{group.name}}" class="category">
+            <div class="image-wrapper">
+              <img src="{{group.image_display_url}}" alt="">
+            </div>
+            <div class="text">
+              {{group.display_name}}
+            </div>
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
   </div>
 </div>
