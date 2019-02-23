@@ -8,7 +8,7 @@ import requests
 import json
 
 def gettasks(params = {'state': 'open'}):
-    url = toolkit.config.get('ckan.githubfeed.requesturl', 
+    url = toolkit.config.get('ckan.githubfeed.requesturl',
         'https://api.github.com/repos/code4romania/ckanext-dataportaltheme/issues')
     r = requests.get(url=url, params=params)
     obj = json.loads(r.text)
@@ -68,10 +68,15 @@ class DataportalthemePlugin(plugins.SingletonPlugin):
         # Template helper function names should begin with the name of the
         # extension they belong to, to avoid clashing with functions from
         # other extensions.
+        try:
+            latest_issues = gettasks()[:3]
+        except:
+            latest_issues = []
         return {
             'all_groups': all_groups,
             'current_year': datetime.now().year,
-            'githubfeed_gettasks': gettasks,
+            'githubfeed_latest': latest_issues,
+            'xx': toolkit.config.get('xx'),
             'githubfeed_getallissuesurl': toolkit.config.get('ckan.githubfeed.allissuesurl', 
                     'https://github.com/orgs/code4romania/projects/12')
         }
