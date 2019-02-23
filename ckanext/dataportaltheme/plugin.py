@@ -7,7 +7,7 @@ from datetime import datetime
 import requests
 import json
 from cachetools.func import ttl_cache
-
+from pprint import pprint
 
 @ttl_cache(ttl=60 * 60)
 def gettasks(params = {'state': 'open'}):
@@ -33,6 +33,7 @@ class DataportalthemePlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IRoutes)
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.ITemplateHelpers)
+    plugins.implements(plugins.IResourceController)
     # IConfigurer
 
     def update_config(self, config):
@@ -64,6 +65,12 @@ class DataportalthemePlugin(plugins.SingletonPlugin):
     def after_map(self, route_map):
         return route_map
 
+    def before_show(self, resource_dict):
+        print('TEST')
+        pprint(resource_dict)
+        resource_dict['test'] = 'test'
+        return resource_dict
+
     def get_helpers(self):
         '''Register the most_popular_groups() function above as a template
         helper function.
@@ -73,7 +80,7 @@ class DataportalthemePlugin(plugins.SingletonPlugin):
         try:
             latest_issues = gettasks()[:3]
         except:
-            latest_issues = []  
+            latest_issues = []
         return {
             'all_groups': all_groups,
             'current_year': datetime.now().year,
