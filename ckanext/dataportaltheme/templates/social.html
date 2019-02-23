@@ -1,3 +1,4 @@
+{% set placeholder = _('Caută date despre orașul tău') %}
 <div class="container-fluid social">
 <div class="row">
     <div class="col-md-12">
@@ -5,14 +6,15 @@
     		<div class="col-md-4 social-col">
     		</div>
     		<div class="col-md-4 social-col">
-    			<div class="input-group">
-        			<input type="text" class="form-control" placeholder="Search" id="txtSearch"/>
-        				<div class="input-group-btn">
+				<form class="input-group " method="get" action="{% url_for 'dataset' %}">
+					<input aria-label="{% block header_site_search_label %}{{ _('Search datasets') }}{% endblock %}" id="field-main-search" type="text" class="form-control" name="q" value="" autocomplete="off" placeholder="{% block search_placeholder %}{% endblock %}" />
+					<div class="input-group-btn">
           					<button class="btn btn-primary" type="submit">
             					<i class="fa fa-search"></i>
+								<span class="sr-only">{{ _('Search') }}</span>
           					</button>
        					 </div>
-      			</div>
+				</form>
     		</div>
     		<div class="col-md-4 social-col">
     			<div class="social-icons">
