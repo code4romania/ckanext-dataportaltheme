@@ -23,3 +23,9 @@ h1 {
 h2 {
   color: #21409A;
 }
+
+.clearAll::after {
+  content: " ";
+  display: block;
+  clear: both;
+}
