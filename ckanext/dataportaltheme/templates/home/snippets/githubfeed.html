@@ -5,11 +5,12 @@
 <div class="col-md-6">
     <div>Ultimele taskuri adaugate: </div>
     <ul class="github-issues-list">
-        {% for task in h.githubfeed_gettasks()[:3] %}
+
+        {% for task in h.githubfeed_latest %}
         <li class="github-issue">
             <a target="_blank" href="{{task['html_url']}}">
                 <img src="logos/github_logo.png" class="github-logo">
-                {{task['title']}}
+                {{task.title}}
             </a>
         </li>
         {% endfor %} 
