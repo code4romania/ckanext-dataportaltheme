@@ -48,12 +48,24 @@
   color: #fff;
 }
 
-.social-icons .social-button .donate-button {
 
+
+.social-icons .social-button:first-child:hover{
+   background-color:#3b5998;
 }
 
-.social-icons .donate-button
-{	
+.social-icons .social-button:nth-child(2):hover{
+    background-color:#fa7e1e;
+}
+.social-icons .social-button:nth-child(3):hover{
+    background-color:#0077b5;
+}
+.social-icons .social-button:nth-child(4):hover {
+    background-color:#0084b4;
+}
+
+
+.social-icons .donate-button {
 	display: inline-block;
 	text-transform: uppercase;
 	background: #1FB94A;
