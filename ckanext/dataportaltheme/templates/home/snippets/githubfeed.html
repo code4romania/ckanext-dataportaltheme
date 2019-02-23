@@ -1,22 +1,15 @@
-{# {% block styles %}
-    {% resource 'fanstatic/githubfeed.css' %}
-{% endblock %} #}
+<div class="shadowbox clearAll" id="githubFeed">
+  <h2>Ultimele taskuri adăugate: </h2>
+  <ul class="github-issues-list">
+      {% for task in h.githubfeed_latest[:3] %}
+      <li class="github-issue">
+          <a target="_blank" href="{{task['html_url']}}">
+              <img src="logos/github_logo.png" class="github-logo">
+              {{task['title']}}
+          </a>
+      </li>
+      {% endfor %}
+  </ul>
 
-<div class="col-md-6">
-    <div>Ultimele taskuri adaugate: </div>
-    <ul class="github-issues-list">
-
-        {% for task in h.githubfeed_latest %}
-        <li class="github-issue">
-            <a target="_blank" href="{{task['html_url']}}">
-                <img src="logos/github_logo.png" class="github-logo">
-                {{task.title}}
-            </a>
-        </li>
-        {% endfor %} 
-    </ul>
-
-    <div class="see-all-link">
-        <a target="_blank" href="{{ h.githubfeed_getallissuesurl }}">VEZI TOATE TASKURILE</a>
-    </div>
+  <a class="seeAllLink" target="_blank" href="{{ h.githubfeed_getallissuesurl }}">VEZI TOATE TASKURILE</a>
 </div>
