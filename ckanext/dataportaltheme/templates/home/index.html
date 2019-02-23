@@ -1,5 +1,4 @@
 {% extends "page_categories.html" %}
-{% set homepage_style = ( g.homepage_style or '1' ) %}
 
 {% block subtitle %}{{ _("Welcome") }}{% endblock %}
 
@@ -11,39 +10,65 @@
 
   {% resource 'dataportaltheme/categories_bar.css' %}
   {% resource 'dataportaltheme/githubfeed.css' %}
+  {% resource 'dataportaltheme/contactForm.css' %}
+  {% resource 'dataportaltheme/home.css' %}
 {% endblock %}
 
 {% block content %}
-  <div class="homepage layout-{{ homepage_style }}">
+  <div class="homepage">
     <div class="container">
       {{ self.flash() }}
     </div>
     {% block primary_content %}
-        {% snippet "home/layout.html".format(homepage_style) %}
+        {% snippet "home/layout.html" %}
         {% block medium_extension %}
-          <div class="container">
-            <div class="row row2">
-              <div class="col-md-12">
-                <h3>MEDIUM</h3>
+          <div class="container articles">
+            <div class="row equal">
+              <div class="col-md-4">
+                <article class="shadowbox">
+                  <h3>Cum să utilizezi datele deschise pentru a-ți crește calitatea vieții</h3>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna wirl aliqua. Up exlaborum incididunt quis nostrud exercitatn. Lorem ipsum dolor sit amet, consectetur adipisicing elit,</p>
+                  <a href="#" class="readMore">Citește mai mult</a>
+                </article>
+              </div>
+
+
+              <div class="col-md-4">
+                <article class="shadowbox">
+                  <h3>Storytelling cu date dechise. Studiu de caz: Madrid</h3>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna wirl aliqua. Up exlaborum incididunt quis nostrud exercitatn. Lorem ipsum dolor sit amet, consectetur ad</p>
+                  <a href="#" class="readMore">Citește mai mult</a>
+                </article>
+              </div>
+
+
+              <div class="col-md-4">
+                <article class="shadowbox">
+                  <h3>Analiza datelor de trafic rutier</h3>
+                  <p>
+                    <img src="/home-dummies/pie2.png" />
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna wirl aliqua. Up exlaborum incididunt quis nostrud exercitatn. Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                  </p>
+                  <a href="#" class="readMore">Citește mai mult</a>
+                </article>
               </div>
             </div>
           </div>
         {% endblock medium_extension %}
 
           <div class="main">
-            <div class="container">
-              <div class="row row2">
+            <div class="container bottomSection">
+              <div class="row">
                 <div class="col-md-12">
-                  Implică-te:
+                  <h2>Implică-te:</h2>
                 </div>
                 {% block github_extension %}
                   <div class="col-md-6">
-                    <h3>GITHUB</h3>
                     {% snippet "home/snippets/githubfeed.html" %}
                   </div>
                 {% endblock github_extension %}
                 <div class="col-md-6">
-                    <h3>Vreau sa am un portal de date in orasul meu</h3> 
+                    {% snippet "home/snippets/contactForm.html" %}
                 </div>
               </div>
             </div>
