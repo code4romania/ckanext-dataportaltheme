@@ -1,0 +1,35 @@
+{% extends "page.html" %}
+
+{% block subtitle %}{{ _('Termeni și condiții') }}{% endblock %}
+
+{% block styles %}
+{{ super() }}
+{% resource 'dataportaltheme/termsandconditions.css' %}
+{% endblock %}
+
+{% block breadcrumb_content %}
+<li class="active">{% link_for _('Termeni și condiții'), named_route="terms-and-conditions" %}</li>
+{% endblock %}
+
+{% block primary %}
+
+<h1>Termeni și condiții</h1>
+
+<h2>Lorem</h2>
+<p>
+    Lorem ipsum...
+</p>
+<h2>Lorem</h2>
+<p>
+    Lorem ipsum...
+</p>
+<h2>Lorem</h2>
+<p>
+    Lorem ipsum...
+</p>
+<h2>Lorem</h2>
+<p>
+    Lorem ipsum...
+</p>
+
+{% endblock %}

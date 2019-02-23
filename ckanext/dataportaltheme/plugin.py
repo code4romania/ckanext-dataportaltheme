@@ -54,6 +54,7 @@ class DataportalthemePlugin(plugins.SingletonPlugin):
         with routes.mapper.SubMapper(route_map, controller='ckanext.dataportaltheme.plugin:PortalController') as map:
             map.connect('stas-date-esentiale', '/standard-date/esentiale', action='dataStatsEsentiale')
             map.connect('stas-date-struct', '/standard-date/structura', action='dataStatsStruct')
+            map.connect('terms-and-conditions', '/termsandconditions', action='termsandconditions')
         return route_map
 
     def after_map(self, route_map):
@@ -81,3 +82,7 @@ class PortalController(base.BaseController):
 
     def dataStatsStruct(self):
         return base.render('dataStas/struct.html')
+
+    def termsandconditions(self):
+        return base.render('home/termsandconditions.html')
+

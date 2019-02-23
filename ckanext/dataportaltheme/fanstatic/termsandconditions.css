@@ -1,0 +1,10 @@
+.backButton {
+	position: absolute;
+	top: 50px;
+}
+
+#termsLogo {
+	text-align: center;
+	margin-bottom: 70px;
+	margin-top: 25px;
+}

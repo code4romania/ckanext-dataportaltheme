@@ -10,7 +10,7 @@
             <br/>
             <ul class="list-unstyled">
                 {% block footer_links %}
-                <li><a href="{{ h.url_for(controller='home', action='about') }}">Termeni și condiții</a></li>
+                <li>{% link_for _('Termeni și condiții'), named_route="terms-and-conditions" %}</li>
                 <li><a href="{{ h.url_for(controller='home', action='about') }}">Politica de confidențialitate</a></li>
                 <li><a href="{{ h.url_for(controller='home', action='about') }}">Codul de conduită</a></li>
                 <li><a href="https://www.code4.ro/">Code 4 Romania</a></li>
