@@ -1,0 +1,27 @@
+#contactForm {
+	padding: 30px;
+}
+
+	#contactForm h2 {
+		font-size: 20px;
+		font-weight: bold;
+	}
+
+	#contactForm input,
+	#contactForm textarea {
+		display: block;
+		width: 100%;
+		background-color: #c4c4c4;
+		border: none;
+		padding: 5px 10px;
+	}
+
+	#contactForm input {
+		margin-bottom: 15px;
+	}
+
+	#contactForm textarea {
+		resize: vertical;
+		margin-bottom: 10px;
+		min-height: 160px;
+	}
