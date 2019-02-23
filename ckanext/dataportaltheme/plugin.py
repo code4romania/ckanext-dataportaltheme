@@ -6,13 +6,17 @@ from datetime import datetime
 
 import requests
 import json
+from cachetools.func import ttl_cache
 
+
+@ttl_cache(ttl=60 * 60)
 def gettasks(params = {'state': 'open'}):
     url = toolkit.config.get('ckan.githubfeed.requesturl',
         'https://api.github.com/repos/code4romania/ckanext-dataportaltheme/issues')
     r = requests.get(url=url, params=params)
     obj = json.loads(r.text)
     return obj
+
 
 def all_groups():
     '''Return a sorted list of the groups with the most datasets.'''
@@ -65,18 +69,15 @@ class DataportalthemePlugin(plugins.SingletonPlugin):
         helper function.
 
         '''
-        # Template helper function names should begin with the name of the
-        # extension they belong to, to avoid clashing with functions from
-        # other extensions.
+        # Catch github API limit exception
         try:
             latest_issues = gettasks()[:3]
         except:
-            latest_issues = []
+            latest_issues = []  
         return {
             'all_groups': all_groups,
             'current_year': datetime.now().year,
             'githubfeed_latest': latest_issues,
-            'xx': toolkit.config.get('xx'),
             'githubfeed_getallissuesurl': toolkit.config.get('ckan.githubfeed.allissuesurl', 
                     'https://github.com/orgs/code4romania/projects/12')
         }
