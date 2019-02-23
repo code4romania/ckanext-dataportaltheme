@@ -4,6 +4,16 @@ import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
 from datetime import datetime
 
+import requests
+import json
+
+def gettasks(params = {'state': 'open'}):
+    url = toolkit.config.get('ckan.githubfeed.requesturl', 
+        'https://api.github.com/repos/code4romania/ckanext-dataportaltheme/issues')
+    r = requests.get(url=url, params=params)
+    obj = json.loads(r.text)
+    return obj
+
 def all_groups():
     '''Return a sorted list of the groups with the most datasets.'''
 
@@ -34,6 +44,7 @@ class DataportalthemePlugin(plugins.SingletonPlugin):
         # that we'll use to refer to this fanstatic directory from CKAN
         # templates.
         toolkit.add_resource('fanstatic', 'dataportaltheme')
+        toolkit.add_resource('fanstatic', 'githubfeed')
 
         # Add this plugin's public dir to CKAN's extra_public_paths, so
         # that CKAN will use this plugin's custom static files.
@@ -58,7 +69,10 @@ class DataportalthemePlugin(plugins.SingletonPlugin):
         # other extensions.
         return {
             'all_groups': all_groups,
-            'current_year': datetime.now().year
+            'current_year': datetime.now().year,
+            'githubfeed_gettasks': gettasks,
+            'githubfeed_getallissuesurl': toolkit.config.get('ckan.githubfeed.allissuesurl', 
+                    'https://github.com/orgs/code4romania/projects/12')
         }
 
 class PortalController(base.BaseController):
