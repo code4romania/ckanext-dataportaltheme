@@ -1,3 +1,4 @@
+{% set placeholder = _('Caută date despre orașul tău') %}
 <div class="container-fluid social">
 <div class="row">
     <div class="col-md-12">
@@ -5,21 +6,35 @@
     		<div class="col-md-4 social-col">
     		</div>
     		<div class="col-md-4 social-col">
-    			<div class="input-group">
-        			<input type="text" class="form-control" placeholder="Search" id="txtSearch"/>
-        				<div class="input-group-btn">
+				<form class="input-group " method="get" action="/dataset">
+					<input aria-label="{% block header_site_search_label %}{{ _('Search datasets') }}{% endblock %}" id="field-main-search" type="text" class="form-control" name="q" value="" autocomplete="off" placeholder="{% block search_placeholder %} {% endblock %}" />
+					<div class="input-group-btn">
           					<button class="btn btn-primary" type="submit">
             					<i class="fa fa-search"></i>
+								<span class="sr-only">{{ _('Search') }}</span>
           					</button>
        					 </div>
-      			</div>
+				</form>
     		</div>
     		<div class="col-md-4 social-col">
     			<div class="social-icons">
-    				<a class="social-button" href="#"><i class="fa fa-facebook"></i></a>
-	    			<a class="social-button" href="#"><i class="fa fa-instagram"></i></a>
-	    			<a class="social-button" href="#"><i class="fa fa-linkedin"></i></a>
-	    			<a class="social-button" href="#"><i class="fa fa-twitter"></i></a>
+
+                    {% if True %}
+                        <a class="social-button" href="#"><i class="fa fa-facebook"></i></a>
+                    {% endif %}
+
+                    {% if True %}
+                        <a class="social-button" href="#"><i class="fa fa-instagram"></i></a>
+                    {% endif %}
+
+                    {% if True %}
+                        <a class="social-button" href="#"><i class="fa fa-linkedin"></i></a>
+                    {% endif %}
+
+                    {% if True %}
+                        <a class="social-button" href="#"><i class="fa fa-twitter"></i></a>
+                    {% endif %}
+                    
 	    			<a class="donate-button" href="https://code4.ro/ro/doneaza/">
     				Donează
     			</a>
