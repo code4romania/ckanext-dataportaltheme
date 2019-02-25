@@ -24,15 +24,20 @@
 
         </ul>
       </nav>
-  <div class="section language">
-    <a class="language-toggle" href="#">
-      <img src="/uk-flag.png">
-      {# To do: Backend Logic #}
-      {#
-      <img src="/romania-flag.png">
-      <img src="/hungarian-flag.png">
-      #}
-    </a>
+  {% set current_lang = request.environ.CKAN_LANG %}
+  <div class="section language dropdown">
+    <a class="language-toggle" data-toggle="dropdown" href="#"><img src="/flags/{{ current_lang }}.svg"></a>
+      <ul class="dropdown-menu lang-dropdown">
+        <li>
+          <a href="{% url_for h.current_url(), locale='en' %}"><img src="/flags/en.svg"></a>
+        </li>
+        <li>
+          <a href="{% url_for h.current_url(), locale='ro' %}"><img src="/flags/ro.svg"></a>
+        </li>
+        <li>
+          <a href="{% url_for h.current_url(), locale='hu' %}"><img src="/flags/hu.svg"></a>
+        </li>
+      </ul>
   </div>
   {% block dropdown %}
   <nav class="section partners clearfix">
