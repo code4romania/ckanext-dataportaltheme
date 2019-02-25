@@ -20,11 +20,11 @@
   }
 }
 
-.masthead .nav > li > a, 
-.masthead .nav > li > a:focus, 
-.masthead .nav > li > a:hover, 
-.masthead .nav > .active > a, 
-.masthead .nav > .active > a:hover, 
+.masthead .nav > li > a,
+.masthead .nav > li > a:focus,
+.masthead .nav > li > a:hover,
+.masthead .nav > .active > a,
+.masthead .nav > .active > a:hover,
 .masthead .nav > .active > a:focus {
   background-color: #fff;
   color: #000;
@@ -41,10 +41,10 @@
   color: #000;
   background-color: transparent;
   padding: 10px 0 10px 50px;
-} 
+}
 
-.masthead .navigation .nav-pills li a:hover, 
-.masthead .navigation .nav-pills li a:focus, 
+.masthead .navigation .nav-pills li a:hover,
+.masthead .navigation .nav-pills li a:focus,
 .masthead .navigation .nav-pills li.active a {
   background-color: transparent;
   color: #000;
@@ -57,20 +57,29 @@
 .masthead .section.navigation {
   display: inline-block;
   vertical-align: middle;
-  padding-bottom: 10px;   
+  padding-bottom: 10px;
 }
 
 .masthead .section.language {
   display: inline-block;
   vertical-align: middle;
   margin-left: 20px;
-  padding-bottom: 10px;   
 }
+
+  .section.language .lang-dropdown {
+    min-width: auto;
+    padding: 2px;
+    margin-left: -3px;
+  }
+
+    .section.language .dropdown-menu > li > a {
+      padding: 0;
+    }
 
 
 .masthead .section.partners {
   border-top: 2px solid #eee;
-  padding-top: 10px;  
+  padding-top: 10px;
 }
 
 .masthead .section.partners .navbar-left li {
@@ -117,7 +126,7 @@
 }
 
 .masthead .section.partners .partners-dropdown-toggle .icon-wrapper {
-  float: right; 
+  float: right;
   width: 40px;
   padding-left: 10px;
   border-left: 1px solid rgba(33, 64, 154, 0.4)
