@@ -1,27 +1,54 @@
-.site-footer .logo img {
-    max-height: 99px;
-  }
-
 .site-footer {
-    background: #000;
+  background-color: #000;
+
 }
 
 .attribution {
-    text-align: right;
+  text-align: right;
 }
 
-#data_portal_logo {
-    width: 200px; height: 99px;
+  #newsletterForm {
+    margin-bottom: 40px;
+    text-align: left;
+    width: 240px;
+    float: right;
+  }
+
+    #newsletterForm label {
+      display: block;
+      font-weight: 600;
+      font-size: 18px;
+      color: #fff;
+    }
+
+    #newsletterForm input {
+      width: 100%;
+      line-height: 35px;
+      font-size: 12px;
+      padding: 5px;
+      color: #000;
+    }
+
+  #copyDesc {
+    white-space: nowrap;
+    float: right;
+  }
+
+.logo {
+  text-align: center;
 }
 
-.attribution input#newsletter {
-    width: 300px; height: 30px;
-}
+  .site-footer .logo img {
+    max-height: none;
+    width: 200px;
+  }
+
 
 #code_4_logo {
-    width: 150px; padding: 10px;
+  width: 125px;
+  margin: 10px;
 }
 
 .copyright {
-    font-size: 14px;
+  font-size: 14px;
 }
