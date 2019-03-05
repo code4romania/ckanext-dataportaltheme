@@ -109,6 +109,7 @@ Vagrant.configure("2") do |config|
     pip install ckanext-xloader
     pip install -r requirements.txt
     pip install -U requests[security]
+    pip install -U cachetools
     sudo -u postgres psql datastore_default -f /tmp/ckanext-xloader/full_text_function.sql
     cp /etc/ckan/default/pg_hba.conf /etc/postgresql/9.5/main/pg_hba.conf
     sudo service postgresql restart
