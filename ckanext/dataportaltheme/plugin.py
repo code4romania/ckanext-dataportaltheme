@@ -2,6 +2,7 @@ import routes.mapper
 import ckan.lib.base as base
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
+import ckan.lib.helpers as helpers
 from datetime import datetime
 
 import requests
@@ -28,6 +29,31 @@ def all_groups():
 
     return groups
 
+
+def similar_with(current_package):
+    if len(current_package['groups']) == 0:
+        return []
+
+    group = current_package['groups'][0]['name']
+    
+    f_group_packages = toolkit.get_action('group_package_show')
+    packages = f_group_packages(data_dict={'id': group, 'limit': 3})
+
+    # Delete current package from list if present
+    idx_to_remove = -1
+    for idx, package in enumerate(packages):
+        if package['name'] == current_package['name']:
+            idx_to_remove = idx
+            break
+    if idx_to_remove != -1:
+        packages.pop(idx_to_remove)
+
+    return packages
+
+def generate_url(package):
+    site_url = toolkit.config.get('ckan.site_url')
+    relative_path = helpers.url_for_static(controller='package', action='read',id=package['name'])
+    return ''.join([site_url, relative_path])
 
 class DataportalthemePlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IRoutes)
@@ -86,7 +112,9 @@ class DataportalthemePlugin(plugins.SingletonPlugin):
             'current_year': datetime.now().year,
             'githubfeed_latest': latest_issues,
             'githubfeed_getallissuesurl': toolkit.config.get('ckan.githubfeed.allissuesurl', 
-                    'https://github.com/orgs/code4romania/projects/12')
+                    'https://github.com/orgs/code4romania/projects/12'),
+            'similar': similar_with,
+            'generate_url': generate_url
         }
 
 class PortalController(base.BaseController):
