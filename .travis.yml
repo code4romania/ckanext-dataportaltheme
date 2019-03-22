@@ -1,0 +1,23 @@
+    
+language: python
+
+sudo: required
+
+python:
+    - "2.7"
+
+services:
+    - postgresql
+    - redis-server
+
+addons:
+    postgresql: "10.4"
+
+env:
+    - CKANVERSION=2.8
+
+install: bash travis/build.bash
+
+script: bash travis/run.bash
+
+after_success: coveralls
