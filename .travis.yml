@@ -16,8 +16,8 @@ addons:
 env:
     - CKANVERSION=2.8
 
-install: bash travis/build.bash
+install: bash bin/build.bash
 
-script: bash travis/run.bash
+script: bash bin/run.bash
 
 after_success: coveralls
