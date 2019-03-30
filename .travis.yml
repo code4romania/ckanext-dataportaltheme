@@ -2,7 +2,7 @@ dist: xenial
 language: python
 sudo: required
 addons:
-  ssh_known_hosts: $AWS_MACHINE 
+  ssh_known_hosts: 18.184.92.133
 provider: script
 before_install:
   - openssl aes-256-cbc -K $encrypted_614f6c96fad3_key -iv $encrypted_614f6c96fad3_iv -in bin/deploy.pem.enc -out bin/deploy.pem -d
