@@ -33,7 +33,7 @@ class DataportalthemePlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IRoutes)
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.ITemplateHelpers)
-    plugins.implements(plugins.IResourceController)
+    # plugins.implements(plugins.IResourceController)
     # IConfigurer
 
     def update_config(self, config):
@@ -66,8 +66,6 @@ class DataportalthemePlugin(plugins.SingletonPlugin):
         return route_map
 
     def before_show(self, resource_dict):
-        print('TEST')
-        pprint(resource_dict)
         resource_dict['test'] = 'test'
         return resource_dict
 
