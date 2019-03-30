@@ -1,0 +1,13 @@
+<div class="shadowbox clearAll" id="similar">
+  <h2>Similare: </h2>
+  <ul class="similar-packages-list">
+    {% for package in h.similar(pkg_dict) %}
+      <li class="similar-package">
+        <a href="{{h.generate_url(package)}}">
+          {{package['title']}}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+  
