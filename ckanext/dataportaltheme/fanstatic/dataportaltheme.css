@@ -29,3 +29,20 @@ h2 {
   display: block;
   clear: both;
 }
+
+.btn-primary {
+  background-color: #27AE60;
+  border-radius:0;
+  padding: 10px 20px;
+  border: 1px solid #27AE60;
+  text-transform: uppercase;
+}
+
+.btn-primary:hover{
+  background-color: #27AE60;
+  border: 1px solid #27AE60;
+}
+
+.social-col .btn-primary {
+  padding: 6px 20px;
+}
