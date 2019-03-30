@@ -19,19 +19,19 @@
     		<div class="col-md-4 social-col">
     			<div class="social-icons">
 
-                    {% if True %}
+                    {% if h.facebookLink != 'None' %}
                         <a class="social-button" href= {{h.facebookLink}} target="_blank"><i class="fa fa-facebook"></i></a>
                     {% endif %}
 
-                    {% if True %}
+                    {% if h.instagramLink != 'None' %}
                         <a class="social-button" href= {{h.instagramLink}} target="_blank"><i class="fa fa-instagram"></i></a>
                     {% endif %}
 
-                    {% if True %}
+                    {% if h.linkedInLink != 'None' %}
                         <a class="social-button" href= {{h.linkedInLink}} target="_blank"><i class="fa fa-linkedin"></i></a>
                     {% endif %}
 
-                    {% if True %}
+                    {% if h.twitterLink != 'None' %}
                         <a class="social-button" href= {{h.twitterLink}} target="_blank"><i class="fa fa-twitter"></i></a>
                     {% endif %}
 

@@ -114,10 +114,10 @@ class DataportalthemePlugin(plugins.SingletonPlugin):
             'similar': similar_with,
             'generate_url': generate_url,
 
-            'facebookLink': toolkit.config.get('dataPortal.facebook'),
-            'instagramLink': toolkit.config.get('dataPortal.instagram'),
-            'linkedInLink': toolkit.config.get('dataPortal.linkedIn'),
-            'twitterLink': toolkit.config.get('dataPortal.twitter')
+            'facebookLink': toolkit.config.get('dataPortal.facebook', 'None'),
+            'instagramLink': toolkit.config.get('dataPortal.instagram', 'None'),
+            'linkedInLink': toolkit.config.get('dataPortal.linkedIn', 'None'),
+            'twitterLink': toolkit.config.get('dataPortal.twitter', 'None')
         }
 
 class PortalController(base.BaseController):
