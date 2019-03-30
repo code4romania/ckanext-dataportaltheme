@@ -13,6 +13,7 @@
                 <li>{% link_for _('Termeni și condiții'), named_route="terms-and-conditions" %}</li>
                 <li><a href="{{ h.url_for(controller='home', action='about') }}">Politica de confidențialitate</a></li>
                 <li><a href="{{ h.url_for(controller='home', action='about') }}">Codul de conduită</a></li>
+                <li>{% link_for _('Politica de cookie-uri'), named_route="cookie-policy" %}</li>
                 <li><a href="https://www.code4.ro/">Code 4 Romania</a></li>
                 <li><a href="mailto:contact@code4.ro">Contact</a></li>
                 {% endblock %}
