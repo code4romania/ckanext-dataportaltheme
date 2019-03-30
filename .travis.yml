@@ -5,4 +5,4 @@ before_install:
   - chmod 600 bin/deploy.pem
   - ssh-add bin/deploy.pem
 # install: bash bin/travis-build.bash
-script: ssh -i bin/deploy.pem -o "StrictHostKeyChecking no" deploy@$AWS_MACHINE 'bash -s' < deploy-run.sh
+script: ssh -i bin/deploy.pem -o "StrictHostKeyChecking no" deploy@$AWS_MACHINE 'bash -s' < bin/deploy-run.sh
