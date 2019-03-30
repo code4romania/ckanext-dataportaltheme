@@ -112,7 +112,12 @@ class DataportalthemePlugin(plugins.SingletonPlugin):
             'githubfeed_getallissuesurl': toolkit.config.get('ckan.githubfeed.allissuesurl', 
                     'https://github.com/orgs/code4romania/projects/12'),
             'similar': similar_with,
-            'generate_url': generate_url
+            'generate_url': generate_url,
+
+            'facebookLink': toolkit.config.get('dataPortal.facebook'),
+            'instagramLink': toolkit.config.get('dataPortal.instagram'),
+            'linkedInLink': toolkit.config.get('dataPortal.linkedIn'),
+            'twitterLink': toolkit.config.get('dataPortal.twitter')
         }
 
 class PortalController(base.BaseController):
