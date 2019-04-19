@@ -69,7 +69,7 @@ Vagrant.configure("2") do |config|
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", inline: <<-SHELL
     sudo apt-get update
-    sudo apt-get install -y python-dev postgresql libpq-dev python-pip python-virtualenv git-core solr-jetty openjdk-8-jdk redis-server build-essential libxslt1-dev libxml2-dev git libffi-dev apache2 libapache2-mod-wsgi supervisor
+    sudo apt-get install -y python-dev postgresql libpq-dev python-pip python-virtualenv git-core solr-jetty openjdk-8-jdk redis-server build-essential libxslt1-dev libxml2-dev git libffi-dev apache2 libapache2-mod-wsgi supervisor postgresql-9.5-postgis-2.2
 
     mkdir -p /home/vagrant/ckan/lib
     sudo ln -s /home/vagrant/ckan/lib /usr/lib/ckan
@@ -88,8 +88,12 @@ Vagrant.configure("2") do |config|
     . /usr/lib/ckan/default/bin/activate
     pip install setuptools==36.1
     pip install -e 'git+https://github.com/ckan/ckan.git@ckan-2.8.2#egg=ckan'
+    pip install -e 'git+https://github.com/ViderumGlobal/ckanext-c3charts#egg=ckanext-c3charts'
+    pip install -e "git+https://github.com/ckan/ckanext-spatial.git#egg=ckanext-spatial"
+    pip install -r /usr/lib/ckan/default/src/ckanext-spatial/pip-requirements.txt
+    pip install -e 'git+https://github.com/ckan/ckanext-geoview#egg=ckanext-geoview'
     pip install -r /usr/lib/ckan/default/src/ckan/requirements.txt
-    pip install flask_debugtoolbar
+    pip install flask_debugtoolbar ckantoolkit ckanext-geoview
     cd /vagrant
     python setup.py develop
     deactivate
@@ -102,6 +106,10 @@ Vagrant.configure("2") do |config|
     sudo -u postgres psql -c "GRANT ALL ON DATABASE ckan_default TO ckan_default;"
     sudo -u postgres psql -c "GRANT ALL ON DATABASE xloader_jobs TO ckan_default;"
     sudo -u postgres psql -c "GRANT ALL ON DATABASE datastore_default TO ckan_default;"
+    sudo -u postgres psql -d ckan_default -f /usr/share/postgresql/9.5/contrib/postgis-2.2/postgis.sql
+    sudo -u postgres psql -d ckan_default -f /usr/share/postgresql/9.5/contrib/postgis-2.2/spatial_ref_sys.sql
+    sudo -u postgres psql -d ckan_default -c 'ALTER VIEW geometry_columns OWNER TO ckan_default;'
+    sudo -u postgres psql -d ckan_default -c 'ALTER TABLE spatial_ref_sys OWNER TO ckan_default;'
     cd /tmp
     git clone https://github.com/ckan/ckanext-xloader
     cd ckanext-xloader
