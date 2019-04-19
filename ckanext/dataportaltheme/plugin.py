@@ -87,6 +87,8 @@ class DataportalthemePlugin(plugins.SingletonPlugin):
             map.connect('stas-date-struct', '/standard-date/structura', action='dataStatsStruct')
             map.connect('terms-and-conditions', '/termsandconditions', action='termsandconditions')
             map.connect('contact-form', '/contact-form', action='contactForm')
+            map.connect('cookie-policy', '/cookiepolicy', action='cookiePolicy')
+            map.connect('code-of-conduct', '/codeofconduct', action='codeOfConduct')
         return route_map
 
     def after_map(self, route_map):
@@ -113,7 +115,12 @@ class DataportalthemePlugin(plugins.SingletonPlugin):
             'githubfeed_getallissuesurl': toolkit.config.get('ckan.githubfeed.allissuesurl', 
                     'https://github.com/orgs/code4romania/projects/12'),
             'similar': similar_with,
-            'generate_url': generate_url
+            'generate_url': generate_url,
+
+            'facebookLink': toolkit.config.get('dataPortal.facebook', 'None'),
+            'instagramLink': toolkit.config.get('dataPortal.instagram', 'None'),
+            'linkedInLink': toolkit.config.get('dataPortal.linkedIn', 'None'),
+            'twitterLink': toolkit.config.get('dataPortal.twitter', 'None')
         }
 
 class PortalController(base.BaseController):
@@ -127,9 +134,6 @@ class PortalController(base.BaseController):
         return base.render('home/termsandconditions.html')
 
     def contactForm(self):
-        print('----')
-        print(plugins.toolkit.request.params)
-        print('----')
         request_params = plugins.toolkit.request.params
         url = 'https://docs.google.com/forms/u/2/d/e/1FAIpQLSeGNW5FjBwauZLsf0Ar8P6SgbTdd0n5hRfCAJ-XKtzWQMSqRA/formResponse'
         form_data = {'entry.268426185': request_params['email'],
@@ -139,6 +143,12 @@ class PortalController(base.BaseController):
                     'pageHistory':0}
         user_agent = {'Referer':'https://docs.google.com/forms/d/e/1FAIpQLSeGNW5FjBwauZLsf0Ar8P6SgbTdd0n5hRfCAJ-XKtzWQMSqRA/viewform','User-Agent': "Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.52 Safari/537.36"}
         r = requests.post(url, data=form_data, headers=user_agent)
-        print('Google response:')
-        print(r)
         return base.render('home/contactform.html')
+
+    def cookiePolicy(self):
+        return base.render('home/cookiepolicy.html')
+
+    def codeOfConduct(self):
+        return base.render('home/codeofconduct.html')
+
+
