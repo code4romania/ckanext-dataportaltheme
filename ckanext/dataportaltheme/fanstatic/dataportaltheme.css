@@ -29,3 +29,7 @@ h2 {
   display: block;
   clear: both;
 }
+
+.btn {
+  color:red;
+}

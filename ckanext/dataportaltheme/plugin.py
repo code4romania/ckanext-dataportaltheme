@@ -35,7 +35,7 @@ def similar_with(current_package):
         return []
 
     group = current_package['groups'][0]['name']
-    
+
     f_group_packages = toolkit.get_action('group_package_show')
     packages = f_group_packages(data_dict={'id': group, 'limit': 3})
 
@@ -86,6 +86,7 @@ class DataportalthemePlugin(plugins.SingletonPlugin):
             map.connect('stas-date-esentiale', '/standard-date/esentiale', action='dataStatsEsentiale')
             map.connect('stas-date-struct', '/standard-date/structura', action='dataStatsStruct')
             map.connect('terms-and-conditions', '/termsandconditions', action='termsandconditions')
+            map.connect('contact-form', '/contact-form', action='contactForm')
         return route_map
 
     def after_map(self, route_map):
@@ -125,3 +126,19 @@ class PortalController(base.BaseController):
     def termsandconditions(self):
         return base.render('home/termsandconditions.html')
 
+    def contactForm(self):
+        print('----')
+        print(plugins.toolkit.request.params)
+        print('----')
+        request_params = plugins.toolkit.request.params
+        url = 'https://docs.google.com/forms/u/2/d/e/1FAIpQLSeGNW5FjBwauZLsf0Ar8P6SgbTdd0n5hRfCAJ-XKtzWQMSqRA/formResponse'
+        form_data = {'entry.268426185': request_params['email'],
+                    'entry.782078158': request_params['message'],
+                    'draftResponse':[],
+                    'fvv': 1,
+                    'pageHistory':0}
+        user_agent = {'Referer':'https://docs.google.com/forms/d/e/1FAIpQLSeGNW5FjBwauZLsf0Ar8P6SgbTdd0n5hRfCAJ-XKtzWQMSqRA/viewform','User-Agent': "Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.52 Safari/537.36"}
+        r = requests.post(url, data=form_data, headers=user_agent)
+        print('Google response:')
+        print(r)
+        return base.render('home/contactform.html')
