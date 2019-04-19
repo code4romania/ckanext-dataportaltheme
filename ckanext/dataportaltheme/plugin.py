@@ -86,6 +86,7 @@ class DataportalthemePlugin(plugins.SingletonPlugin):
             map.connect('stas-date-esentiale', '/standard-date/esentiale', action='dataStatsEsentiale')
             map.connect('stas-date-struct', '/standard-date/structura', action='dataStatsStruct')
             map.connect('terms-and-conditions', '/termsandconditions', action='termsandconditions')
+            map.connect('cookie-policy', '/cookiepolicy', action='cookiePolicy')
             map.connect('code-of-conduct', '/codeofconduct', action='codeOfConduct')
         return route_map
 
@@ -131,5 +132,9 @@ class PortalController(base.BaseController):
     def termsandconditions(self):
         return base.render('home/termsandconditions.html')
 
+    def cookiePolicy(self):
+        return base.render('home/cookiepolicy.html')
+
     def codeOfConduct(self):
         return base.render('home/codeofconduct.html')
+
