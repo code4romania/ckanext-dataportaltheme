@@ -1,0 +1,8 @@
+provider: script
+before_install:
+  - openssl aes-256-cbc -K $encrypted_614f6c96fad3_key -iv $encrypted_614f6c96fad3_iv -in bin/deploy.pem.enc -out bin/deploy.pem -d
+  - eval "$(ssh-agent -s)"
+  - chmod 600 bin/deploy.pem
+  - ssh-add bin/deploy.pem
+# install: bash bin/travis-build.bash
+script: ssh -i bin/deploy.pem -o "StrictHostKeyChecking no" deploy@$AWS_MACHINE 'bash -s' < bin/deploy-run.sh
