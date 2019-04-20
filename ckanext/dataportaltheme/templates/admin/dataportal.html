@@ -1,0 +1,83 @@
+{% import 'macros/autoform.html' as autoform %}
+{% extends "admin/base.html" %}
+{% import 'macros/form.html' as form %}
+{% block primary_content_inner %}
+{{ form.errors(error_summary) }}
+<form method='post' action="" id="admin-config-form" enctype="multipart/form-data">
+    {% block admin_form %}
+    <h3>Project Partners </h3>
+    <div class="row">
+        <div class="col-md-6">
+            {{ form.input('partner1_link', id='field-partner1_link', label=_('Partner 1 link'), value=g['partner1_link'], error=errors['partner1_link']) }}
+        </div>
+        <div class="col-md-6">
+            {{ form.input('partner1_logo', id='field-partner1_logo', label=_('Partner 1 logo'), value=g['partner1_logo'], error=errors['partner1_logo']) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            {{ form.input('partner2_link', id='field-partner2_link', label=_('Partner 2 link'), value=g['partner2_link'], error=errors['partner2_link']) }}
+        </div>
+        <div class="col-md-6">
+            {{ form.input('partner2_logo', id='field-partner2_logo', label=_('Partner 2 logo'), value=g['partner2_logo'], error=errors['partner2_logo']) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            {{ form.input('partner3_link', id='field-partner3_link', label=_('Partner 3 link'), value=g['partner3_link'], error=errors['partner3_link']) }}
+        </div>
+        <div class="col-md-6">
+            {{ form.input('partner3_logo', id='field-partner3_logo', label=_('Partner 3 logo'), value=g['partner3_logo'], error=errors['partner3_logo']) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            {{ form.input('partner4_link', id='field-partner4_link', label=_('Partner 4 link'), value=g['partner4_link'], error=errors['partner4_link']) }}
+        </div>
+        <div class="col-md-6">
+            {{ form.input('partner4_logo', id='field-partner4_logo', label=_('Partner 4 logo'), value=g['partner4_logo'], error=errors['partner4_logo']) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            {{ form.input('partner5_link', id='field-partner5_link', label=_('Partner 5 link'), value=g['partner5_link'], error=errors['partner5_link']) }}
+        </div>
+        <div class="col-md-6">
+            {{ form.input('partner5_logo', id='field-partner5_logo', label=_('Partner 5 logo'), value=g['partner5_logo'], error=errors['partner5_logo']) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            {{ form.input('partner6_link', id='field-partner6_link', label=_('Partner 6 link'), value=g['partner6_link'], error=errors['partner6_link']) }}
+        </div>
+        <div class="col-md-6">
+            {{ form.input('partner6_logo', id='field-partner6_logo', label=_('Partner 6 logo'), value=g['partner6_logo'], error=errors['partner6_logo']) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            {{ form.input('partner7_link', id='field-partner7_link', label=_('Partner 7 link'), value=g['partner7_link'], error=errors['partner7_link']) }}
+        </div>
+        <div class="col-md-6">
+            {{ form.input('partner7_logo', id='field-partner7_logo', label=_('Partner 7 logo'), value=g['partner7_logo'], error=errors['partner7_logo']) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            {{ form.input('partner8_link', id='field-partner8_link', label=_('Partner 8 link'), value=g['partner8_link'], error=errors['partner8_link']) }}
+        </div>
+        <div class="col-md-6">
+            {{ form.input('partner8_logo', id='field-partner8_logo', label=_('Partner 8 logo'), value=g['partner8_logo'], error=errors['partner8_logo']) }}
+        </div>
+    </div>
+    <h3>Social Links </h3>
+    {{ form.input('facebook_url', id='field-facebook_url', label=_('Facebook url'), value=g['facebook_url'], error=errors['facebook_url']) }}
+    {{ form.input('instagram_url', id='field-instagram_url', label=_('Instagram url'), value=g['instagram_url'], error=errors['instagram_url']) }}
+    {{ form.input('linkedIn_url', id='field-linkedIn_url', label=_('LinkedIn url'), value=g['linkedIn_url'], error=errors['linkedIn_url']) }}
+    {{ form.input('twitter_url', id='field-twitter_url', label=_('Twitter url'), value=g['twitter_url'], error=errors['twitter_url']) }}
+    {% endblock %}
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary" name="save">{{ _('Update Config') }}</button>
+    </div>
+</form>
+{% endblock %}

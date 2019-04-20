@@ -7,9 +7,8 @@
 
 {% block primary %}
   <div id="aboutLogo">
-		<img src="logo_big.png" />
+		<img src="{{ h.url_for_static_or_external(g.site_logo) }}" alt="{{ g.site_title }}" title="{{ g.site_title }}" />
 	</div>
-
   <h2>Ce este Data Portal Timișoara</h2>
   <p>
     Informațiile care pot fi citite de calculator sunt date într-un format care poate fi înțeles de către un computer. Aceasta înseamnă că toate câmpurile relevante pot fi extrase și analizate fără o contribuție umană. Doar pentru că un set de date este accesibil digital nu înseamnă neapărat că este lizibil și pentru calculator (mai multe informații aici). În spiritul datelor deschise, seturile de date trebuie furnizate în formate de fișiere neprotejate. Datele tabulare sunt furnizate ca fișiere CSV sau în format JSON . Metadatele trebuie excluse din fișierele de date. Acestea vor fi incluse într-un fișier zip cu fișierul de date (consultați punctul Pachetul de date de mai jos).
