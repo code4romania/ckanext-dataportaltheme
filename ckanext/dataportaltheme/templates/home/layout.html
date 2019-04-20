@@ -7,49 +7,18 @@
     </div>
 
     <div class="row equal">
+      {% for view in h.get_view_data() %}
       <div class="col-md-6">
         <div class="homePageItem">
           <div class="hpItemTitle">
-            Unități de învățământ pre-universitar
+            {{ view['name'] }}
           </div>
           <div class="hpItemBody">
-            <img src="/home-dummies/pie.png" />
+            <iframe width="500" height="400" src="{{ view['url'] }}" frameBorder="0"></iframe>
           </div>
         </div>
       </div>
-      <div class="col-md-6">
-        <div class="homePageItem">
-          <div class="hpItemTitle">
-            Comparative stats on infrastructure expenses 2015-2018
-          </div>
-          <div class="hpItemBody">
-            <img src="/home-dummies/bars.png" />
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row equal">
-      <div class="col-md-6">
-        <div class="homePageItem">
-          <div class="hpItemTitle">
-            FESI Report on absorbtion rate of structural and investment European Funds
-          </div>
-          <div class="hpItemBody">
-            <img src="/home-dummies/graph.png" />
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="homePageItem">
-          <div class="hpItemTitle">
-            Distribuția teritorială a spitalelor publice - Timișoara
-          </div>
-          <div class="hpItemBody">
-            <img src="/home-dummies/map.png" />
-          </div>
-        </div>
-      </div>
+      {% endfor %}
     </div>
 
     <div class="row">
