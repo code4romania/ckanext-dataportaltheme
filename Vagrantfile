@@ -153,14 +153,12 @@ Vagrant.configure("2") do |config|
     # pip install -r requirements.txt
     # python setup.py develop
 
-
     # sudo cp deployment/datapusher.apache2-4.conf /etc/apache2/sites-available/datapusher.conf
     # sudo cp deployment/datapusher.wsgi /etc/ckan/
 
     # # #copy the standard DataPusher settings.
     # sudo cp deployment/datapusher_settings.py /etc/ckan/
 
-    
     # sudo sh -c 'echo "NameVirtualHost *:8800" >> /etc/apache2/ports.conf'
     # sudo sh -c 'echo "Listen 8800" >> /etc/apache2/ports.conf'
     # echo "ServerName localhost" | sudo tee /etc/apache2/conf-available/fqdn.conf

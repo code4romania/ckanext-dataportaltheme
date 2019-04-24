@@ -35,7 +35,6 @@ def all_groups():
     # datasets.
     groups = toolkit.get_action('group_list')(
         data_dict={'all_fields': True})
-
     return groups
 
 
@@ -60,17 +59,31 @@ def similar_with(current_package):
     return packages
 
 
-def get_view_data():
+def get_view_data(group):
     view_data = []
     site_url = toolkit.config.get('ckan.site_url')
-    packages = toolkit.get_action('current_package_list_with_resources')(data_dict={})
+
+
+    if group:
+        f_group_packages = toolkit.get_action('group_package_show')
+        packages = f_group_packages(data_dict={'id': group, 'limit': 8})
+    else:
+        packages = toolkit.get_action('current_package_list_with_resources')(data_dict={})
+
+    ignored_views = ['text_view', 'recline_graph_view', 'recline_view']
     for package in packages:
-        for resource in package['resources'][:6]:
+        for resource in package['resources']:
+            if len(view_data) > 7:
+                break
             # Get view for resource
             views = toolkit.get_action('resource_view_list')(data_dict={'id': resource['id']})
-            url = '%s/dataset/%s/resource/%s/view/%s' % (
-                site_url, package['name'], resource['id'], views[0]['id'])
-            view_data.append({'url': url, 'name': views[0]['title']})
+            # print(views)
+            for view in views:
+                if view['view_type'] in ignored_views:
+                    continue
+                url = '%s/dataset/%s/resource/%s/view/%s' % (
+                    site_url, package['name'], resource['id'], view['id'])
+                view_data.append({'url': url, 'name': view['title']})
     return view_data
 
 
@@ -152,6 +165,7 @@ class DataportalthemePlugin(plugins.SingletonPlugin):
             map.connect('code-of-conduct', '/codeofconduct',
                         action='codeOfConduct')
             map.connect('admin.dataportal', '/ckan-admin/dataportal', action='dataportalAdmin')
+            map.connect('group.dashboard', '/group-dashboard', action='groupDashboard')
         return route_map
 
     def after_map(self, route_map):
@@ -249,7 +263,6 @@ class PortalController(base.BaseController):
                         logic.tuplize_dict(
                             logic.parse_params(
                                 request.POST, ignore_keys=CACHE_PARAMETERS))))
-                pprint(data_dict)
                 del data_dict['save']
 
                 data = logic.get_action('config_option_update')(
@@ -270,4 +283,12 @@ class PortalController(base.BaseController):
 
         vars = {'data': data, 'errors': {}}
         return base.render('admin/dataportal.html',
+                           extra_vars=vars)
+
+    def groupDashboard(self):
+        group = request.GET.get('g', '')
+        vars = {
+            'selected_group': group
+        }
+        return base.render('home/index.html',
                            extra_vars=vars)

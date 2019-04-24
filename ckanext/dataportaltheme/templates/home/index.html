@@ -20,7 +20,7 @@
       {{ self.flash() }}
     </div>
     {% block primary_content %}
-        {% snippet "home/layout.html" %}
+        {% snippet "home/layout.html" , selected_group=selected_group%}
         {% block medium_extension %}
           <div class="container articles">
             <div class="row equal">

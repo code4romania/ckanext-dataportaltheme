@@ -7,24 +7,30 @@
     </div>
 
     <div class="row equal">
-      {% for view in h.get_view_data() %}
-      <div class="col-md-6">
-        <div class="homePageItem">
-          <div class="hpItemTitle">
-            {{ view['name'] }}
-          </div>
-          <div class="hpItemBody">
-            <iframe width="500" height="400" src="{{ view['url'] }}" frameBorder="0"></iframe>
+      {% set all_views = h.get_view_data(selected_group) %}
+      {% if all_views %}
+        {% for view in all_views %}
+        <div class="col-md-6">
+          <div class="homePageItem">
+            <div class="hpItemTitle">
+              {{ view['name'] }}
+            </div>
+            <div class="hpItemBody">
+              <iframe width="450" height="285" src="{{ view['url'] }}" frameBorder="0"></iframe>
+            </div>
           </div>
         </div>
-      </div>
-      {% endfor %}
+        {% endfor %}
+        {% else %}
+            Momentan nu sunt date despre {{selected_group}}. Poți&nbsp;<a href="#">să ceri un set de date</a>
+      {% endif %}
     </div>
-
-    <div class="row">
-      <div class="col-md-12">
-        <a href="#" class="seeAllLink">Vezi toate seturile de date</a>
+    {% if all_views %}
+      <div class="row">
+        <div class="col-md-12">
+          <a href="/dataset?groups={{selected_group}}" class="seeAllLink">Vezi toate seturile de date</a>
+        </div>
       </div>
-    </div>
+    {% endif %}
   </div>
 </div>

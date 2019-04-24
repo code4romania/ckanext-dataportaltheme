@@ -4,7 +4,12 @@
 <div class="hero module module-search module-narrow module-shallow box">
   <form class="module-content search-form" method="get" action="{% url_for 'dataset' %}">
     <div class="search-input form-group search-giant">
-      <input aria-label="{% block header_site_search_label %}{{ _('Search datasets') }}{% endblock %}" id="field-main-search" type="text" class="form-control" name="q" value="" autocomplete="off" placeholder="{% block search_placeholder %}{{ placeholder }}{% endblock %}" />
+      {% if selected_group %}
+          <input  id="field-main-search" type="text" class="form-control" name="q" value="" autocomplete="off" placeholder="Caută date despre {{selected_group}}" />
+          <input type="hidden" name='groups' value="{{selected_group}}">
+        {% else %}
+          <input aria-label="{% block header_site_search_label %}{{ _('Search datasets') }}{% endblock %}" id="field-main-search" type="text" class="form-control" name="q" value="" autocomplete="off" placeholder="{% block search_placeholder %}{{ placeholder }}{% endblock %}" />
+      {% endif %}
       <button type="submit">
         <i class="fa fa-search"></i>
         <span class="sr-only">{{ _('Search') }}</span>
