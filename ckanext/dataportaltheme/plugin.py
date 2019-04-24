@@ -60,6 +60,20 @@ def similar_with(current_package):
     return packages
 
 
+def get_view_data():
+    view_data = []
+    site_url = toolkit.config.get('ckan.site_url')
+    packages = toolkit.get_action('current_package_list_with_resources')(data_dict={})
+    for package in packages:
+        for resource in package['resources'][:6]:
+            # Get view for resource
+            views = toolkit.get_action('resource_view_list')(data_dict={'id': resource['id']})
+            url = '%s/dataset/%s/resource/%s/view/%s' % (
+                site_url, package['name'], resource['id'], views[0]['id'])
+            view_data.append({'url': url, 'name': views[0]['title']})
+    return view_data
+
+
 def generate_url(package):
     site_url = toolkit.config.get('ckan.site_url')
     relative_path = h.url_for_static(
@@ -165,6 +179,7 @@ class DataportalthemePlugin(plugins.SingletonPlugin):
                                                              'https://github.com/orgs/code4romania/projects/12'),
             'similar': similar_with,
             'generate_url': generate_url,
+            'get_view_data': get_view_data
         }
 
 
@@ -256,4 +271,3 @@ class PortalController(base.BaseController):
         vars = {'data': data, 'errors': {}}
         return base.render('admin/dataportal.html',
                            extra_vars=vars)
-
