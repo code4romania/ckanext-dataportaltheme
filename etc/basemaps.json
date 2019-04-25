@@ -1,0 +1,16 @@
+[
+    {
+        "title": "Stamen Terrain",
+        "type" : "custom",
+        "url" : "http://tile.stamen.com/terrain/{z}/{x}/{y}.jpg",
+         "attribution" : "Map tiles Stamen" 
+	},
+	{
+        "title": "Opengeo WMS demo",
+        "type" : "wms",
+        "url" : "https://neo.sci.gsfc.nasa.gov/wms/wms#MOD14A1_M_FIRE",
+        "layer" : "SRTM_RAMP2_TOPO",
+        "srs" : "EPSG:4326"
+    }
+]
+
