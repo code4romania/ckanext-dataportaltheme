@@ -22,37 +22,7 @@
     {% block primary_content %}
         {% snippet "home/layout.html" , selected_group=selected_group%}
         {% block medium_extension %}
-          <div class="container articles">
-            <div class="row equal">
-              <div class="col-md-4">
-                <article class="shadowbox">
-                  <h3>Cum să utilizezi datele deschise pentru a-ți crește calitatea vieții</h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna wirl aliqua. Up exlaborum incididunt quis nostrud exercitatn. Lorem ipsum dolor sit amet, consectetur adipisicing elit,</p>
-                  <a href="#" class="readMore">Citește mai mult</a>
-                </article>
-              </div>
-
-
-              <div class="col-md-4">
-                <article class="shadowbox">
-                  <h3>Storytelling cu date dechise. Studiu de caz: Madrid</h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna wirl aliqua. Up exlaborum incididunt quis nostrud exercitatn. Lorem ipsum dolor sit amet, consectetur ad</p>
-                  <a href="#" class="readMore">Citește mai mult</a>
-                </article>
-              </div>
-
-
-              <div class="col-md-4">
-                <article class="shadowbox">
-                  <h3>Analiza datelor de trafic rutier</h3>
-                  <p>
-                    <img src="/home-dummies/pie2.png" />
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna wirl aliqua. Up exlaborum incididunt quis nostrud exercitatn. Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                  </p>
-                  <a href="#" class="readMore">Citește mai mult</a>
-                </article>
-              </div>
-            </div>
+            {% snippet "home/snippets/mediumfeed.html" %}
           </div>
         {% endblock medium_extension %}
           <div class="main">

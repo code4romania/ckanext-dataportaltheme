@@ -28,6 +28,47 @@ def gettasks(params={'state': 'open'}):
     return obj
 
 
+@ttl_cache(ttl=60 * 60)
+def get_medium_posts(medium_account):
+    MEDIUM_URL = 'https://medium.com/' + medium_account + '/latest?format=json'
+    IMAGE_URL_PREFIX = 'https://medium.com/p/'
+    POST_URL_PREFIX = 'https://cdn-images-1.medium.com/fit/c/200/200/'
+    ALT_IMAGE_ID = '1*bDcdy0VgfLjvZ8G_NG5BxQ.png'
+
+    posts = []
+
+    medium_data = requests.get(MEDIUM_URL).text
+
+    try:
+        posts_data = json.loads(medium_data[16:])['payload']['references']['Post']
+
+        for post_item in posts_data.values():
+
+            post_id = post_item.get('id', None)
+            post_url = IMAGE_URL_PREFIX + post_id
+            post_title = post_item.get('title', None)
+            post_subtitle = post_item['content']['subtitle']
+
+            post_image_url = post_item['virtuals']['previewImage']['imageId']
+            if post_image_url == '':
+                post_image_url = POST_URL_PREFIX + ALT_IMAGE_ID
+            else:
+                post_image_url = POST_URL_PREFIX + post_image_url
+
+            posts.append({
+                'id': post_id,
+                'name': post_title,
+                'description': post_subtitle,
+                'url': post_url,
+                'imageUrl': post_image_url
+            })
+    except Exception:
+        #
+        pass
+
+    return posts
+
+
 def all_groups():
     '''Return a sorted list of the groups with the most datasets.'''
 
@@ -128,6 +169,7 @@ class DataportalthemePlugin(plugins.SingletonPlugin):
             'twitter_url': [ignore_missing],
             'instagram_url': [ignore_missing],
             'linkedIn_url': [ignore_missing],
+            'medium_url': [ignore_missing],
         })
 
         return schema
@@ -185,6 +227,7 @@ class DataportalthemePlugin(plugins.SingletonPlugin):
             latest_issues = gettasks()[:3]
         except:
             latest_issues = []
+
         return {
             'all_groups': all_groups,
             'current_year': datetime.now().year,
@@ -193,7 +236,8 @@ class DataportalthemePlugin(plugins.SingletonPlugin):
                                                              'https://github.com/orgs/code4romania/projects/12'),
             'similar': similar_with,
             'generate_url': generate_url,
-            'get_view_data': get_view_data
+            'get_view_data': get_view_data,
+            'medium_latest': get_medium_posts,
         }
 
 
