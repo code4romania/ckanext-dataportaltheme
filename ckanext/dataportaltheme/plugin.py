@@ -63,7 +63,7 @@ def get_medium_posts(medium_account):
                 'imageUrl': post_image_url
             })
     except Exception:
-        #
+        # maybe change this
         pass
 
     return posts
