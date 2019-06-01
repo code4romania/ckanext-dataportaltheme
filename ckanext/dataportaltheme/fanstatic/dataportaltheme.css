@@ -11,6 +11,23 @@ body {
   background-color: #fff;
 }
 
+[role=main] .primary {
+  float: left;
+}
+
+@media (max-width: 767px)
+{
+  .toolbar .breadcrumb a {
+    color: #505050;
+  }
+}
+
+@media (max-width: 991px) {
+  .masthead .navigation .nav-pills li a {
+    padding-left: 25px !important;
+  }
+}
+
 #content {
   background-color: #fff;
   position: relative;

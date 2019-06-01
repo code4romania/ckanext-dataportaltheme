@@ -1,122 +1,205 @@
-{% ckan_extends %}
 
-{% block header_site_search %}
+{% block header_wrapper %} {% block header_account %}
+<header class="account-masthead">
+  <div class="container">
+    {% block header_account_container_content %} {% if c.userobj %}
+    <div class="account avatar authed" data-module="me" data-me="{{ c.userobj.id }}">
+      <ul class="list-unstyled">
+        {% block header_account_logged %} {% if c.userobj.sysadmin %}
+        <li>
+          <a href="{{ h.url_for(controller='admin', action='index') }}" title="{{ _('Sysadmin settings') }}">
+            <i class="fa fa-gavel" aria-hidden="true"></i>
+            <span class="text">{{ _('Admin') }}</span>
+          </a>
+        </li>
+        {% endif %}
+        <li>
+          <a href="{{ h.url_for('user.read', id=c.userobj.name) }}" class="image" title="{{ _('View profile') }}">
+                  {{ h.gravatar((c.userobj.email_hash if c and c.userobj else ''), size=22) }}
+                  <span class="username">{{ c.userobj.display_name }}</span>
+                </a>
+        </li>
+        {% set new_activities = h.new_activities() %}
+        <li class="notifications {% if new_activities > 0 %}notifications-important{% endif %}">
+          {% set notifications_tooltip = ngettext('Dashboard (%(num)d new item)', 'Dashboard (%(num)d new items)', new_activities)
+          %}
+          <a href="{{ h.url_for('dashboard.index') }}" title="{{ notifications_tooltip }}">
+            <i class="fa fa-tachometer" aria-hidden="true"></i>
+            <span class="text">{{ _('Dashboard') }}</span>
+            <span class="badge">{{ new_activities }}</span>
+          </a>
+        </li>
+        {% block header_account_settings_link %}
+        <li>
+          <a href="{{ h.url_for('user.edit', id=c.userobj.name) }}" title="{{ _('Edit settings') }}">
+            <i class="fa fa-cog" aria-hidden="true"></i>
+            <span class="text">{{ _('Settings') }}</span>
+          </a>
+        </li>
+        {% endblock %} {% block header_account_log_out_link %}
+        <li>
+          <a href="{{ h.url_for('/user/_logout') }}" title="{{ _('Log out') }}">
+            <i class="fa fa-sign-out" aria-hidden="true"></i>
+            <span class="text">{{ _('Log out') }}</span>
+          </a>
+        </li>
+        {% endblock %} {% endblock %}
+      </ul>
+    </div>
+    {% else %}
+    <nav class="account not-authed">
+      <ul class="list-unstyled">
+        {% block header_account_notlogged %}
+        <li>{% link_for _('Log in'), named_route='user.login' %}</li>
+        {% if h.check_access('user_create') %}
+        <li>{% link_for _('Register'), named_route='user.register', class_='sub' %}</li>
+        {% endif %} {% endblock %}
+      </ul>
+    </nav>
+    {% endif %} {% endblock %}
+  </div>
+</header>
 {% endblock %}
+<header class="navbar navbar-static-top masthead">
+  {% block header_debug %} {% if g.debug and not g.debug_supress_header %}
+  <div class="debug">Controller : {{ c.controller }}<br/>Action : {{ c.action }}</div>
+  {% endif %} {% endblock %}
+  <div class="container">
+    <div class="navbar-right">
+      {% set current_lang = request.environ.CKAN_LANG %}
 
-{% block header_site_navigation %}
+      <div class="section language dropdown">
+        <a class="language-toggle" data-toggle="dropdown" href="#"><img src="/flags/{{ current_lang }}.svg"></a>
+          <ul class="dropdown-menu lang-dropdown">
+            <li>
+              <a href="{% url_for h.current_url(), locale='en' %}"><img src="/flags/en.svg"></a>
+            </li>
+            <li>
+              <a href="{% url_for h.current_url(), locale='ro' %}"><img src="/flags/ro.svg"></a>
+            </li>
+            <li>
+              <a href="{% url_for h.current_url(), locale='hu' %}"><img src="/flags/hu.svg"></a>
+            </li>
+          </ul>
+      </div>
+
+      <button data-target="#main-navigation-toggle" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+        <span class="fa fa-bars"></span>
+      </button>
+    </div>
+    <hgroup class="{{ g.header_class }} navbar-left">
+      {% block header_logo %} {% if g.site_logo %}
+      <a class="logo" href="{{ h.url_for('home.index') }}"><img src="{{ h.url_for_static_or_external(g.site_logo) }}" alt="{{ g.site_title }}" title="{{ g.site_title }}" /></a>
+      {% else %}
+      <h1>
+        <a href="{{ h.url_for('home.index') }}">{{ g.site_title }}</a>
+      </h1>
+      {% if g.site_description %}
+      <h2>{{ g.site_description }}</h2>{% endif %} {% endif %} {% endblock %}
+    </hgroup>
+
+    <div class="collapse navbar-collapse" id="main-navigation-toggle">
       <nav class="section navigation">
         <ul class="nav nav-pills">
+
             <li>
-              <a href="#">Veifică seturi de date</a>
+              <a href="{{ h.url_for('dummy') }}">{{ _('Veifică seturi de date')}} </a>
             </li>
             <li>
-              <a href="#">Noutati</a>
+              <a href="{{ h.url_for('dummy') }}">{{ _('Noutati') }}</a>
             </li>
            <li>
-              <a href="/standard-date/esentiale">Standarde de date</a>
+              <a href="{{ h.url_for('stas-date-esentiale') }}">{{ _('Standarde de date') }}</a>
             </li>
             <li>
-              <a href="/dataset">Seturi de date</a>
+              <a href="/dataset">{{ _('Seturi de date') }}</a>
             </li>
             <li>
-              <a href="/about">Despre</a>
-              </li>
-
+              <a href="/about">{{ _('Despre') }}</a>
+            </li>
         </ul>
       </nav>
-  {% set current_lang = request.environ.CKAN_LANG %}
-  <div class="section language dropdown">
-    <a class="language-toggle" data-toggle="dropdown" href="#"><img src="/flags/{{ current_lang }}.svg"></a>
-      <ul class="dropdown-menu lang-dropdown">
-        <li>
-          <a href="{% url_for h.current_url(), locale='en' %}"><img src="/flags/en.svg"></a>
-        </li>
-        <li>
-          <a href="{% url_for h.current_url(), locale='ro' %}"><img src="/flags/ro.svg"></a>
-        </li>
-        <li>
-          <a href="{% url_for h.current_url(), locale='hu' %}"><img src="/flags/hu.svg"></a>
+    </div>
+
+    <nav class="section partners clearfix">
+      <ul class="nav navbar-nav navbar-left">
+        {% if g.partner1_logo %}
+          <li>
+            <a href="{{g.partner1_link}}">
+                <img src="{{ h.url_for_static_or_external(g.partner1_logo) }}"  />
+            </a>
+          </li>
+        {% endif %}
+        {% if g.partner2_logo %}
+          <li>
+            <a href="{{g.partner2_link}}">
+                <img src="{{ h.url_for_static_or_external(g.partner2_logo) }}"  />
+            </a>
+          </li>
+        {% endif %}
+        {% if g.partner3_logo %}
+          <li>
+            <a href="{{g.partner3_link}}">
+                <img src="{{ h.url_for_static_or_external(g.partner3_logo) }}"  />
+            </a>
+          </li>
+        {% endif %}
+        {% if g.partner4_logo %}
+          <li>
+            <a href="{{g.partner4_link}}">
+                <img src="{{ h.url_for_static_or_external(g.partner4_logo) }}"  />
+            </a>
+          </li>
+        {% endif %}
+        {% if g.partner5_logo %}
+          <li>
+            <a href="{{g.partner5_link}}">
+                <img src="{{ h.url_for_static_or_external(g.partner5_logo) }}"  />
+            </a>
+          </li>
+        {% endif %}
+        {% if g.partner6_logo %}
+          <li>
+            <a href="{{g.partner6_link}}">
+                <img src="{{ h.url_for_static_or_external(g.partner6_logo) }}"  />
+            </a>
+          </li>
+        {% endif %}
+        {% if g.partner7_logo %}
+          <li>
+            <a href="{{g.partner7_link}}">
+                <img src="{{ h.url_for_static_or_external(g.partner7_logo) }}"  />
+            </a>
+          </li>
+        {% endif %}
+        {% if g.partner8_logo %}
+          <li>
+            <a href="{{g.partner8_link}}">
+                <img src="{{ h.url_for_static_or_external(g.partner8_logo) }}"  />
+            </a>
+          </li>
+        {% endif %}
+
+
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="partners-dropdown-toggle dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+            aria-expanded="false">
+            <span>Data Portal</span>
+            <div class="icon-wrapper">
+              <img src="/icons/drop-down-arrow.png" alt="">
+            </div>
+          </a>
+          <ul class="partners-dropdown-menu dropdown-menu">
+            <li><a href="#">Data Portal Cluj Napoca</a></li>
+            <li><a href="#">Data Portal Iași</a></li>
+            <li><a href="#">Data Portal Constanța</a></li>
+          </ul>
         </li>
       </ul>
+    </nav>
+
   </div>
-  {% block dropdown %}
-  <nav class="section partners clearfix">
-    <ul class="nav navbar-nav navbar-left">
-      {% if g.partner1_logo %}
-        <li>
-          <a href="{{g.partner1_link}}">
-              <img src="{{ h.url_for_static_or_external(g.partner1_logo) }}"  />
-          </a>
-        </li>
-      {% endif %}
-      {% if g.partner2_logo %}
-        <li>
-          <a href="{{g.partner2_link}}">
-              <img src="{{ h.url_for_static_or_external(g.partner2_logo) }}"  />
-          </a>
-        </li>
-      {% endif %}
-      {% if g.partner3_logo %}
-        <li>
-          <a href="{{g.partner3_link}}">
-              <img src="{{ h.url_for_static_or_external(g.partner3_logo) }}"  />
-          </a>
-        </li>
-      {% endif %}
-      {% if g.partner4_logo %}
-        <li>
-          <a href="{{g.partner4_link}}">
-              <img src="{{ h.url_for_static_or_external(g.partner4_logo) }}"  />
-          </a>
-        </li>
-      {% endif %}
-      {% if g.partner5_logo %}
-        <li>
-          <a href="{{g.partner5_link}}">
-              <img src="{{ h.url_for_static_or_external(g.partner5_logo) }}"  />
-          </a>
-        </li>
-      {% endif %}
-      {% if g.partner6_logo %}
-        <li>
-          <a href="{{g.partner6_link}}">
-              <img src="{{ h.url_for_static_or_external(g.partner6_logo) }}"  />
-          </a>
-        </li>
-      {% endif %}
-      {% if g.partner7_logo %}
-        <li>
-          <a href="{{g.partner7_link}}">
-              <img src="{{ h.url_for_static_or_external(g.partner7_logo) }}"  />
-          </a>
-        </li>
-      {% endif %}
-      {% if g.partner8_logo %}
-        <li>
-          <a href="{{g.partner8_link}}">
-              <img src="{{ h.url_for_static_or_external(g.partner8_logo) }}"  />
-          </a>
-        </li>
-      {% endif %}
-      
-      
-    </ul>
-    <ul class="nav navbar-nav navbar-right">
-      <li class="dropdown">
-        <a href="#" class="partners-dropdown-toggle dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-          aria-expanded="false">
-          <span>Data Portal</span>
-          <div class="icon-wrapper">
-            <img src="/icons/drop-down-arrow.png" alt="">
-          </div>
-        </a>
-        <ul class="partners-dropdown-menu dropdown-menu">
-          <li><a href="#">Data Portal Cluj Napoca</a></li>
-          <li><a href="#">Data Portal Iași</a></li>
-          <li><a href="#">Data Portal Constanța</a></li>
-        </ul>
-      </li>
-    </ul>
-  </nav>
-  {% endblock %}
+</header>
 {% endblock %}

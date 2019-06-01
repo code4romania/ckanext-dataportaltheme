@@ -1,13 +1,18 @@
 .masthead {
   background-image: none;;
   background-color: #fff;
-  color: #000;
+  color: #505050;
 }
 
 .masthead .logo img {
   height: 100px;
-  max-height: 100px;
 }
+
+@media (max-width: 767px)
+{
+  height: 60px;
+}
+
 
 @media (min-width: 992px) {
   .masthead .header-image .navbar-left {
@@ -63,7 +68,9 @@
 .masthead .section.language {
   display: inline-block;
   vertical-align: middle;
-  margin-left: 20px;
+  margin-left: 10px;
+  margin-top: 12px;
+  float: right;
 }
 
   .section.language .lang-dropdown {

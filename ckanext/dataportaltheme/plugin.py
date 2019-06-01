@@ -153,6 +153,7 @@ class DataportalthemePlugin(plugins.SingletonPlugin):
 
     def before_map(self, route_map):
         with routes.mapper.SubMapper(route_map, controller='ckanext.dataportaltheme.plugin:PortalController') as map:
+            map.connect('dummy','#')
             map.connect('stas-date-esentiale',
                         '/standard-date/esentiale', action='dataStatsEsentiale')
             map.connect('stas-date-struct',
