@@ -18,23 +18,22 @@
     		</div>
     		<div class="col-md-4 social-col">
     			<div class="social-icons">
-
-                    {% if True %}
-                        <a class="social-button" href="#"><i class="fa fa-facebook"></i></a>
+                    {% if g.facebook_url %}
+                        <a class="social-button" href="{{g.facebook_url}}" target="_blank"><i class="fa fa-facebook"></i></a>
                     {% endif %}
 
-                    {% if True %}
-                        <a class="social-button" href="#"><i class="fa fa-instagram"></i></a>
+                    {% if g.instagram_url %}
+                        <a class="social-button" href="{{g.instagram_url}}" target="_blank"><i class="fa fa-instagram"></i></a>
                     {% endif %}
 
-                    {% if True %}
-                        <a class="social-button" href="#"><i class="fa fa-linkedin"></i></a>
+                    {% if g.linkedIn_url %}
+                        <a class="social-button" href="{{g.linkedIn_url}}" target="_blank"><i class="fa fa-linkedin"></i></a>
                     {% endif %}
 
-                    {% if True %}
-                        <a class="social-button" href="#"><i class="fa fa-twitter"></i></a>
+                    {% if g.twitter_url %}
+                        <a class="social-button" href="{{g.twitter_url}}" target="_blank"><i class="fa fa-twitter"></i></a>
                     {% endif %}
-                    
+
 	    			<a class="donate-button" href="https://code4.ro/ro/doneaza/">
     				Donează
     			</a>

@@ -1,6 +1,6 @@
 <div class="featured-image">
   <div>
-    {% snippet 'home/snippets/search.html' %}
+    {% snippet 'home/snippets/search.html', selected_group=selected_group%}
   </div>
 </div>
 
@@ -10,7 +10,7 @@
       <ul class="categories">
         {% for group in h.all_groups() %}
         <li>
-          <a href="/group/{{group.name}}" class="category">
+          <a href="/group-dashboard?g={{group.name}}" class="category {% if group.name == selected_group %}active{% endif %}">
             <div class="image-wrapper">
               <img src="{{group.image_display_url}}" alt="">
             </div>

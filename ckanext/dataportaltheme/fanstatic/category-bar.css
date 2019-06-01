@@ -37,7 +37,8 @@
 }
 
 .categories li a:hover,
-.categories li a:active {
+.categories li a:active,
+.categories li a.active {
   background-color: #FFDE17;
   text-decoration: none;
   color: #000;
