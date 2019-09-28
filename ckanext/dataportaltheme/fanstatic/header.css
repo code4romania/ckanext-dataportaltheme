@@ -8,12 +8,6 @@
   height: 100px;
 }
 
-@media (max-width: 767px)
-{
-  height: 60px;
-}
-
-
 @media (min-width: 992px) {
   .masthead .header-image .navbar-left {
     width: 25%;
@@ -108,104 +102,84 @@
 }
 
 #underNav {
-  display: table;
-  width: 100%;
+	clear: both;
 }
 
-  #underNav > div {
-    display: table-row;
+  #citySelector {
+    width: 214px;
+    float: right;
   }
 
-    #partners {
-      display: table-cell;
+  @media (max-width: 767px) {
+		#citySelector {
+			width: 100%;
+			margin-top: 10px;
+		}
+	}
+
+    #citySelector ul {
+      width: 100%;
     }
 
-      #partners li {
-        margin-right: 10px;
-        list-style: none;
-        display: inline-block;
+    #citySelector .cities-dropdown-toggle {
+      border: 1px solid rgba(33, 64, 154, 0.4);
+      border-radius: 3px;
+      padding: 10px;
+      color: rgba(0, 0, 0, 0.6);
+      background-color: #fff;
+      font-size: 12px;
+      line-height: 28px;
+      text-align: center;
+      -webkit-transition: all .2s ease-out;
+      -moz-transition: all .2s ease-out;
+      -o-transition: all .2s ease-out;
+      transition: all .2s ease-out;
+    }
+
+    #citySelector .open .cities-dropdown-toggle,
+    #citySelector .cities-dropdown-toggle:hover {
+      background-color: #21409A;
+      color: #fff;
+    }
+
+      #citySelector .cities-dropdown-toggle .icon-wrapper {
+        float: right;
+        width: 40px;
+        height: 29px;
+        padding-left: 10px;
+        padding-top: 5px;
+        border-left: 1px solid rgba(33, 64, 154, 0.4)
       }
 
-      #partners li:last-child {
-        margin-right: 0;
-      }
-
-      #partners li a {
-        height: 50px;
-        display: inline-block;
-        padding: 0;
-      }
-
-        #partners a img {
-          max-height: 100%;
+        #citySelector .cities-dropdown-toggle .icon-wrapper img {
+          width: 100%;
         }
 
-    #citySelector {
-      display: table-cell;
-      width: 214px;
-    }
-
-      #citySelector ul {
-        width: 100%;
+      #citySelector .open .cities-dropdown-toggle .icon-wrapper {
+        border-left: 1px solid transparent;
       }
 
-      #citySelector .cities-dropdown-toggle {
-        border: 1px solid rgba(33, 64, 154, 0.4);
-        border-radius: 3px;
-        padding: 10px;
-        color: rgba(0, 0, 0, 0.6);
+    #citySelector .cities-dropdown-menu {
+      width: 100%;
+      background-color: transparent;
+      box-shadow: none;
+      border: none;
+      padding: 0;
+    }
+
+      #citySelector .cities-dropdown-menu li a {
+        padding: 10px 20px;
         background-color: #fff;
+        border-radius: 3px;
+        border: 1px solid rgba(33, 64, 154, 0.4);
         font-size: 12px;
-        line-height: 28px;
-        text-align: center;
         -webkit-transition: all .2s ease-out;
         -moz-transition: all .2s ease-out;
         -o-transition: all .2s ease-out;
         transition: all .2s ease-out;
       }
 
-      #citySelector .open .cities-dropdown-toggle,
-      #citySelector .cities-dropdown-toggle:hover {
-        background-color: #21409A;
-        color: #fff;
+      #citySelector .cities-dropdown-menu li a:hover {
+        background-color: #eee;
+        color: #000;
       }
-
-        #citySelector .cities-dropdown-toggle .icon-wrapper {
-          float: right;
-          width: 40px;
-          padding-left: 10px;
-          border-left: 1px solid rgba(33, 64, 154, 0.4)
-        }
-
-          #citySelector .cities-dropdown-toggle .icon-wrapper img {
-            width: 100%;
-          }
-
-        #citySelector .open .cities-dropdown-toggle .icon-wrapper {
-          border-left: 1px solid transparent;
-        }
-
-      #citySelector .cities-dropdown-menu {
-        width: 100%;
-        background-color: transparent;
-        box-shadow: none;
-        border: none;
-        padding: 0;
-      }
-
-        #citySelector .cities-dropdown-menu li a {
-          padding: 10px 20px;
-          background-color: #fff;
-          border-radius: 3px;
-          border: 1px solid rgba(33, 64, 154, 0.4);
-          font-size: 12px;
-          -webkit-transition: all .2s ease-out;
-          -moz-transition: all .2s ease-out;
-          -o-transition: all .2s ease-out;
-          transition: all .2s ease-out;
-        }
-
-        #citySelector .cities-dropdown-menu li a:hover {
-          background-color: #eee;
-          color: #000;
-        }

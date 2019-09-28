@@ -1,77 +1,94 @@
-
-
-
-.container-fluid {
-	padding: 0px !important;
-}
-
-.social-col {
+#social-footer
+{
+	padding-right: 0;
 	height: 50px;
 	position: relative;
 }
 
-.social-col .input-group {
-	position: relative;
-	top: 50%;
-	transform: translateY(-50%);
-}
+	#socialFormWrap {
+		padding-top: 8px;
+	}
 
-.social
+		#socialFormWrap form {
+			width: 40%;
+			margin: 0 auto;
+		}
+
+		#socialFormWrap .btn-primary {
+		  padding: 6px 20px;
+		}
+
+	.social-icons
+	{
+		position: absolute;
+		right: 0;
+		font-size: 35px;
+		color:grey;
+	}
+
+		.social-icons  {
+			text-align: right;
+			float: right;
+		}
+
+		.social-icons a{
+			float: left;
+		}
+
+		.social-icons .social-button {
+		  height: 50px;
+		  width: 50px;
+		  background-color: gray;
+		  display: inline-block;
+		  text-align: center;
+		  padding: 2px;
+		  opacity: .6;
+		  color: #fff;
+		}
+
+		.social-icons .social-button:first-child:hover{
+		   background-color:#3b5998;
+		}
+
+		.social-icons .social-button:nth-child(2):hover{
+		    background-color:#fa7e1e;
+		}
+		.social-icons .social-button:nth-child(3):hover{
+		    background-color:#0077b5;
+		}
+		.social-icons .social-button:nth-child(4):hover {
+		    background-color:#0084b4;
+		}
+
+		.social-icons .donate-button {
+			display: inline-block;
+			text-transform: uppercase;
+			background: #1FB94A;
+			color:#FFFFFF;
+			height: 50px;
+			font-size: 14px;
+			line-height: 50px;
+			padding: 0 20px;
+		}
+
+@media (max-width: 991px)
 {
-	background: #F0F0F0;
-	height: 50px;
+
+	#socialFormWrap form {
+		width: auto;
+		margin: auto;
+		padding-right: 15px;
+	}
+
+	.social-icons {
+		position: static;
+		float: right;
+	}
 }
 
-.social-icons
+@media (max-width: 767px)
 {
-	font-size: 35px;
-	color:grey;
-}
-
-.social-icons  {
-	text-align: right;
-	float: right;
-}
-
-.social-icons a{
-	float: left;
-}
-
-.social-icons .social-button {
-  height: 50px;
-  width: 50px;
-  background-color: gray;
-  display: inline-block;
-  text-align: center;
-  padding: 2px;
-  opacity: .6;
-  color: #fff;
-}
-
-
-
-.social-icons .social-button:first-child:hover{
-   background-color:#3b5998;
-}
-
-.social-icons .social-button:nth-child(2):hover{
-    background-color:#fa7e1e;
-}
-.social-icons .social-button:nth-child(3):hover{
-    background-color:#0077b5;
-}
-.social-icons .social-button:nth-child(4):hover {
-    background-color:#0084b4;
-}
-
-
-.social-icons .donate-button {
-	display: inline-block;
-	text-transform: uppercase;
-	background: #1FB94A;
-	color:#FFFFFF;
-	height: 50px;
-	font-size: 14px;
-	line-height: 50px;
-	padding: 0 20px;
+	#socialFormWrap form {
+		display: none;
+	}
 }

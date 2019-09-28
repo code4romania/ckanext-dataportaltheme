@@ -1,66 +1,66 @@
 @import url('https://fonts.googleapis.com/css?family=Titillium+Web');
 
 body {
-  font-family: 'Titillium Web', sans-serif;
-  background-color: #fff;
+	font-family: 'Titillium Web', sans-serif;
+	background-color: #fff;
 }
 
 [role=main],
 .main {
-  background-image: none;
-  background-color: #fff;
+	background-image: none;
+	background-color: #fff;
 }
 
 [role=main] .primary {
-  float: left;
+	float: left;
 }
 
 @media (max-width: 767px)
 {
-  .toolbar .breadcrumb a {
-    color: #505050;
-  }
+	.toolbar .breadcrumb a {
+		color: #505050;
+	}
+
+	[role=main] .primary {
+		float: none;
+	}
 }
 
 @media (max-width: 991px) {
-  .masthead .navigation .nav-pills li a {
-    padding-left: 25px !important;
-  }
+	.masthead .navigation .nav-pills li a {
+		padding-left: 25px !important;
+	}
 }
 
 #content {
-  background-color: #fff;
-  position: relative;
+	background-color: #fff;
+	position: relative;
 }
 
 h1 {
-  color: #21409A;
+	color: #21409A;
 }
 
 h2 {
-  color: #21409A;
+	color: #21409A;
 }
 
-.clearAll::after {
-  content: " ";
-  display: block;
-  clear: both;
+.clear-all::after {
+	content: " ";
+	display: block;
+	clear: both;
 }
 
 
 .btn-primary {
-  background-color: #27AE60;
-  border-radius:0;
-  padding: 10px 20px;
-  border: 1px solid #27AE60;
-  text-transform: uppercase;
+	background-color: #27AE60;
+	border-radius:0;
+	padding: 10px 20px;
+	border: 1px solid #27AE60;
+	text-transform: uppercase;
 }
 
 .btn-primary:hover{
-  background-color: #27AE60;
-  border: 1px solid #27AE60;
-}
-
-.social-col .btn-primary {
-  padding: 6px 20px;
+	background-color: #27AE60;
+	border: 1px solid #27AE60;
 }

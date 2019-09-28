@@ -68,6 +68,10 @@
     <div class="navbar-right">
       {% set current_lang = request.environ.CKAN_LANG %}
 
+      <button data-target="#main-navigation-toggle" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+        <span class="fa fa-bars"></span>
+      </button>
+
       <div class="section language dropdown">
         <a class="language-toggle" data-toggle="dropdown" href="#"><img src="/flags/{{ current_lang }}.svg"></a>
           <ul class="dropdown-menu lang-dropdown">
@@ -83,9 +87,6 @@
           </ul>
       </div>
 
-      <button data-target="#main-navigation-toggle" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
-        <span class="fa fa-bars"></span>
-      </button>
     </div>
     <hgroup class="{{ g.header_class }} navbar-left">
       {% block header_logo %} {% if g.site_logo %}
@@ -122,67 +123,6 @@
 
     <div id="underNav">
       <div>
-        <div id="partners">
-          <ul class="clearfix">
-            {% if g.partner1_logo %}
-              <li>
-                <a href="{{g.partner1_link}}">
-                    <img src="{{ h.url_for_static_or_external(g.partner1_logo) }}"  />
-                </a>
-              </li>
-            {% endif %}
-            {% if g.partner2_logo %}
-              <li>
-                <a href="{{g.partner2_link}}">
-                    <img src="{{ h.url_for_static_or_external(g.partner2_logo) }}"  />
-                </a>
-              </li>
-            {% endif %}
-            {% if g.partner3_logo %}
-              <li>
-                <a href="{{g.partner3_link}}">
-                    <img src="{{ h.url_for_static_or_external(g.partner3_logo) }}"  />
-                </a>
-              </li>
-            {% endif %}
-            {% if g.partner4_logo %}
-              <li>
-                <a href="{{g.partner4_link}}">
-                    <img src="{{ h.url_for_static_or_external(g.partner4_logo) }}"  />
-                </a>
-              </li>
-            {% endif %}
-            {% if g.partner5_logo %}
-              <li>
-                <a href="{{g.partner5_link}}">
-                    <img src="{{ h.url_for_static_or_external(g.partner5_logo) }}"  />
-                </a>
-              </li>
-            {% endif %}
-            {% if g.partner6_logo %}
-              <li>
-                <a href="{{g.partner6_link}}">
-                    <img src="{{ h.url_for_static_or_external(g.partner6_logo) }}"  />
-                </a>
-              </li>
-            {% endif %}
-            {% if g.partner7_logo %}
-              <li>
-                <a href="{{g.partner7_link}}">
-                    <img src="{{ h.url_for_static_or_external(g.partner7_logo) }}"  />
-                </a>
-              </li>
-            {% endif %}
-            {% if g.partner8_logo %}
-              <li>
-                <a href="{{g.partner8_link}}">
-                    <img src="{{ h.url_for_static_or_external(g.partner8_logo) }}"  />
-                </a>
-              </li>
-            {% endif %}
-          </ul>
-        </div>
-
         <div id="citySelector">
           <ul class="nav">
             <li class="dropdown">
