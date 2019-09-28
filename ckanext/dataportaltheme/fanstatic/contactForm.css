@@ -11,9 +11,10 @@
 	#contactForm textarea {
 		display: block;
 		width: 100%;
-		background-color: #c4c4c4;
-		border: none;
+		border: 1px solid #c4c4c4;
 		padding: 5px 10px;
+		background-color: #FCFCFC;
+		border-radius: 4px;
 	}
 
 	#contactForm input {
@@ -24,4 +25,10 @@
 		resize: vertical;
 		margin-bottom: 10px;
 		min-height: 160px;
+	}
+
+	#contactForm input[type=submit] {
+		background-color: #58B558;
+		color: #fff;
+		border-radius: 0;
 	}

@@ -1,54 +1,75 @@
 .site-footer {
-  background-color: #000;
+	background-color: #000;
 
 }
 
-.attribution {
-  text-align: right;
-}
+	.site-footer .attribution {
+		text-align: right;
+	}
 
-  #newsletterForm {
-    margin-bottom: 40px;
-    text-align: left;
-    width: 240px;
-    float: right;
-  }
+		#newsletterForm {
+			margin-bottom: 40px;
+			text-align: left;
+			width: 240px;
+			float: right;
+		}
 
-    #newsletterForm label {
-      display: block;
-      font-weight: 600;
-      font-size: 18px;
-      color: #fff;
-    }
+		@media (max-width: 767px) {
+			#newsletterForm {
+				width: 100%;
+				float: none;
+				margin-top: 10px;
+			}
+		}
 
-    #newsletterForm input {
-      width: 100%;
-      line-height: 35px;
-      font-size: 12px;
-      padding: 5px;
-      color: #000;
-    }
+			#newsletterForm label {
+				display: block;
+				font-weight: 600;
+				font-size: 18px;
+				color: #fff;
+			}
 
-  #copyDesc {
-    white-space: nowrap;
-    float: right;
-  }
+			#newsletterForm input {
+				width: 100%;
+				line-height: 35px;
+				font-size: 12px;
+				padding: 5px;
+				color: #000;
+			}
 
-.logo {
-  text-align: center;
-}
+		#copyDesc {
+			white-space: nowrap;
+			float: right;
+		}
 
-  .site-footer .logo img {
-    max-height: none;
-    width: 200px;
-  }
+		@media (max-width: 767px) {
+			#copyDesc {
+				white-space: normal;
+				width: 200px;
+			}
+		}
+
+	.site-footer .logo {
+		text-align: center;
+	}
+
+	@media (max-width: 767px) {
+		.site-footer .logo {
+			display: none;
+		}
+	}
+
+		.site-footer .logo img {
+			max-height: none;
+			width: 200px;
+		}
 
 
-#code_4_logo {
-  width: 125px;
-  margin: 10px;
-}
+	#code_4_logo {
+		width: 125px;
+		margin: 10px;
+	}
 
-.copyright {
-  font-size: 14px;
-}
+	.site-footer .copyright {
+		font-size: 14px;
+	}

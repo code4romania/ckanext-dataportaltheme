@@ -1,5 +1,9 @@
 .hero {
   background-image: url('/header-local.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
   height: 350px;
   border: none;
 }
@@ -12,5 +16,11 @@
   left: 0;
   right: 0;
   margin: auto;
-  border: none; 
+  border: none;
+}
+
+@media (max-width: 767px) {
+	.hero .search-form {
+		width: 100%;
+	}
 }
