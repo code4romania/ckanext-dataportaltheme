@@ -2,6 +2,7 @@
   background-image: none;;
   background-color: #fff;
   color: #505050;
+  z-index: 2;
 }
 
 .masthead .logo img {
