@@ -64,3 +64,39 @@ h2 {
 	background-color: #27AE60;
 	border: 1px solid #27AE60;
 }
+
+.label[data-format="csv"] {
+	background-color: rgba(39, 174, 96, 0.6);
+}
+
+.label[data-format="xml"] {
+	background-color: rgba(88, 153, 218, 0.6);
+}
+
+.label[data-format="json"] {
+	background-color: rgba(232, 116, 59, 0.6);
+}
+
+.label[data-format="xhtml"] {
+	background-color: rgba(237, 74, 123, 0.6);
+}
+
+.label[data-format="xls"] {
+	background-color: rgba(148, 94, 207, 0.6);
+}
+
+.label[data-format="pdf"] {
+	background-color: rgba(19, 164, 180, 0.6);
+}
+
+.label[data-format="rss"] {
+	background-color: rgba(82, 93, 244, 0.6);
+}
+
+.label[data-format="txt"] {
+	background-color: rgba(191, 57, 158, 0.6);
+}
+
+.label[data-format="xms"] {
+	background-color: rgba(238, 104, 104, 0.6);
+}
