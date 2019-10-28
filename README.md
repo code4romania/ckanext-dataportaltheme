@@ -3,7 +3,7 @@ ckanext-dataportaltheme
 
 DataPortal base theme
 
-[UI prototipe](https://www.figma.com/file/P60qSupJkefpT7K4rT5PQuva/Data-Portal?node-id=0%3A1)
+[UI prototype](https://www.figma.com/file/P60qSupJkefpT7K4rT5PQuva/Data-Portal?node-id=0%3A1)
 
 ------------
 Requirements
@@ -17,38 +17,20 @@ We gave 4096MB of RAM to the VM. If you wish you can change this in the `Vagrant
 Start Virtual Machine
 ---------------------
 ```
-vagrant up
-vagrant ssh
+./bin/start.sh
 ```
 Take a break for 10-15 min :).  
-If you get any error while `vagrant up` try `vagrant reload`.  
 
-If you still have errors in during `vagrant up` please check that you have the latest `Vagrant` and `Virtualbox`, or try to run step by step the commands from [Installing CKAN from source](https://docs.ckan.org/en/latest/maintaining/installing/install-from-source.html) documentation
-
-------------------------------------------
-Activate virtualenv
-------------------------------------------
-```
-source /usr/lib/ckan/default/bin/activate
-```
-
-
------------------------------
-Start CKAN development server
------------------------------
-```
-paster serve /etc/ckan/default/development.ini --reload
-```
-
+If you have errors in during start, please check that you have the latest [Vagrant](https://www.vagrantup.com/) and [Virtualbox](https://www.virtualbox.org/), or try to run step by step the commands from [Installing CKAN from source](https://docs.ckan.org/en/latest/maintaining/installing/install-from-source.html) documentation
 
 Now you can access ckan instance on http://127.0.0.1:5000
 
 You have 4 available users:
 ```
-admin (pasword: "changeme") - sysadmin
-demo (pasword: "changeme") - admin user in Code4 Organization
-editor (pasword: "changeme") - editor user in Code4 Organization
-member (pasword: "changeme") - regular user(member) in Code4 Organization
+admin (password: "changeme") - sysadmin
+demo (password: "changeme") - admin user in Code4 Organisation
+editor (password: "changeme") - editor user in Code4 Organisation
+member (password: "changeme") - regular user(member) in Code4 Organisation
 ```
 
 # Happy Hacking :)
@@ -68,6 +50,7 @@ sudo -u postgres pg_restore --clean --if-exists -d ckan_default < /data/ckan.dum
 
 # Resources
 [Add static pages extension example](https://github.com/okfn/ckanext-sa/blob/master/ckanext/sa/plugin.py)
+[Base template](https://github.com/ckan/ckan/tree/master/ckan/templates)
 
 ---------------
 Config Settings
@@ -89,7 +72,7 @@ To run the tests, do::
     nosetests --nologcapture --with-pylons=test.ini
 
 To run the tests and produce a coverage report, first make sure you have
-coverage installed in your virtualenv (``pip install coverage``) then run::
+coverage installed in your virtualenv (`pip install coverage`) then run::
 
     nosetests --nologcapture --with-pylons=test.ini --with-coverage --cover-package=ckanext.dataportaltheme --cover-inclusive --cover-erase --cover-tests
 
@@ -98,7 +81,7 @@ coverage installed in your virtualenv (``pip install coverage``) then run::
 Registering ckanext-dataportaltheme on PyPI
 ---------------------------------
 
-ckanext-dataportaltheme should be availabe on PyPI as
+ckanext-dataportaltheme should be available on PyPI as
 https://pypi.python.org/pypi/ckanext-dataportaltheme. If that link doesn't work, then
 you can register the project on PyPI for the first time by following these
 steps:
@@ -116,7 +99,7 @@ steps:
      python setup.py sdist upload
 
 4. Tag the first release of the project on GitHub with the version number from
-   the ``setup.py`` file. For example if the version number in ``setup.py`` is
+   the `setup.py` file. For example if the version number in `setup.py` is
    0.0.1 then do::
 
        git tag 0.0.1
@@ -127,10 +110,10 @@ steps:
 Releasing a New Version of ckanext-dataportaltheme
 ----------------------------------------
 
-ckanext-dataportaltheme is availabe on PyPI as https://pypi.python.org/pypi/ckanext-dataportaltheme.
+ckanext-dataportaltheme is available on PyPI as https://pypi.python.org/pypi/ckanext-dataportaltheme.
 To publish a new version to PyPI follow these steps:
 
-1. Update the version number in the ``setup.py`` file.
+1. Update the version number in the `setup.py` file.
    See `PEP 440 <http://legacy.python.org/dev/peps/pep-0440/#public-version-identifiers>`_
    for how to choose version numbers.
 
@@ -143,7 +126,7 @@ To publish a new version to PyPI follow these steps:
      python setup.py sdist upload
 
 4. Tag the new release of the project on GitHub with the version number from
-   the ``setup.py`` file. For example if the version number in ``setup.py`` is
+   the `setup.py` file. For example if the version number in `setup.py` is
    0.0.2 then do::
 
        git tag 0.0.2
