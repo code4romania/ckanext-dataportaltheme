@@ -83,7 +83,9 @@ def get_view_data(group):
                     continue
                 url = '%s/dataset/%s/resource/%s/view/%s' % (
                     site_url, package['name'], resource['id'], view['id'])
-                view_data.append({'url': url, 'name': view['title']})
+                link = '%s/dataset/%s/resource/%s' % (
+                    site_url, package['name'], resource['id'])
+                view_data.append({'url': url, 'name': view['title'], 'link': link})
     return view_data
 
 
