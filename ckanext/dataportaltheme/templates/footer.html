@@ -1,72 +1,63 @@
 {% ckan_extends %}
-
 {% include 'social.html' %}
-
 <footer class="site-footer">
-  <div class="container">
-    {% block footer_content %}
-	    <div class="row">
-	      <div class="col-sm-4 footer-links">
-	        {% block footer_nav %}
-	          <strong>Link-uri utile</strong><br/>
-	          <br/>
-	          <ul class="list-unstyled">
-	              {% block footer_links %}
-	              <li>{% link_for _('Termeni și condiții'), named_route="terms-and-conditions" %}</li>
-	              <li><a href="{{ h.url_for(controller='home', action='about') }}">Politica de confidențialitate</a></li>
-	              <li><a href="{{ h.url_for(controller='home', action='about') }}">Codul de conduită</a></li>
-	              <li>{% link_for _('Politica de cookie-uri'), named_route="cookie-policy" %}</li>
-	              <li>{% link_for _('Codul de conduită'), named_route="code-of-conduct" %}</li>
-	              <li><a href="https://www.code4.ro/">Code 4 Romania</a></li>
-	              <li><a href="mailto:contact@code4.ro">Contact</a></li>
-	              {% endblock %}
-	          </ul>
-	        {% endblock %}
-	        </div>
-	        <div class="col-sm-4 logo">
-	        	<img src="{{ h.url_for_static('data-portal-logo.png') }}" alt="Data Portal" id="data_portal_logo">
-	        </div>
-	      <div class="col-sm-4 attribution">
-	        {% block footer_attribution %}
-	          <form
-	            id="newsletterForm"
-	            action="https://dataportal.us20.list-manage.com/subscribe/post?u=2e1952beca1767e4d0d0e7274&amp;id=692e1098e3"
-	            method="post"
-	            target="_blank"
-	            novalidate
-	          >
-	            <label for="email">Abonează-te la newsletter</label>
-	            <input type="email" id="email" name="EMAIL" placeholder="Introdu adresa de e-mail și apasă ENTER" />
-	          </form>
-	          <img src="{{ h.url_for_static('code-4-romania-logo.png') }}" alt="Code 4 Romania" id="code_4_logo" />
-	          <div>
-	            &copy; 2019 {% if h.current_year != 2019 %}- {{h.current_year}}{% endif %} Code for Romania.
-	          </div>
-	          <div id="copyDesc">
-	            Organizație neguvernamentală independentă, neafiliată politic și apolitică.
-	          </div>
-	        {% endblock %}
-	        {% block footer_lang %}
-	          {# snippet "snippets/language_selector.html" #}
-	        {% endblock %}
-	      </div>
-	    </div>
-    {% endblock %}
-  </div>
-
-  {% block footer_debug %}
+    <div class="container">
+        {% block footer_content %}
+        <div class="row">
+            <div class="col-sm-4 footer-links">
+                {% block footer_nav %}
+                <strong>Link-uri utile</strong><br />
+                <br />
+                <ul class="list-unstyled">
+                    {% block footer_links %}
+                    <li>{% link_for _('Termeni și condiții'), named_route="terms-and-conditions" %}</li>
+                    <li><a href="{{ h.url_for(controller='home', action='about') }}">Politica de confidențialitate</a></li>
+                    <li><a href="{{ h.url_for(controller='home', action='about') }}">Codul de conduită</a></li>
+                    <li>{% link_for _('Politica de cookie-uri'), named_route="cookie-policy" %}</li>
+                    <li>{% link_for _('Codul de conduită'), named_route="code-of-conduct" %}</li>
+                    <li><a href="https://www.code4.ro/">Code 4 Romania</a></li>
+                    <li><a href="mailto:contact@code4.ro">Contact</a></li>
+                    {% endblock %}
+                </ul>
+                {% endblock %}
+            </div>
+            <div class="col-sm-4 logo">
+                <img src="{{ h.url_for_static('data-portal-logo.png') }}" alt="Data Portal" id="data_portal_logo">
+            </div>
+            <div class="col-sm-4 attribution">
+                {% block footer_attribution %}
+                <form id="newsletterForm" action="https://dataportal.us20.list-manage.com/subscribe/post?u=2e1952beca1767e4d0d0e7274&amp;id=692e1098e3" method="post" target="_blank" novalidate>
+                    <label for="email">Abonează-te la newsletter</label>
+                    <input type="email" id="email" name="EMAIL" placeholder="Introdu adresa de e-mail și apasă ENTER" />
+                </form>
+                <img src="{{ h.url_for_static('code-4-romania-logo.png') }}" alt="Code 4 Romania" id="code_4_logo" />
+                <div>
+                    &copy; 2019 {% if h.current_year != 2019 %}- {{h.current_year}}{% endif %} Code for Romania.
+                </div>
+                <div id="copyDesc">
+                    Organizație neguvernamentală independentă, neafiliată politic și apolitică.
+                </div>
+                {% endblock %}
+                {% block footer_lang %}
+                {# snippet "snippets/language_selector.html" #}
+                {% endblock %}
+            </div>
+        </div>
+        {% endblock %}
+    </div>
+    {% block footer_debug %}
     {% if g.debug %}
-      {% include 'snippets/debug.html' %}
+    {% include 'snippets/debug.html' %}
     {% endif %}
-  {% endblock %}
+    {% endblock %}
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-152280395-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-152280395-1');
+    </script>
 </footer>
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-152280395-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-152280395-1');
-</script>
