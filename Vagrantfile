@@ -90,6 +90,7 @@ Vagrant.configure("2") do |config|
     pip install -e 'git+https://github.com/ckan/ckan.git@ckan-2.8.2#egg=ckan'
     pip install -e 'git+https://github.com/ViderumGlobal/ckanext-c3charts#egg=ckanext-c3charts'
     pip install -e "git+https://github.com/ckan/ckanext-spatial.git#egg=ckanext-spatial"
+    pip install -e 'git+https://github.com/OpenGov-OpenData/ckanext-odata#egg=ckanext-odata'
     pip install -r /usr/lib/ckan/default/src/ckanext-spatial/pip-requirements.txt
     pip install -e 'git+https://github.com/ckan/ckanext-geoview#egg=ckanext-geoview'
     pip install -r /usr/lib/ckan/default/src/ckan/requirements.txt
