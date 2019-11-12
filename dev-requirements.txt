@@ -1,0 +1,1 @@
+https://github.com/OpenGov-OpenData/ckanext-odata#egg=ckanext-odata
