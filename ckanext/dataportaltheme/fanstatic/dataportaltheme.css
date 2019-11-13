@@ -65,6 +65,15 @@ h2 {
 	border: 1px solid #27AE60;
 }
 
+.btn-default {
+    color: #333333;
+    background-color: #ffffff;
+    border-color: #cccccc;
+    border-radius:0;
+	padding: 10px 20px;
+	text-transform: uppercase;
+}
+
 .label[data-format="csv"] {
 	background-color: rgba(39, 174, 96, 0.6);
 }
