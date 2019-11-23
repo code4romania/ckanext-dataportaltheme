@@ -75,6 +75,10 @@
     {{ form.input('instagram_url', id='field-instagram_url', label=_('Instagram url'), value=g['instagram_url'], error=errors['instagram_url']) }}
     {{ form.input('linkedIn_url', id='field-linkedIn_url', label=_('LinkedIn url'), value=g['linkedIn_url'], error=errors['linkedIn_url']) }}
     {{ form.input('twitter_url', id='field-twitter_url', label=_('Twitter url'), value=g['twitter_url'], error=errors['twitter_url']) }}
+
+    <h3>Medium feed</h3>
+    {{ form.input('medium_url', id='field-medium_url', label=_('Medium url'), value=g['medium_url'], error=errors['medium_url']) }}
+
     {% endblock %}
     <div class="form-actions">
         <button type="submit" class="btn btn-primary" name="save">{{ _('Update Config') }}</button>

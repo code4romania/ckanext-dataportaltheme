@@ -1,0 +1,20 @@
+<div class="container articles">
+    <h2>Ultimele articole adăugate: </h2>
+
+    {% for medium_row in h.medium_latest(g['medium_url'])[:6]|slice(2) %}
+        <div class="row equal">
+            {% for post in medium_row %}
+
+                <div class="col-md-4">
+                    <h3>{{ post['title'] }}</h3>
+                    <article class="shadowbox">
+                        <p>{{ post['description'] }}</p>
+                        <a href="{{ post['url'] }}" class="readMore" target="_blank">Citește mai mult</a>
+                        <img src="{{ post['imageUrl'] }}"/>
+                    </article>
+                </div>
+            {% endfor %}
+        </div>
+        <br/>
+    {% endfor %}
+</div>
