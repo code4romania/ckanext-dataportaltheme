@@ -9,11 +9,12 @@
   <div id="aboutLogo">
 		<img src="{{ h.url_for_static_or_external(g.site_logo) }}" alt="{{ g.site_title }}" title="{{ g.site_title }}" />
 	</div>
-  <h2>{% trans %}Ce este Data Portal Timișoara{% endtrans %}</h2>
+  {% trans %}
+  <h2>What Is Data Portal Timişoara</h2>
   <p>
-    Informațiile care pot fi citite de calculator sunt date într-un format care poate fi înțeles de către un computer. Aceasta înseamnă că toate câmpurile relevante pot fi extrase și analizate fără o contribuție umană. Doar pentru că un set de date este accesibil digital nu înseamnă neapărat că este lizibil și pentru calculator (mai multe informații aici). În spiritul datelor deschise, seturile de date trebuie furnizate în formate de fișiere neprotejate. Datele tabulare sunt furnizate ca fișiere CSV sau în format JSON . Metadatele trebuie excluse din fișierele de date. Acestea vor fi incluse într-un fișier zip cu fișierul de date (consultați punctul Pachetul de date de mai jos).
+    Machine-readable information is data in a format that can be understood by a computer. This means that all relevant fields can be extracted and analyzed without a human contribution. Just because a data set is digitally accessible does not necessarily mean it’s computer readable (more information here). In the spirit of open data, data sets are to be provided in unprotected file formats. Tabular data is provided as CSV files or JSON format. The metadata should be excluded from the data files. These will be included in a zip file with the data file (see the package data point below).
   </p>
-
+  {% endtrans %}
   <h2>Despre aplicația Data Portal</h2>
   <p>
     Scopul platformei Data Portal este de a răspunde la trei probleme legate de datele deschise în România. În primul rând, portalul va deschide publicului larg datele utilizate în cadrul proiectelor Code for Romania. Acestea vor putea fi accesate și vizualizate de către oricine este interesat. În al doilea rând, va defini standarde și protocoale de date pentru seturi de date publicate de către Code4Romania, care vor putea fi implementate de către orice instituție interesată să ofere date publice. În al treilea rând, platforma va oferi un punct de pornire pentru dezvoltarea unei comunități de open data în România. Prin intermediul Data Portal vom oferi sprijin (infrastructură, proceduri, know-how) voluntarilor interesați să deschidă și să curețe data publice din România.
