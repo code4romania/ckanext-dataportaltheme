@@ -52,82 +52,11 @@ sudo -u postgres pg_restore --clean --if-exists -d ckan_default < /data/ckan.dum
 [Add static pages extension example](https://github.com/okfn/ckanext-sa/blob/master/ckanext/sa/plugin.py)
 [Base template](https://github.com/ckan/ckan/tree/master/ckan/templates)
 
----------------
-Config Settings
----------------
 
-Document any optional config settings here. For example::
+# Contributing 
 
-    # The minimum number of hours to wait before re-checking a resource
-    # (optional, default: 24).
-    ckanext.dataportaltheme.some_setting = some_default_value
+If you would like to contribute to one of our repositories, first identify the scale of what you would like to contribute. If it is small (grammar/spelling or a bug fix) feel free to start working on a fix. If you are submitting a feature or substantial code contribution, please discuss it with the team and ensure it follows the product roadmap. 
+
+Our collaboration model [is described here](WORKFLOW.md).
 
 
------------------
-Running the Tests
------------------
-
-To run the tests, do::
-
-    nosetests --nologcapture --with-pylons=test.ini
-
-To run the tests and produce a coverage report, first make sure you have
-coverage installed in your virtualenv (`pip install coverage`) then run::
-
-    nosetests --nologcapture --with-pylons=test.ini --with-coverage --cover-package=ckanext.dataportaltheme --cover-inclusive --cover-erase --cover-tests
-
-
----------------------------------
-Registering ckanext-dataportaltheme on PyPI
----------------------------------
-
-ckanext-dataportaltheme should be available on PyPI as
-https://pypi.python.org/pypi/ckanext-dataportaltheme. If that link doesn't work, then
-you can register the project on PyPI for the first time by following these
-steps:
-
-1. Create a source distribution of the project::
-
-     python setup.py sdist
-
-2. Register the project::
-
-     python setup.py register
-
-3. Upload the source distribution to PyPI::
-
-     python setup.py sdist upload
-
-4. Tag the first release of the project on GitHub with the version number from
-   the `setup.py` file. For example if the version number in `setup.py` is
-   0.0.1 then do::
-
-       git tag 0.0.1
-       git push --tags
-
-
-----------------------------------------
-Releasing a New Version of ckanext-dataportaltheme
-----------------------------------------
-
-ckanext-dataportaltheme is available on PyPI as https://pypi.python.org/pypi/ckanext-dataportaltheme.
-To publish a new version to PyPI follow these steps:
-
-1. Update the version number in the `setup.py` file.
-   See `PEP 440 <http://legacy.python.org/dev/peps/pep-0440/#public-version-identifiers>`_
-   for how to choose version numbers.
-
-2. Create a source distribution of the new version::
-
-     python setup.py sdist
-
-3. Upload the source distribution to PyPI::
-
-     python setup.py sdist upload
-
-4. Tag the new release of the project on GitHub with the version number from
-   the `setup.py` file. For example if the version number in `setup.py` is
-   0.0.2 then do::
-
-       git tag 0.0.2
-       git push --tags
