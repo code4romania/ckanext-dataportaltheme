@@ -1,5 +1,6 @@
 import routes.mapper
 import ckan.lib.base as base
+from ckan.lib.plugins import DefaultTranslation
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
 import ckan.lib.helpers as h
@@ -96,8 +97,9 @@ def generate_url(package):
     return ''.join([site_url, relative_path])
 
 
-class DataportalthemePlugin(plugins.SingletonPlugin):
+class DataportalthemePlugin(plugins.SingletonPlugin, DefaultTranslation):
     plugins.implements(plugins.IRoutes)
+    plugins.implements(plugins.ITranslation)
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.ITemplateHelpers)
 

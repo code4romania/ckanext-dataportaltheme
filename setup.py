@@ -82,9 +82,9 @@ setup(
     entry_points='''
         [ckan.plugins]
         dataportaltheme=ckanext.dataportaltheme.plugin:DataportalthemePlugin
-	[babel.extractors]
-	ckan = ckan.lib.extract:extract_ckan
-    ''',
+        [babel.extractors]
+        ckan = ckan.lib.extract:extract_ckan
+        ''',
 
     # If you are changing from the default layout of your extension, you may
     # have to change the message extractors, you can read more about babel

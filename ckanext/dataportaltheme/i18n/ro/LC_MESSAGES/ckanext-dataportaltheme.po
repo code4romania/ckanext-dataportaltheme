@@ -1,0 +1,385 @@
+# Romanian translations for ckanext-dataportaltheme.
+# Copyright (C) 2019 ORGANIZATION
+# This file is distributed under the same license as the
+# ckanext-dataportaltheme
+# project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ckanext-dataportaltheme 0.0.2\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2019-11-23 14:02+0000\n"
+"PO-Revision-Date: 2019-11-23 14:03+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ro\n"
+"Language-Team: ro <LL@li.org>\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100"
+" < 20)) ? 1 : 2)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.3.4\n"
+
+#: ckanext/dataportaltheme/plugin.py:218
+msgid "Site Title"
+msgstr ""
+
+#: ckanext/dataportaltheme/plugin.py:219
+msgid "Style"
+msgstr ""
+
+#: ckanext/dataportaltheme/plugin.py:220
+msgid "Site Tag Line"
+msgstr ""
+
+#: ckanext/dataportaltheme/plugin.py:221
+msgid "Site Tag Logo"
+msgstr ""
+
+#: ckanext/dataportaltheme/plugin.py:223
+msgid "About"
+msgstr ""
+
+#: ckanext/dataportaltheme/plugin.py:223
+msgid "About page text"
+msgstr ""
+
+#: ckanext/dataportaltheme/plugin.py:224
+msgid "Intro Text"
+msgstr ""
+
+#: ckanext/dataportaltheme/plugin.py:224
+msgid "Text on home page"
+msgstr ""
+
+#: ckanext/dataportaltheme/plugin.py:225
+msgid "Custom CSS"
+msgstr ""
+
+#: ckanext/dataportaltheme/plugin.py:225
+msgid "Customisable css inserted into the page header"
+msgstr ""
+
+#: ckanext/dataportaltheme/plugin.py:226
+msgid "Homepage"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/footer.html:13
+#: ckanext/dataportaltheme/templates/home/termsandconditions.html:3
+#: ckanext/dataportaltheme/templates/home/termsandconditions.html:11
+msgid "Termeni și condiții"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/footer.html:16
+#: ckanext/dataportaltheme/templates/home/cookiepolicy.html:3
+#: ckanext/dataportaltheme/templates/home/cookiepolicy.html:6
+msgid "Politica de cookie-uri"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/footer.html:17
+#: ckanext/dataportaltheme/templates/home/codeofconduct.html:3
+#: ckanext/dataportaltheme/templates/home/codeofconduct.html:6
+msgid "Codul de conduită"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/header.html:10
+msgid "Sysadmin settings"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/header.html:12
+msgid "Admin"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/header.html:17
+msgid "View profile"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/header.html:24
+#, python-format
+msgid "Dashboard (%(num)d new item)"
+msgid_plural "Dashboard (%(num)d new items)"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: ckanext/dataportaltheme/templates/header.html:28
+msgid "Dashboard"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/header.html:34
+msgid "Edit settings"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/header.html:36
+msgid "Settings"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/header.html:41
+#: ckanext/dataportaltheme/templates/header.html:43
+msgid "Log out"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/header.html:53
+msgid "Log in"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/header.html:55
+msgid "Register"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/header.html:106
+msgid "Veifică seturi de date"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/header.html:109
+msgid "Noutati"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/dataStas/esentiale.html:3
+#: ckanext/dataportaltheme/templates/dataStas/esentiale.html:12
+#: ckanext/dataportaltheme/templates/dataStas/struct.html:3
+#: ckanext/dataportaltheme/templates/dataStas/struct.html:12
+#: ckanext/dataportaltheme/templates/header.html:112
+msgid "Standarde de date"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/header.html:115
+msgid "Seturi de date"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/header.html:118
+msgid "Despre"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/home/snippets/search.html:2
+#: ckanext/dataportaltheme/templates/social.html:1
+msgid "Caută date despre orașul tău"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/home/snippets/search.html:15
+#: ckanext/dataportaltheme/templates/social.html:38
+msgid "Search"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/admin/base.html:6
+msgid "Sysadmins"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/admin/base.html:7
+msgid "Config"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/admin/base.html:8
+msgid "Trash"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/admin/base.html:9
+msgid "Data Portal"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/admin/dataportal.html:11
+msgid "Partner 1 link"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/admin/dataportal.html:14
+msgid "Partner 1 logo"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/admin/dataportal.html:19
+msgid "Partner 2 link"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/admin/dataportal.html:22
+msgid "Partner 2 logo"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/admin/dataportal.html:27
+msgid "Partner 3 link"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/admin/dataportal.html:30
+msgid "Partner 3 logo"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/admin/dataportal.html:35
+msgid "Partner 4 link"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/admin/dataportal.html:38
+msgid "Partner 4 logo"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/admin/dataportal.html:43
+msgid "Partner 5 link"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/admin/dataportal.html:46
+msgid "Partner 5 logo"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/admin/dataportal.html:51
+msgid "Partner 6 link"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/admin/dataportal.html:54
+msgid "Partner 6 logo"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/admin/dataportal.html:59
+msgid "Partner 7 link"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/admin/dataportal.html:62
+msgid "Partner 7 logo"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/admin/dataportal.html:67
+msgid "Partner 8 link"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/admin/dataportal.html:70
+msgid "Partner 8 logo"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/admin/dataportal.html:74
+msgid "Facebook url"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/admin/dataportal.html:75
+msgid "Instagram url"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/admin/dataportal.html:76
+msgid "LinkedIn url"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/admin/dataportal.html:77
+msgid "Twitter url"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/admin/dataportal.html:80
+msgid "Update Config"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/ajax_snippets/api_info.html:21
+msgid "CKAN Data API"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/ajax_snippets/api_info.html:25
+msgid "Access resource data via a web API with powerful query support"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/ajax_snippets/api_info.html:26
+msgid ""
+" Further information in the <a             "
+"href=\"http://docs.ckan.org/en/latest/maintaining/datastore.html\" "
+"target=\"_blank\">main CKAN Data API and DataStore documentation</a>.</p>"
+" "
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/ajax_snippets/api_info.html:35
+msgid "Endpoints"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/ajax_snippets/api_info.html:39
+msgid ""
+"The Data API can be accessed via the following actions of the CKAN action"
+" API."
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/ajax_snippets/api_info.html:44
+msgid "Create"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/ajax_snippets/api_info.html:48
+msgid "Update / Insert"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/ajax_snippets/api_info.html:52
+msgid "Query"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/ajax_snippets/api_info.html:56
+msgid "Query (via SQL)"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/ajax_snippets/api_info.html:78
+msgid "Querying"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/ajax_snippets/api_info.html:82
+msgid "Query example (first 5 results)"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/ajax_snippets/api_info.html:87
+msgid "Query example (results containing 'jones')"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/ajax_snippets/api_info.html:92
+msgid "Query example (via SQL statement)"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/ajax_snippets/api_info.html:96
+msgid "OData example (first 5 results, skip 1)"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/ajax_snippets/api_info.html:101
+msgid "OData example (first 5 results, return as OData JSON)"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/ajax_snippets/api_info.html:111
+msgid "Example: Javascript"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/ajax_snippets/api_info.html:115
+msgid "A simple ajax (JSONP) request to the data API using jQuery."
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/ajax_snippets/api_info.html:136
+msgid "Example: Python"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/dataStas/esentiale.html:23
+#: ckanext/dataportaltheme/templates/dataStas/struct.html:23
+msgid "Principii esențiale"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/dataStas/esentiale.html:24
+#: ckanext/dataportaltheme/templates/dataStas/struct.html:24
+msgid "Structura pentru datele tabulare"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/dataStas/esentiale.html:25
+#: ckanext/dataportaltheme/templates/dataStas/struct.html:25
+msgid "Alte resurse"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/home/about.html:12
+msgid "Ce este Data Portal Timișoara"
+msgstr "What is Data Portal Timisoara?"
+
+#: ckanext/dataportaltheme/templates/home/index.html:3
+msgid "Welcome"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/home/index.html:29
+msgid "Cum să utilizezi datele deschise pentru a-ți crește calitatea vieții"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/home/snippets/search.html:11
+msgid "Search datasets"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/package/snippets/data_api_button.html:7
+msgid "Loading..."
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/package/snippets/data_api_button.html:9
+msgid "Data API"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/snippets/add_dataset.html:6
+msgid "Add Dataset"
+msgstr ""
+
