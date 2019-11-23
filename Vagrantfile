@@ -93,6 +93,7 @@ Vagrant.configure("2") do |config|
     pip install -e 'git+https://github.com/OpenGov-OpenData/ckanext-odata#egg=ckanext-odata'
     pip install -r /usr/lib/ckan/default/src/ckanext-spatial/pip-requirements.txt
     pip install -e 'git+https://github.com/ckan/ckanext-geoview#egg=ckanext-geoview'
+    pip install -e git+https://github.com/geosolutions-it/ckanext-tableauview.git#egg=ckanext-tableauview
     pip install -r /usr/lib/ckan/default/src/ckan/requirements.txt
     pip install flask_debugtoolbar ckantoolkit ckanext-geoview
     cd /vagrant
