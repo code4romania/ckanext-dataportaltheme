@@ -1,3 +1,16 @@
+.account-masthead {
+	background-color: #000;
+	padding: 10px 0;
+}
+
+	.account-masthead .account ul li a {
+		font-size: 16px;
+	}
+
+	.account-masthead .account .notifications a span.badge {
+		font-size: 15px;
+	}
+
 .masthead {
   background-image: none;;
   background-color: #fff;
