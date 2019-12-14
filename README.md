@@ -73,7 +73,7 @@ sudo -u postgres pg_restore --clean --if-exists -d ckan_default < /data/ckan.dum
 ### Resources
 [Add static pages extension example](https://github.com/okfn/ckanext-sa/blob/master/ckanext/sa/plugin.py)
 [Base template](https://github.com/ckan/ckan/tree/master/ckan/templates)
-
+[UI prototype](https://www.figma.com/file/P60qSupJkefpT7K4rT5PQuva/Data-Portal?node-id=0%3A1)
 
 # Contributing
 
