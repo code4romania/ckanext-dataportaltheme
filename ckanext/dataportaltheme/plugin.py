@@ -73,6 +73,10 @@ def get_view_data(group):
 
     ignored_views = ['text_view', 'recline_graph_view', 'recline_view']
     for package in packages:
+        # pprint(toolkit.get_action('package_show')(data_dict={
+        #     'id': package['id'],
+        #     'include_tracking': True
+        #     })['tracking_summary'])
         for resource in package['resources']:
             if len(view_data) > 7:
                 break
