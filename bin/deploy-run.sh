@@ -7,7 +7,7 @@ sudo /usr/lib/ckan/default/bin/pip install -e git+https://github.com/code4romani
 sudo /usr/lib/ckan/default/bin/pip install -e git+https://github.com/code4romania/ckanext-githubfeed.git#egg=ckanext-githubfeed
 sudo /usr/lib/ckan/default/bin/pip install -e git+https://github.com/OpenGov-OpenData/ckanext-odata#egg=ckanext-odata
 sudo /usr/lib/ckan/default/bin/pip install -e git+https://github.com/geosolutions-it/ckanext-tableauview.git#egg=ckanext-tableauview
-
+sudo /usr/lib/ckan/default/bin/pip install -e git+https://github.com/costibleotu/ckanext-datarequests#egg=ckanext-datarequests
 
 sudo service apache2 reload
 sudo service nginx reload
