@@ -3,6 +3,11 @@
 
 }
 
+	.site-footer #linksTitle {
+		font-weight: bold;
+		margin-bottom: 2em;
+	}
+
 	.site-footer .attribution {
 		text-align: right;
 	}
