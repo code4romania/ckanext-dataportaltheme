@@ -19,7 +19,14 @@ We gave 4096MB of RAM to the VM. If you wish you can change this in the `Vagrant
 ```
 ./bin/start.sh
 ```
-Take a break for 10-15 min :).  
+Take a break for 10-15 min :).
+
+If this is not the first time you start the project, and no new backend dependencies where added since your last start,
+you can speed things up by alternatively running:
+
+ ```
+./bin/start.sh fast
+```
 
 If you have errors in during start, please check that you have the latest [Vagrant](https://www.vagrantup.com/) and [Virtualbox](https://www.virtualbox.org/), or try to run step by step the commands from [Installing CKAN from source](https://docs.ckan.org/en/latest/maintaining/installing/install-from-source.html) documentation
 
@@ -70,10 +77,8 @@ sudo -u postgres pg_restore --clean --if-exists -d ckan_default < /data/ckan.dum
 [Base template](https://github.com/ckan/ckan/tree/master/ckan/templates)
 
 
-# Contributing 
+# Contributing
 
-If you would like to contribute to one of our repositories, first identify the scale of what you would like to contribute. If it is small (grammar/spelling or a bug fix) feel free to start working on a fix. If you are submitting a feature or substantial code contribution, please discuss it with the team and ensure it follows the product roadmap. 
+If you would like to contribute to one of our repositories, first identify the scale of what you would like to contribute. If it is small (grammar/spelling or a bug fix) feel free to start working on a fix. If you are submitting a feature or substantial code contribution, please discuss it with the team and ensure it follows the product roadmap.
 
-Our collaboration model [is described here](WORKFLOW.md).
-
-
+Our collaboration model [is described here](WORKFLOW.md) and more details about how to contribute to our project [can be found here](CONTRIBUTING.md).
