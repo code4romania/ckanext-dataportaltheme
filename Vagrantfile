@@ -48,7 +48,7 @@ Vagrant.configure("2") do |config|
   # config.vm.synced_folder "../data", "/vagrant_data"
   config.vm.synced_folder "etc/", "/etc/ckan/default"
   config.vm.synced_folder "data/", "/data"
-  # config.vm.synced_folder "../../costibleotu/ckanext-datarequests", "/datarequests"
+  config.vm.synced_folder "../../costibleotu/ckanext-datarequests", "/datarequests"
   # config.vm.synced_folder "src/", "/usr/lib/ckan/default/src"
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -94,6 +94,7 @@ Vagrant.configure("2") do |config|
     pip install -e 'git+https://github.com/OpenGov-OpenData/ckanext-odata#egg=ckanext-odata'
     pip install -r /usr/lib/ckan/default/src/ckanext-spatial/pip-requirements.txt
     pip install -e 'git+https://github.com/ckan/ckanext-geoview#egg=ckanext-geoview'
+    pip install -e 'git+https://github.com/costibleotu/ckanext-datarequests#egg=ckanext-datarequests'
     pip install -e git+https://github.com/geosolutions-it/ckanext-tableauview.git#egg=ckanext-tableauview
     pip install -r /usr/lib/ckan/default/src/ckan/requirements.txt
     pip install flask_debugtoolbar ckantoolkit ckanext-geoview

@@ -107,6 +107,7 @@ class DataportalthemePlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm,
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.ITemplateHelpers)
 
+
     # plugins.implements(plugins.IResourceController)
 
     def update_config_schema(self, schema):
@@ -159,22 +160,38 @@ class DataportalthemePlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm,
         # that CKAN will use this plugin's custom static files.
         toolkit.add_public_directory(config, 'public')
 
+
+    # def before_map(self, m):
+    #     # Data Requests index
+
     def before_map(self, route_map):
-        with routes.mapper.SubMapper(route_map, controller='ckanext.dataportaltheme.plugin:PortalController') as map:
-            map.connect('dummy','#')
-            map.connect('stas-date-esentiale',
-                        '/standard-date/esentiale', action='dataStatsEsentiale')
-            map.connect('stas-date-struct',
-                        '/standard-date/structura', action='dataStatsStruct')
-            map.connect('terms-and-conditions',
-                        '/termsandconditions', action='termsandconditions')
-            map.connect('contact-form', '/contact-form', action='contactForm')
-            map.connect('cookie-policy', '/cookiepolicy',
-                        action='cookiePolicy')
-            map.connect('code-of-conduct', '/codeofconduct',
-                        action='codeOfConduct')
-            map.connect('admin.dataportal', '/ckan-admin/dataportal', action='dataportalAdmin')
-            map.connect('group.dashboard', '/group-dashboard', action='groupDashboard')
+        # with routes.mapper.SubMapper(route_map, controller='ckanext.dataportaltheme.plugin:PortalController') as map:
+        route_map.connect('stas-date-esentiale', "/standard-date/esentiale",
+                  controller='ckanext.dataportaltheme.plugin:PortalController',
+                  action='dataStatsEsentiale')
+        route_map.connect('dummy','#')
+        route_map.connect('stas-date-struct', '/standard-date/structura',
+                    controller='ckanext.dataportaltheme.plugin:PortalController',
+                    action='dataStatsStruct')
+        route_map.connect('terms-and-conditions',
+                    '/termsandconditions',
+                    controller='ckanext.dataportaltheme.plugin:PortalController',
+                    action='termsandconditions')
+        route_map.connect('contact-form', '/contact-form',
+                    controller='ckanext.dataportaltheme.plugin:PortalController',
+                    action='contactForm')
+        route_map.connect('cookie-policy', '/cookiepolicy',
+                    controller='ckanext.dataportaltheme.plugin:PortalController',
+                    action='cookiePolicy')
+        route_map.connect('code-of-conduct', '/codeofconduct',
+                    controller='ckanext.dataportaltheme.plugin:PortalController',
+                    action='codeOfConduct')
+        route_map.connect('admin.dataportal', '/ckan-admin/dataportal',
+                    controller='ckanext.dataportaltheme.plugin:PortalController',
+                    action='dataportalAdmin')
+        route_map.connect('group.dashboard', '/group-dashboard',
+                    controller='ckanext.dataportaltheme.plugin:PortalController',
+                    action='groupDashboard')
         return route_map
 
     def after_map(self, route_map):

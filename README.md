@@ -33,8 +33,6 @@ editor (password: "changeme") - editor user in Code4 Organisation
 member (password: "changeme") - regular user(member) in Code4 Organisation
 ```
 
-
-
 # Happy Hacking :)
 
 ## Translating content

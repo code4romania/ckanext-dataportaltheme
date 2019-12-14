@@ -22,13 +22,20 @@
         </div>
         {% endfor %}
         {% else %}
-            Momentan nu sunt date despre {{selected_group}}. Poți&nbsp;<a href="#">să ceri un set de date</a>
+
+
+
+
+        {% set new_datarequest_url=h.url_for( controller='ckanext.datarequests.controllers.ui_controller:DataRequestsUI', action='new') %}
+        
+        {% trans %}For the moment we don't have datasets about &nbsp;<b>{{selected_group}}</b>. You can &nbsp;<a href="{{new_datarequest_url}}">request a dataset</a>{% endtrans %}
+            
       {% endif %}
     </div>
     {% if all_views %}
       <div class="row">
         <div class="col-md-12">
-          <a href="/dataset?groups={{selected_group}}" class="seeAllLink">Vezi toate seturile de date</a>
+          <a href="/dataset?groups={{selected_group}}" class="seeAllLink">{{_('View all datasets')}}</a>
         </div>
       </div>
     {% endif %}
