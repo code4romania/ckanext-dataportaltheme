@@ -1,4 +1,4 @@
-# Catalog Politic - Contributing guide
+# Data Portal - Contributing guide
 
 :two_hearts: First off all, thank you for your interest in the project and for taking the time to contribute!
 
@@ -12,9 +12,9 @@ Just have a quick question? Please e-mail us at at contact@code4.ro
 
 ## How can I contribute
 
-### Report bugs 
+### Report bugs
 
-:bug: Think you found a bug? Please check [the list of open issues](https://github.com/code4romania/ckanext-dataportaltheme/issues) to see if your bug has already been reported. If it hasn't please [submit a new issue](https://github.com/code4romania/ckanext-dataportaltheme/issues/new). 
+:bug: Think you found a bug? Please check [the list of open issues](https://github.com/code4romania/ckanext-dataportaltheme/issues) to see if your bug has already been reported. If it hasn't please [submit a new issue](https://github.com/code4romania/ckanext-dataportaltheme/issues/new).
 
 :shield: If you find a **security vulnerability**, do not open an issue. Please email contact@code4.ro instead.
 
@@ -27,17 +27,17 @@ Please be as specific as possible when describing the issue. Explain the problem
 * Reproduces how often
 
 
-### Suggest new features 
+### Suggest new features
 
-:bulb: Feature requests are welcome. We would love to hear your thoughts on how we can improve our project further. 
+:bulb: Feature requests are welcome. We would love to hear your thoughts on how we can improve our project further.
 
 To send us a suggestion, just [open an issue](https://github.com/code4romania/ckanext-dataportaltheme/issues/new) which describes the feature you would like to see. Give as much information as you can about what you would like to see:
 
 * Description
-* Step by step behaviour 
+* Step by step behavior
 * Explain why this enhancement would be useful
 
-### Contribute to the codebase 
+### Contribute to the codebase
 
 :computer: We'd love for you to get your hands dirty and code for the project.
 
@@ -61,7 +61,7 @@ Our collaboration model [is described here](WORKFLOW.md).
 
 ## About Code for Romania
 
-Started in 2016, Code for Romania is a civic tech NGO, official member of the Code for All network. We have a community of over 500 volunteers (developers, ux/ui, communications, data scientists, graphic designers, devops, it security and more) who work pro-bono for developing digital solutions to solve social problems. #techforsocialgood. If you want to learn more details about our projects [visit our site](https://www.code4.ro/en/) or if you want to talk to one of our staff members, please e-mail us at contact@code4.ro.
+Started in 2016, Code for Romania is a civic tech NGO, official member of the Code for All network. We have a community of over 500 volunteers (developers, UX/UI, communications, data scientists, graphic designers, DevOps, it security and more) who work pro-bono for developing digital solutions to solve social problems. #techforsocialgood. If you want to learn more details about our projects [visit our site](https://www.code4.ro/en/) or if you want to talk to one of our staff members, please e-mail us at contact@code4.ro.
 
 ## Financial contributions
 
