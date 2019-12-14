@@ -400,7 +400,7 @@ msgstr ""
 #: ckanext/dataportaltheme/templates/home/layout.html:31
 #, python-format
 msgid "For the moment we don't have datasets about &nbsp;<b>%(selected_group)s</b>. You can &nbsp;<a href=\"%(new_datarequest_url)s\">request a dataset</a>"
-msgstr "Pentru moment nu există seturi de date pentru <b>%(selected_group)s</b>. Poți &nbsp;<a href="%(new_datarequest_url)s"   >cere un nou set de date</a>"
+msgstr "Pentru moment nu există seturi de date pentru &nbsp;<b>%(selected_group)s</b>. Poți &nbsp;<a href=\"%(new_datarequest_url)s\">cere un nou set de date</a>"
 
 #: ckanext/dataportaltheme/templates/home/layout.html:38
 #, fuzzy
