@@ -97,8 +97,8 @@ def generate_url(package):
     return ''.join([site_url, relative_path])
 
 
-class DataportalthemePlugin(plugins.SingletonPlugin, DefaultTranslation):
-    plugins.implements(plugins.IRoutes)
+class DataportalthemePlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm, DefaultTranslation):
+    plugins.implements(plugins.IRoutes, inherit=True)
     plugins.implements(plugins.ITranslation)
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.ITemplateHelpers)

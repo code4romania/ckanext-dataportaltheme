@@ -9,78 +9,84 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ckanext-dataportaltheme 0.0.2\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-11-23 14:02+0000\n"
-"PO-Revision-Date: 2019-11-23 14:03+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2019-12-14 09:49+0000\n"
+"PO-Revision-Date: 2019-12-14 11:52+0200\n"
+"Last-Translator: \n"
 "Language: ro\n"
 "Language-Team: ro <LL@li.org>\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100"
-" < 20)) ? 1 : 2)\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 "
+"< 20)) ? 1 : 2);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
-
-#: ckanext/dataportaltheme/plugin.py:218
-msgid "Site Title"
-msgstr ""
-
-#: ckanext/dataportaltheme/plugin.py:219
-msgid "Style"
-msgstr ""
+"X-Generator: Poedit 2.2.4\n"
 
 #: ckanext/dataportaltheme/plugin.py:220
+msgid "Site Title"
+msgstr "Titlu site"
+
+#: ckanext/dataportaltheme/plugin.py:221
+msgid "Style"
+msgstr "Stil"
+
+#: ckanext/dataportaltheme/plugin.py:222
 msgid "Site Tag Line"
 msgstr ""
 
-#: ckanext/dataportaltheme/plugin.py:221
+#: ckanext/dataportaltheme/plugin.py:223
 msgid "Site Tag Logo"
 msgstr ""
 
-#: ckanext/dataportaltheme/plugin.py:223
+#: ckanext/dataportaltheme/plugin.py:225
+#: ckanext/dataportaltheme/templates/header.html:118
 msgid "About"
-msgstr ""
-
-#: ckanext/dataportaltheme/plugin.py:223
-msgid "About page text"
-msgstr ""
-
-#: ckanext/dataportaltheme/plugin.py:224
-msgid "Intro Text"
-msgstr ""
-
-#: ckanext/dataportaltheme/plugin.py:224
-msgid "Text on home page"
-msgstr ""
+msgstr "Despre"
 
 #: ckanext/dataportaltheme/plugin.py:225
+msgid "About page text"
+msgstr "Textul paginii DESPRE"
+
+#: ckanext/dataportaltheme/plugin.py:226
+msgid "Intro Text"
+msgstr "Text introductiv"
+
+#: ckanext/dataportaltheme/plugin.py:226
+msgid "Text on home page"
+msgstr "Text pe pagina principală"
+
+#: ckanext/dataportaltheme/plugin.py:227
 msgid "Custom CSS"
 msgstr ""
 
-#: ckanext/dataportaltheme/plugin.py:225
+#: ckanext/dataportaltheme/plugin.py:227
 msgid "Customisable css inserted into the page header"
 msgstr ""
 
-#: ckanext/dataportaltheme/plugin.py:226
+#: ckanext/dataportaltheme/plugin.py:228
 msgid "Homepage"
 msgstr ""
 
 #: ckanext/dataportaltheme/templates/footer.html:13
-#: ckanext/dataportaltheme/templates/home/termsandconditions.html:3
-#: ckanext/dataportaltheme/templates/home/termsandconditions.html:11
-msgid "Termeni și condiții"
-msgstr ""
+msgid "Terms and conditions"
+msgstr "Termeni și condiții"
 
 #: ckanext/dataportaltheme/templates/footer.html:16
-#: ckanext/dataportaltheme/templates/home/cookiepolicy.html:3
-#: ckanext/dataportaltheme/templates/home/cookiepolicy.html:6
-msgid "Politica de cookie-uri"
-msgstr ""
+msgid "Cookie policy"
+msgstr "Politica de cookie-uri"
 
 #: ckanext/dataportaltheme/templates/footer.html:17
-#: ckanext/dataportaltheme/templates/home/codeofconduct.html:3
-#: ckanext/dataportaltheme/templates/home/codeofconduct.html:6
-msgid "Codul de conduită"
+msgid "Code of conduct"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/footer.html:30
+msgid "Subscribe to newsletter"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/footer.html:38
+msgid ""
+"Organizație neguvernamentală independentă, neafiliată politic și "
+"apolitică."
 msgstr ""
 
 #: ckanext/dataportaltheme/templates/header.html:10
@@ -113,12 +119,12 @@ msgstr ""
 
 #: ckanext/dataportaltheme/templates/header.html:36
 msgid "Settings"
-msgstr ""
+msgstr "Setări"
 
 #: ckanext/dataportaltheme/templates/header.html:41
 #: ckanext/dataportaltheme/templates/header.html:43
 msgid "Log out"
-msgstr ""
+msgstr "Delogare"
 
 #: ckanext/dataportaltheme/templates/header.html:53
 msgid "Log in"
@@ -129,27 +135,19 @@ msgid "Register"
 msgstr ""
 
 #: ckanext/dataportaltheme/templates/header.html:106
-msgid "Veifică seturi de date"
+msgid "Verify datasets"
 msgstr ""
 
 #: ckanext/dataportaltheme/templates/header.html:109
-msgid "Noutati"
+msgid "News"
 msgstr ""
 
-#: ckanext/dataportaltheme/templates/dataStas/esentiale.html:3
-#: ckanext/dataportaltheme/templates/dataStas/esentiale.html:12
-#: ckanext/dataportaltheme/templates/dataStas/struct.html:3
-#: ckanext/dataportaltheme/templates/dataStas/struct.html:12
 #: ckanext/dataportaltheme/templates/header.html:112
-msgid "Standarde de date"
-msgstr ""
+msgid "Data Standards"
+msgstr "Standarde de date"
 
 #: ckanext/dataportaltheme/templates/header.html:115
-msgid "Seturi de date"
-msgstr ""
-
-#: ckanext/dataportaltheme/templates/header.html:118
-msgid "Despre"
+msgid "Datasets"
 msgstr ""
 
 #: ckanext/dataportaltheme/templates/home/snippets/search.html:2
@@ -272,10 +270,9 @@ msgstr ""
 
 #: ckanext/dataportaltheme/templates/ajax_snippets/api_info.html:26
 msgid ""
-" Further information in the <a             "
-"href=\"http://docs.ckan.org/en/latest/maintaining/datastore.html\" "
-"target=\"_blank\">main CKAN Data API and DataStore documentation</a>.</p>"
-" "
+" Further information in the <a             href=\"http://docs.ckan.org/en/"
+"latest/maintaining/datastore.html\" target=\"_blank\">main CKAN Data API "
+"and DataStore documentation</a>.</p> "
 msgstr ""
 
 #: ckanext/dataportaltheme/templates/ajax_snippets/api_info.html:35
@@ -284,8 +281,8 @@ msgstr ""
 
 #: ckanext/dataportaltheme/templates/ajax_snippets/api_info.html:39
 msgid ""
-"The Data API can be accessed via the following actions of the CKAN action"
-" API."
+"The Data API can be accessed via the following actions of the CKAN action "
+"API."
 msgstr ""
 
 #: ckanext/dataportaltheme/templates/ajax_snippets/api_info.html:44
@@ -340,6 +337,13 @@ msgstr ""
 msgid "Example: Python"
 msgstr ""
 
+#: ckanext/dataportaltheme/templates/dataStas/esentiale.html:3
+#: ckanext/dataportaltheme/templates/dataStas/esentiale.html:12
+#: ckanext/dataportaltheme/templates/dataStas/struct.html:3
+#: ckanext/dataportaltheme/templates/dataStas/struct.html:12
+msgid "Standarde de date"
+msgstr ""
+
 #: ckanext/dataportaltheme/templates/dataStas/esentiale.html:23
 #: ckanext/dataportaltheme/templates/dataStas/struct.html:23
 msgid "Principii esențiale"
@@ -356,8 +360,98 @@ msgid "Alte resurse"
 msgstr ""
 
 #: ckanext/dataportaltheme/templates/home/about.html:12
-msgid "Ce este Data Portal Timișoara"
-msgstr "What is Data Portal Timisoara?"
+msgid "What Is Data Portal Timişoara"
+msgstr "Ce este Data Portal Timișoara"
+
+#: ckanext/dataportaltheme/templates/home/about.html:14
+msgid ""
+"Machine-readable information is data in a format that can be understood "
+"by a computer. This means that all relevant fields can be extracted and "
+"analyzed without a human contribution. Just because a data set is "
+"digitally accessible does not necessarily mean it’s computer readable "
+"(more information here). In the spirit of open data, data sets are to be "
+"provided in unprotected file formats. Tabular data is provided as CSV "
+"files or JSON format. The metadata should be excluded from the data "
+"files. These will be included in a zip file with the data file (see the "
+"package data point below)."
+msgstr ""
+"Informațiile care pot fi citite de calculator sunt date într-un format "
+"care poate fi înțeles de către un computer. Aceasta înseamnă că toate "
+"câmpurile relevante pot fi extrase și analizate fără o contribuție umană. "
+"Doar pentru că un set de date este accesibil digital nu înseamnă neapărat "
+"că este lizibil și pentru calculator (mai multe informații aici). În "
+"spiritul datelor deschise, seturile de date trebuie furnizate în formate "
+"de fișiere neprotejate. Datele tabulare sunt furnizate ca fișiere CSV sau "
+"în format JSON . Metadatele trebuie excluse din fișierele de date. "
+"Acestea vor fi incluse într-un fișier zip cu fișierul de date (consultați "
+"punctul Pachetul de date de mai jos)."
+
+#: ckanext/dataportaltheme/templates/home/about.html:16
+msgid "About The Data Portal Application"
+msgstr "Despre aplicația Data Portal"
+
+#: ckanext/dataportaltheme/templates/home/about.html:18
+msgid ""
+"The purpose of the Data Portal platform is to respond to three open data "
+"issues in Romania. First of all, the portal will open the data used in "
+"the Code for Romania projects to the general public. They will be "
+"accessible and viewed by anyone interested. Second of all, it will define "
+"data standards and protocols for datasets published by Code4Romania, "
+"which can be implemented by any institution interested in providing "
+"public data. Third of all, the platform will provide a starting point for "
+"the development of an open data Community in Romania. Through the Data "
+"Portal we will provide support (infrastructure, procedures, and know-how) "
+"to volunteers that are interested in opening and cleaning up public data "
+"in Romania."
+msgstr ""
+"Scopul platformei Data Portal este de a răspunde la trei probleme legate "
+"de datele deschise în România. În primul rând, portalul va deschide "
+"publicului larg datele utilizate în cadrul proiectelor Code for Romania. "
+"Acestea vor putea fi accesate și vizualizate de către oricine este "
+"interesat. În al doilea rând, va defini standarde și protocoale de date "
+"pentru seturi de date publicate de către Code4Romania, care vor putea fi "
+"implementate de către orice instituție interesată să ofere date publice. "
+"În al treilea rând, platforma va oferi un punct de pornire pentru "
+"dezvoltarea unei comunități de open data în România. Prin intermediul "
+"Data Portal vom oferi sprijin (infrastructură, proceduri, know-how) "
+"voluntarilor interesați să deschidă și să curețe data publice din România."
+
+#: ckanext/dataportaltheme/templates/home/about.html:29
+msgid "About Code For Romania"
+msgstr "Despre Code for Romania"
+
+#: ckanext/dataportaltheme/templates/home/about.html:31
+msgid ""
+"Upgrading Romania one app at a time. Code for Romania is an independent, "
+"politically independent and apolitical non-governmental organization. "
+"Today there are more than 550 members of IT specialists, communication, "
+"analysis and design that are developing digital solutions to solve "
+"problems of our society. We are building software tools to help increase "
+"transparency, open public data, help support education and access to "
+"services. We intend through our projects to support all communities, by "
+"developing civic applications in all areas where technology can bring a "
+"change for everyone’s benefit."
+msgstr ""
+"Upgrading Romania one app at a time. Code for Romania este o organizatie "
+"neguvernamentala independenta, neafiliata politic si apolitica. În "
+"prezent peste 550 de membri specialisti in IT, comunicare, analiza si "
+"design dezvolta solutii digitale pentru a rezolva probleme ale "
+"societatii. Construim instrumente software menite sa ajute in cresterea "
+"transparentei, a deschiderii datelor publice, sa ajute in sprijinirea "
+"educatiei si a accesului la servicii. Ne propunem prin proiectele noastre "
+"sa venim in ajutorul tuturor comunitatilor, prin dezvoltarea de aplicatii "
+"civice in toate domeniile in care tehnologia poate aduce o schimbare "
+"benefica tuturor."
+
+#: ckanext/dataportaltheme/templates/home/codeofconduct.html:3
+#: ckanext/dataportaltheme/templates/home/codeofconduct.html:6
+msgid "Codul de conduită"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/home/cookiepolicy.html:3
+#: ckanext/dataportaltheme/templates/home/cookiepolicy.html:6
+msgid "Politica de cookie-uri"
+msgstr ""
 
 #: ckanext/dataportaltheme/templates/home/index.html:3
 msgid "Welcome"
@@ -365,6 +459,11 @@ msgstr ""
 
 #: ckanext/dataportaltheme/templates/home/index.html:29
 msgid "Cum să utilizezi datele deschise pentru a-ți crește calitatea vieții"
+msgstr ""
+
+#: ckanext/dataportaltheme/templates/home/termsandconditions.html:3
+#: ckanext/dataportaltheme/templates/home/termsandconditions.html:11
+msgid "Termeni și condiții"
 msgstr ""
 
 #: ckanext/dataportaltheme/templates/home/snippets/search.html:11
@@ -381,5 +480,4 @@ msgstr ""
 
 #: ckanext/dataportaltheme/templates/snippets/add_dataset.html:6
 msgid "Add Dataset"
-msgstr ""
-
+msgstr "Adaugă set de date"
