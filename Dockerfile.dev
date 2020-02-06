@@ -18,6 +18,8 @@ RUN pip install -e git+https://github.com/ViderumGlobal/ckanext-c3charts#egg=cka
     pip install -e git+https://github.com/costibleotu/ckanext-datarequests#egg=ckanext-datarequests && \
     pip install -e git+https://github.com/geosolutions-it/ckanext-tableauview.git#egg=ckanext-tableauview && \
     pip install flask_debugtoolbar ckantoolkit ckanext-geoview && \
+    # pip install -e git+https://github.com/ckan/ckanext-harvest.git#egg=ckanext-harvest && \
+    # pip install -r https://raw.githubusercontent.com/ckan/ckanext-harvest/master/pip-requirements.txt && \
     pip install ckanext-xloader && \
     pip install -r https://raw.githubusercontent.com/ckan/ckanext-xloader/master/requirements.txt && \
     pip install -U requests[security]
