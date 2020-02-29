@@ -17,15 +17,15 @@ We gave 4096MB of RAM to the VM. If you wish you can change this in the `Vagrant
 ## Start Virtual Machine
 
 ```
-./bin/start.sh
+./bin/start.sh --rebuild
 ```
 Take a break for 10-15 min :).
 
 If this is not the first time you start the project, and no new backend dependencies where added since your last start,
-you can speed things up by alternatively running:
+you can speed things up by alternatively running the same command without `--rebuild`:
 
  ```
-./bin/start.sh fast
+./bin/start.sh
 ```
 
 If you have errors in during start, please check that you have the latest [Vagrant](https://www.vagrantup.com/) and [Virtualbox](https://www.virtualbox.org/), or try to run step by step the commands from [Installing CKAN from source](https://docs.ckan.org/en/latest/maintaining/installing/install-from-source.html) documentation
@@ -43,7 +43,7 @@ member (password: "changeme") - regular user(member) in Code4 Organisation
 # Happy Hacking :)
 
 ## Translating content
-All texts in the templates or controllers should be written in english using i18n tags.  
+All texts in the templates or controllers should be written in english using i18n tags.
 If you added a new string or block you need to run (from `/vagrant`, with the virtualenv activated):
 ```
 python setup.py extract_messages
@@ -66,8 +66,8 @@ sudo -u postgres pg_restore --clean --if-exists -d ckan_default < /data/ckan.dum
 ```
 
 ### CKAN Documentation
-[CKAN Docs](https://docs.ckan.org/en/2.8/)  
-[CKAN Extensions Tutorial](https://docs.ckan.org/en/2.8/extensions/tutorial.html)  
+[CKAN Docs](https://docs.ckan.org/en/2.8/)
+[CKAN Extensions Tutorial](https://docs.ckan.org/en/2.8/extensions/tutorial.html)
 [CKAN Theming guide](https://docs.ckan.org/en/2.8/theming/)
 
 ### Resources
