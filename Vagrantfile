@@ -122,7 +122,7 @@ Vagrant.configure("2") do |config|
     pip install ckanext-xloader
     pip install -r requirements.txt
     pip install -U requests[security]
-    pip install -U cachetools
+    pip install -U cachetools==3.1.1
     sudo -u postgres psql datastore_default -f /tmp/ckanext-xloader/full_text_function.sql
     cp /etc/ckan/default/pg_hba.conf /etc/postgresql/9.5/main/pg_hba.conf
     sudo service postgresql restart
@@ -133,12 +133,12 @@ Vagrant.configure("2") do |config|
     sudo service jetty8 restart
     cd /usr/lib/ckan/default/src/ckan
     paster db clean -c /etc/ckan/default/development.ini
-    # sudo -u postgres psql postgres ckan_default  < /data/ckan_default.dump 
-    # sudo -u postgres psql postgres datastore_default  < /data/datastore_default.dump 
-    # sudo -u postgres psql postgres xloader_jobs  < /data/xloader_jobs.dump 
-    sudo -u postgres pg_restore --clean --if-exists -d ckan_default  < /data/ckan_default.dump 
-    sudo -u postgres pg_restore --clean --if-exists -d datastore_default  < /data/datastore_default.dump 
-    sudo -u postgres pg_restore --clean --if-exists -d xloader_jobs  < /data/xloader_jobs.dump 
+    # sudo -u postgres psql postgres ckan_default  < /data/ckan_default.dump
+    # sudo -u postgres psql postgres datastore_default  < /data/datastore_default.dump
+    # sudo -u postgres psql postgres xloader_jobs  < /data/xloader_jobs.dump
+    sudo -u postgres pg_restore --clean --if-exists -d ckan_default  < /data/ckan_default.dump
+    sudo -u postgres pg_restore --clean --if-exists -d datastore_default  < /data/datastore_default.dump
+    sudo -u postgres pg_restore --clean --if-exists -d xloader_jobs  < /data/xloader_jobs.dump
     paster --plugin=ckan search-index rebuild --config=/etc/ckan/default/development.ini
     paster --plugin=ckan datastore set-permissions -c /etc/ckan/default/development.ini | sudo -u postgres psql ckan_default --set ON_ERROR_STOP=1
     deactivate
