@@ -1,6 +1,6 @@
 set -e
 
-if [[ "$*" != "fast" ]]
+if [[ "$*" = "--rebuild" ]]
 then
   vagrant destroy -f
 fi
