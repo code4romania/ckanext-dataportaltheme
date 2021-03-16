@@ -60,7 +60,8 @@ setup(
     # requirements files see:
     # https://packaging.python.org/en/latest/technical.html#install-requires-vs-requirements-files
     install_requires=[
-        'cachetools'
+        'cachetools',
+        'pylons',
     ],
 
     # If there are data files included in your packages that need to be
