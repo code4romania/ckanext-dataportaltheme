@@ -1,4 +1,6 @@
-https://github.com/OpenGov-OpenData/ckanext-odata#egg=ckanext-odata
-git+https://github.com/geosolutions-it/ckanext-tableauview.git#egg=ckanext-tableauview
 ckanext-datarequests>=1.1.0,<2.0.0
-pylons
+pylons==1.0.3
+
+-e git+ssh://git@github.com/OpenGov-OpenData/ckanext-odata@0.1#egg=ckanext-odata
+-e git+ssh://git@github.com/geosolutions-it/ckanext-tableauview@0.0.1#egg=ckanext-tableauview
+-e .
