@@ -62,8 +62,8 @@ setup(
     install_requires=[
         'cachetools',
         'pylons',
-        'ckanext-odata@got+ssh://git@github.com/OpenGov-OpenData/ckanext-odata@master'
-        'ckanext-tableauview@got+ssh://git@github.com/geosolutions-it/ckanext-tableauview.git@master'
+        'ckanext-odata@git+ssh://git@github.com/OpenGov-OpenData/ckanext-odata@master'
+        'ckanext-tableauview@git+ssh://git@github.com/geosolutions-it/ckanext-tableauview.git@master'
         'ckanext-datarequests>=1.1.0,<2.0.0',
     ],
 
