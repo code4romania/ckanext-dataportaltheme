@@ -7,7 +7,7 @@ import ckan.lib.helpers as h
 from ckan.common import config
 import ckan.lib.navl.dictization_functions as dict_fns
 import ckan.logic as logic
-from ckan.controllers.home import CACHE_PARAMETERS
+from ckan.views.home import CACHE_PARAMETERS
 
 from datetime import datetime
 
