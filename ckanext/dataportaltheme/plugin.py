@@ -6,7 +6,7 @@ import ckan.lib.helpers as h
 import ckan.lib.navl.dictization_functions as dict_fns
 import ckan.logic as logic
 import ckan.plugins as p
-from ckan.plugins.toolkit import _Toolkit
+from ckan.plugins import toolkit
 import requests
 from cachetools.func import ttl_cache
 from ckan.common import config, request as ckan_request, ugettext as _
@@ -281,19 +281,19 @@ class DataportalthemePlugin(p.SingletonPlugin, DefaultDatasetForm, DefaultTransl
         # that CKAN will use this plugin's custom templates.
         # 'templates' is the path to the templates dir, relative to this
         # plugin.py file.
-        _Toolkit.add_template_directory(config, "templates")
-        _Toolkit.add_public_directory(config, "public")
+        toolkit.add_template_directory(config, "templates")
+        toolkit.add_public_directory(config, "public")
         # Register this plugin's fanstatic directory with CKAN.
         # Here, 'fanstatic' is the path to the fanstatic directory
         # (relative to this plugin.py file), and 'example_theme' is the name
         # that we'll use to refer to this fanstatic directory from CKAN
         # templates.
-        _Toolkit.add_resource("fanstatic", "dataportaltheme")
-        _Toolkit.add_resource("fanstatic", "githubfeed")
+        toolkit.add_resource("fanstatic", "dataportaltheme")
+        toolkit.add_resource("fanstatic", "githubfeed")
 
         # Add this plugin's public dir to CKAN's extra_public_paths, so
         # that CKAN will use this plugin's custom static files.
-        _Toolkit.add_public_directory(config, "public")
+        toolkit.add_public_directory(config, "public")
 
     def before_show(self, resource_dict):
         resource_dict["test"] = "test"
