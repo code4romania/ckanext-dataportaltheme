@@ -3,8 +3,8 @@ from datetime import datetime
 
 import requests
 from cachetools.func import ttl_cache
-from ckan import logic, plugins as p
-from ckan.common import config, request as ckan_request, ugettext as _
+from ckan import logic, plugins
+from ckan.common import _, config, request as ckan_request
 from ckan.lib import base, helpers as h
 from ckan.lib.navl import dictization_functions as dict_fns
 from ckan.lib.plugins import DefaultDatasetForm, DefaultTranslation
@@ -199,8 +199,8 @@ def dataportal_admin():
         except logic.ValidationError as e:
             errors = e.error_dict
             error_summary = e.error_summary
-            vars = {"data": data, "errors": errors, "error_summary": error_summary}
-            return base.render("admin/dataportal.html", extra_vars=vars)
+            extra_vars = {"data": data, "errors": errors, "error_summary": error_summary}
+            return base.render("admin/dataportal.html", extra_vars=extra_vars)
 
         h.redirect_to(controller="ckanext.dataportaltheme.plugin:PortalController", action="dataportalAdmin")
 
@@ -209,22 +209,22 @@ def dataportal_admin():
     for key in admin_schema:
         data[key] = config.get(key)
 
-    vars = {"data": data, "errors": {}}
-    return base.render("admin/dataportal.html", extra_vars=vars)
+    extra_vars = {"data": data, "errors": {}}
+    return base.render("admin/dataportal.html", extra_vars=extra_vars)
 
 
 def group_dashboard():
     group = request.GET.get("g", "")
-    vars = {"selected_group": group}
-    return base.render("home/index.html", extra_vars=vars)
+    extra_vars = {"selected_group": group}
+    return base.render("home/index.html", extra_vars=extra_vars)
 
 
-class DataportalthemePlugin(p.SingletonPlugin, DefaultDatasetForm, DefaultTranslation):
+class DataportalthemePlugin(plugins.SingletonPlugin, DefaultDatasetForm, DefaultTranslation):
 
-    p.implements(p.IBlueprint, inherit=True)
-    p.implements(p.ITranslation)
-    p.implements(p.IConfigurer)
-    p.implements(p.ITemplateHelpers)
+    plugins.implements(plugins.IBlueprint, inherit=True)
+    plugins.implements(plugins.ITranslation)
+    plugins.implements(plugins.IConfigurer)
+    plugins.implements(plugins.ITemplateHelpers)
 
     def get_blueprint(self):
         blueprint = Blueprint("dataportaltheme", self.__module__)
@@ -282,19 +282,19 @@ class DataportalthemePlugin(p.SingletonPlugin, DefaultDatasetForm, DefaultTransl
         # that CKAN will use this plugin's custom templates.
         # 'templates' is the path to the templates dir, relative to this
         # plugin.py file.
-        p.toolkit.add_template_directory(config, "../templates")
-        p.toolkit.add_public_directory(config, "../public")
+        plugins.toolkit.add_template_directory(config, "../templates")
+        plugins.toolkit.add_public_directory(config, "../public")
         # Register this plugin's fanstatic directory with CKAN.
         # Here, 'fanstatic' is the path to the fanstatic directory
         # (relative to this plugin.py file), and 'example_theme' is the name
         # that we'll use to refer to this fanstatic directory from CKAN
         # templates.
-        p.toolkit.add_resource("fanstatic", "../dataportaltheme")
-        p.toolkit.add_resource("fanstatic", "../githubfeed")
+        plugins.toolkit.add_resource("fanstatic", "../dataportaltheme")
+        plugins.toolkit.add_resource("fanstatic", "../githubfeed")
 
         # Add this plugin's public dir to CKAN's extra_public_paths, so
         # that CKAN will use this plugin's custom static files.
-        p.toolkit.add_public_directory(config, "../public")
+        plugins.toolkit.add_public_directory(config, "../public")
 
     def before_show(self, resource_dict):
         resource_dict["test"] = "test"
