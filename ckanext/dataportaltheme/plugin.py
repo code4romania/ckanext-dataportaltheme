@@ -222,6 +222,9 @@ def group_dashboard():
 class DataportalthemePlugin(p.SingletonPlugin, DefaultDatasetForm, DefaultTranslation):
 
     p.implements(p.IBlueprint, inherit=True)
+    p.implements(p.ITranslation)
+    p.implements(p.IConfigurer)
+    p.implements(p.ITemplateHelpers)
 
     def get_blueprint(self):
         blueprint = Blueprint("dataportaltheme", self.__module__)
