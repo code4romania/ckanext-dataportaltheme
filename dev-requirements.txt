@@ -1,5 +1,9 @@
 ckanext-datarequests>=1.1.0,<2.0.0
 pylons==1.0.3
+requests==2.25.1
+ckan~=2.9.2
+cachetools~=4.2.1
+Flask~=1.1.2
 
 -e git+ssh://git@github.com/OpenGov-OpenData/ckanext-odata@0.1#egg=ckanext-odata
 -e git+ssh://git@github.com/geosolutions-it/ckanext-tableauview@0.0.1#egg=ckanext-tableauview
