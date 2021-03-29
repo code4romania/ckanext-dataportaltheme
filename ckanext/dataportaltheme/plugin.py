@@ -294,7 +294,7 @@ class DataportalthemePlugin(plugins.SingletonPlugin, DefaultDatasetForm, Default
 
         # Add this plugin's public dir to CKAN's extra_public_paths, so
         # that CKAN will use this plugin's custom static files.
-        plugins.toolkit.add_public_directory(config, "../public")
+        # plugins.toolkit.add_public_directory(config, "../public")
 
     def before_show(self, resource_dict):
         resource_dict["test"] = "test"
