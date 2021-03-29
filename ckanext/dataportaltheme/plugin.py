@@ -282,8 +282,8 @@ class DataportalthemePlugin(plugins.SingletonPlugin, DefaultDatasetForm, Default
         # that CKAN will use this plugin's custom templates.
         # 'templates' is the path to the templates dir, relative to this
         # plugin.py file.
-        plugins.toolkit.add_template_directory(config, "../templates")
-        plugins.toolkit.add_public_directory(config, "../public")
+        plugins.toolkit.add_template_directory(config, "templates")
+        plugins.toolkit.add_public_directory(config, "public")
         # Register this plugin's fanstatic directory with CKAN.
         # Here, 'fanstatic' is the path to the fanstatic directory
         # (relative to this plugin.py file), and 'example_theme' is the name
