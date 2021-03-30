@@ -9,6 +9,7 @@ from ckan.lib import base, helpers as h
 from ckan.lib.navl import dictization_functions as dict_fns
 from ckan.lib.plugins import DefaultDatasetForm, DefaultTranslation
 from ckan.logic import schema
+from ckan.plugins import toolkit
 from ckan.views.home import CACHE_PARAMETERS
 from flask import Blueprint
 
@@ -17,7 +18,7 @@ request = base.request
 
 
 @ttl_cache(ttl=60 * 60)
-def gettasks(params=None):
+def get_github_issues(params=None):
     params = params or {"state": "open"}
     url = config.get(
         "ckan.githubfeed.requesturl", "https://api.github.com/repos/code4romania/ckanext-dataportaltheme/issues"
@@ -282,19 +283,19 @@ class DataportalthemePlugin(plugins.SingletonPlugin, DefaultDatasetForm, Default
         # that CKAN will use this plugin's custom templates.
         # 'templates' is the path to the templates dir, relative to this
         # plugin.py file.
-        plugins.toolkit.add_template_directory(config, "templates")
-        plugins.toolkit.add_public_directory(config, "public")
+        toolkit.add_template_directory(config, "templates")
+        toolkit.add_public_directory(config, "public")
         # Register this plugin's fanstatic directory with CKAN.
         # Here, 'fanstatic' is the path to the fanstatic directory
         # (relative to this plugin.py file), and 'example_theme' is the name
         # that we'll use to refer to this fanstatic directory from CKAN
         # templates.
-        plugins.toolkit.add_resource("fanstatic", "../dataportaltheme")
-        plugins.toolkit.add_resource("fanstatic", "../githubfeed")
+        toolkit.add_resource("fanstatic", "../dataportaltheme")
+        toolkit.add_resource("fanstatic", "../githubfeed")
 
         # Add this plugin's public dir to CKAN's extra_public_paths, so
         # that CKAN will use this plugin's custom static files.
-        # plugins.toolkit.add_public_directory(config, "../public")
+        # toolkit.add_public_directory(config, "../public")
 
     def before_show(self, resource_dict):
         resource_dict["test"] = "test"
@@ -307,7 +308,7 @@ class DataportalthemePlugin(plugins.SingletonPlugin, DefaultDatasetForm, Default
         """
         # Catch github API limit exception
         try:
-            latest_issues = gettasks()[:3]
+            latest_issues = get_github_issues()[:3]
         except:
             latest_issues = []
         return {

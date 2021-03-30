@@ -1,5 +1,4 @@
 ckanext-datarequests>=1.1.0,<2.0.0
-pylons==1.0.3
 requests==2.25.1
 ckan~=2.9.2
 cachetools~=4.2.1

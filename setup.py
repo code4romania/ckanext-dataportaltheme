@@ -60,7 +60,6 @@ setup(
     # https://packaging.python.org/en/latest/technical.html#install-requires-vs-requirements-files
     install_requires=[
         'cachetools',
-        'pylons',
         # 'ckanext-odata@git+ssh://git@github.com/OpenGov-OpenData/ckanext-odata@0.1',
         # 'ckanext-tableauview@git+ssh://git@github.com/geosolutions-it/ckanext-tableauview.git@0.0.1',
         'ckanext-datarequests>=1.1.0,<2.0.0',
