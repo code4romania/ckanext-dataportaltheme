@@ -290,8 +290,8 @@ class DataportalthemePlugin(plugins.SingletonPlugin, DefaultDatasetForm, Default
         # (relative to this plugin.py file), and 'example_theme' is the name
         # that we'll use to refer to this fanstatic directory from CKAN
         # templates.
-        toolkit.add_resource("fanstatic", "../dataportaltheme")
-        toolkit.add_resource("fanstatic", "../githubfeed")
+        toolkit.add_resource("fanstatic", "dataportaltheme")
+        toolkit.add_resource("fanstatic", "githubfeed")
 
         # Add this plugin's public dir to CKAN's extra_public_paths, so
         # that CKAN will use this plugin's custom static files.
