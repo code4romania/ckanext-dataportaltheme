@@ -181,6 +181,10 @@ def cookie_policy():
     return base.render("home/cookiepolicy.html")
 
 
+def dummy():
+    return base.render("home/index.html")
+
+
 def code_of_conduct():
     return base.render("home/codeofconduct.html")
 
@@ -230,14 +234,14 @@ class DataportalthemePlugin(plugins.SingletonPlugin, DefaultDatasetForm, Default
     def get_blueprint(self):
         blueprint = Blueprint("dataportaltheme", self.__module__)
         rules = [
-            ("/standard-date/esentiale", "data_stats_esentiale", data_stats_esentiale),
-            ("/standard-date/structura", "data_stats_struct", data_stats_struct),
-            ("/termsandconditions", "terms_and_conditions", terms_and_conditions),
-            ("/contact-form", "contact_form", contact_form),
-            ("/cookiepolicy", "cookie_policy", cookie_policy),
-            ("/codeofconduct", "code_of_conduct", code_of_conduct),
-            ("/ckan-admin/dataportal", "dataportal_admin", dataportal_admin),
-            ("/group-dashboard", "group_dashboard", group_dashboard),
+            ("/standard-date/esentiale", "stats-date-esentiale", data_stats_esentiale),
+            ("/standard-date/structura", "data-stats-struct", data_stats_struct),
+            ("/termsandconditions", "terms-and-conditions", terms_and_conditions),
+            ("/contact-form", "contact-form", contact_form),
+            ("/cookiepolicy", "cookie-policy", cookie_policy),
+            ("/codeofconduct", "code-of-conduct", code_of_conduct),
+            ("/ckan-admin/dataportal", "dataportal-admin", dataportal_admin),
+            ("/group-dashboard", "group-dashboard", group_dashboard),
         ]
 
         for rule in rules:
