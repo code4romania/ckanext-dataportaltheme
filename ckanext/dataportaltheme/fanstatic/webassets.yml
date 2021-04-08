@@ -1,0 +1,14 @@
+ext_style:  # name of asset
+  output: ckanext-dataportaltheme/extension.css  # actual path, where generated file will be stored
+  contents: # list of files that are included into asset
+    - style.css
+
+dataportaltheme_style:
+  output: dataportaltheme/extension.css
+  contents:
+    - dataportaltheme.css
+    - header.css
+    - search.css
+    - category.css
+    - social.css
+    - footer.css
