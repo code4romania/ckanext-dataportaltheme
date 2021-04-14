@@ -10,7 +10,7 @@
 
 				<ul class="list-unstyled">
 					{% block footer_links %}
-					<li>{% link_for _('Terms and conditions'), named_route="terms-and-conditions" %}</li>
+					<li>{% link_for _('Terms and conditions'), named_route="terms_and_conditions" %}</li>
 					<li><a href="{{ h.url_for(controller='home', action='about') }}">{{ _('Privacy policy') }}</a></li>
 					<li>{% link_for _('Cookie policy'), named_route="cookie-policy" %}</li>
 					<li>

@@ -8,12 +8,8 @@
      was registered with when the toolkit.add_resource() function was called.
      'dataportaltheme.css' is the path to the CSS file, relative to the root of
      the fanstatic directory. #}
-  {% resource 'dataportaltheme/dataportaltheme.css' %}
-  {% resource 'dataportaltheme/header.css' %}
-  {% resource 'dataportaltheme/search.css' %}
-  {% resource 'dataportaltheme/category-bar.css' %}
-  {% resource 'dataportaltheme/social.css' %}
-  {% resource 'dataportaltheme/footer.css' %}
+  {% asset 'dataportaltheme/dataportal_extension.css' %}
+  {% asset 'dataportaltheme/about_extension.css' %}
 {% endblock %}
 
 {% block meta %}
@@ -21,5 +17,5 @@
 
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">  
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 {% endblock %}

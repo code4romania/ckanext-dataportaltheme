@@ -333,25 +333,25 @@ msgstr ""
 msgid "Example: Python"
 msgstr ""
 
-#: ckanext/dataportaltheme/templates/dataStas/esentiale.html:3
-#: ckanext/dataportaltheme/templates/dataStas/esentiale.html:12
-#: ckanext/dataportaltheme/templates/dataStas/struct.html:3
-#: ckanext/dataportaltheme/templates/dataStas/struct.html:12
+#: ckanext/dataportaltheme/templates/dataStats/esentiale.html:3
+#: ckanext/dataportaltheme/templates/dataStats/esentiale.html:12
+#: ckanext/dataportaltheme/templates/dataStats/struct.html:3
+#: ckanext/dataportaltheme/templates/dataStats/struct.html:12
 msgid "Standarde de date"
 msgstr ""
 
-#: ckanext/dataportaltheme/templates/dataStas/esentiale.html:23
-#: ckanext/dataportaltheme/templates/dataStas/struct.html:23
+#: ckanext/dataportaltheme/templates/dataStats/esentiale.html:23
+#: ckanext/dataportaltheme/templates/dataStats/struct.html:23
 msgid "Principii esențiale"
 msgstr ""
 
-#: ckanext/dataportaltheme/templates/dataStas/esentiale.html:24
-#: ckanext/dataportaltheme/templates/dataStas/struct.html:24
+#: ckanext/dataportaltheme/templates/dataStats/esentiale.html:24
+#: ckanext/dataportaltheme/templates/dataStats/struct.html:24
 msgid "Structura pentru datele tabulare"
 msgstr ""
 
-#: ckanext/dataportaltheme/templates/dataStas/esentiale.html:25
-#: ckanext/dataportaltheme/templates/dataStas/struct.html:25
+#: ckanext/dataportaltheme/templates/dataStats/esentiale.html:25
+#: ckanext/dataportaltheme/templates/dataStats/struct.html:25
 msgid "Alte resurse"
 msgstr ""
 
