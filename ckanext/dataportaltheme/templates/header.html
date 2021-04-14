@@ -1,4 +1,4 @@
-{%ckan_extends%}
+{% ckan_extends %}
 {% block header_wrapper %} {% block header_account %}
 <header class="account-masthead">
   <div class="container">
@@ -106,7 +106,7 @@
             {{ h.build_nav_main(
               ('home.index', _('News')),
               ('home.index', _('Verify datasets')),
-              ('dataportaltheme_blueprint.stats_date_esentiale', _('Data Standards')),
+              ('dataportaltheme_blueprint.data_stats_esentiale', _('Data Standards')),
               ('dataset.search', _('Datasets')),
               ('home.about', _('About'))
             ) }}

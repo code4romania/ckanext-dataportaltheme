@@ -14,8 +14,11 @@ from ckan.views.home import CACHE_PARAMETERS
 
 from flask import Blueprint
 
+dpt_blueprint = Blueprint("dataportaltheme_blueprint", __name__)
+
 c = base.c
 request = base.request
+
 
 @ttl_cache(ttl=60 * 60)
 def get_github_issues(params=None):
@@ -224,6 +227,21 @@ def group_dashboard():
     return toolkit.render("home/index.html", extra_vars=extra_vars)
 
 
+rules = [
+    ("/standard-date/esentiale", data_stats_esentiale),
+    ("/standard-date/structura", data_stats_struct),
+    ("/termsandconditions", terms_and_conditions),
+    ("/contact-form", contact_form),
+    ("/cookiepolicy", cookie_policy),
+    ("/codeofconduct", code_of_conduct),
+    ("/ckan-admin/dataportal", dataportal_admin),
+    ("/group-dashboard", group_dashboard),
+]
+
+for rule in rules:
+    dpt_blueprint.add_url_rule(rule[0], view_func=rule[1])
+
+
 class DataportalthemePlugin(plugins.SingletonPlugin, DefaultDatasetForm, DefaultTranslation):
 
     plugins.implements(plugins.IBlueprint)
@@ -232,22 +250,7 @@ class DataportalthemePlugin(plugins.SingletonPlugin, DefaultDatasetForm, Default
     plugins.implements(plugins.ITemplateHelpers)
 
     def get_blueprint(self):
-        blueprint = Blueprint("dataportaltheme_blueprint", self.__module__)
-        rules = [
-            ("/standard-date/esentiale", data_stats_esentiale),
-            ("/standard-date/structura", data_stats_struct),
-            ("/termsandconditions", terms_and_conditions),
-            ("/contact-form", contact_form),
-            ("/cookiepolicy", cookie_policy),
-            ("/codeofconduct", code_of_conduct),
-            ("/ckan-admin/dataportal", dataportal_admin),
-            ("/group-dashboard", group_dashboard),
-        ]
-
-        for rule in rules:
-            blueprint.add_url_rule(rule[0], view_func=rule[1])
-
-        return [blueprint]
+        return [dpt_blueprint]
 
     def update_config_schema(self, config_schema):
 

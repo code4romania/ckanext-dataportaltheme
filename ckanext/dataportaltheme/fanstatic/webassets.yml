@@ -1,5 +1,5 @@
 dataportaltheme_style:  # name of asset
-  output: dataportaltheme/dataportal_extension.css  # actual path, where generated file will be stored
+  output: dataportaltheme/dataportal_ext.css  # actual path, where generated file will be stored
   contents:  # list of files that are included into asset
     - dataportaltheme.css
     - header.css
@@ -9,11 +9,24 @@ dataportaltheme_style:  # name of asset
     - footer.css
 
 about_style:
-  output: dataportaltheme/about_extension.css
+  output: dataportaltheme/about_ext.css
   contents:
     - about.css
 
-githubfeed_style:
-  output: dataportaltheme/githubfeed_extension.css
+index_style:
+  output: dataportaltheme/index_ext.css
   contents:
+    - categories_bar.css
     - githubfeed.css
+    - contactForm.css
+    - home.css
+
+dataStats_style:
+  output: dataportaltheme/dataStats_ext.css
+  contents:
+    - dataStats.css
+
+toc_style:
+  output: dataportaltheme/toc_ext.css
+  contents:
+    - termsandconditions.css

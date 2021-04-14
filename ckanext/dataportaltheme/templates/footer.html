@@ -10,9 +10,9 @@
 
 				<ul class="list-unstyled">
 					{% block footer_links %}
-					<li>{% link_for _('Terms and conditions'), named_route="terms_and_conditions" %}</li>
+					<li>{% link_for _('Terms and conditions'), named_route="dataportaltheme_blueprint.terms_and_conditions" %}</li>
 					<li><a href="{{ h.url_for(controller='home', action='about') }}">{{ _('Privacy policy') }}</a></li>
-					<li>{% link_for _('Cookie policy'), named_route="cookie-policy" %}</li>
+					<li>{% link_for _('Cookie policy'), named_route="dataportaltheme_blueprint.cookie_policy" %}</li>
 					<li>
 						<a href="{{ 'https://code4.ro/ro/codul-de-conduita' if h.lang() == 'ro' else 'https://code4.ro/en/code-of-conduct' }}">
 							{{ _('Code of conduct') }}
