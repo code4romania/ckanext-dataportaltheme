@@ -46,9 +46,8 @@ setup(
         'Programming Language :: Python :: 3.8',
     ],
 
-
     # What does your project relate to?
-    keywords='''CKAN dataportal theme frontend''',
+    keywords='''CKAN data-portal theme frontend''',
 
     # You can just specify the packages manually here if your project is
     # simple. Or you can use find_packages().
@@ -60,7 +59,6 @@ setup(
     # https://packaging.python.org/en/latest/technical.html#install-requires-vs-requirements-files
     install_requires=[
         'cachetools',
-        'flask',
     ],
 
     # If there are data files included in your packages that need to be

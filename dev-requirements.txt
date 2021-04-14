@@ -1,4 +1,1 @@
-ckan<2.10
-flask
-requests
-cachetools
+flask_debugtoolbar
