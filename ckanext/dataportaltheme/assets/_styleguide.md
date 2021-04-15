@@ -44,7 +44,7 @@ When writing CSS or HTML, please:
 
 ## Files
 
-- The CSS files are located here: `ckanext/dataportaltheme/fanstatic`
+- The CSS files are located here: `ckanext/dataportaltheme/assets`
 - The main CSS file is `dataportaltheme.css`, where all the theme related global styles should be placed (i.e. general styling of the headings, buttons etc.)
 - If a section of the website has specific styling, extract styles in separate CSS file (i.e. `footer.css`, `header.css`, `sidebar.css` etc.)
-- CSS files are included using the `webassets.yml` config and on the pages where they are needed: `{% asset  'dataportaltheme/dataportal_ext.css' %}`
+- CSS files are included using the `webassets.yml` config and on the pages where they are needed: `{% asset  'dataportaltheme/dataportaltheme_style' %}`

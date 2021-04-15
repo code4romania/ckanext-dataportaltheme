@@ -1,0 +1,32 @@
+dataportaltheme_css:  # name of asset
+  output: dataportaltheme/%(version)s_dataportal.css  # actual path, where generated file will be stored
+  contents:  # list of files that are included into asset
+    - dataportaltheme.css
+    - header.css
+    - search.css
+    - categories.css
+    - social.css
+    - footer.css
+
+about_css:
+  output: dataportaltheme/%(version)s_about.css
+  contents:
+    - about.css
+
+index_css:
+  output: dataportaltheme/%(version)s_index.css
+  contents:
+    - categories.css
+    - githubfeed.css
+    - contactForm.css
+    - home.css
+
+dataStats_css:
+  output: dataportaltheme/%(version)s_dataStats.css
+  contents:
+    - dataStats.css
+
+toc_css:
+  output: dataportaltheme/%(version)s_toc.css
+  contents:
+    - termsandconditions.css
