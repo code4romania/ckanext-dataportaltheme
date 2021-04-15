@@ -6,7 +6,6 @@
 # Icon must end with two \r
 Icon
 
-
 # Thumbnails
 ._*
 
@@ -82,7 +81,6 @@ coverage.xml
 # Sphinx documentation
 docs/_build/
 
-
 # PyBuilder
 target/
 
@@ -118,6 +116,8 @@ node_modules
 
 db.sqlite3
 
-
 # Vagrant
 .vagrant
+
+# IDEs
+.vscode
