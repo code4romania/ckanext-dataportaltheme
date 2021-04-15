@@ -9,7 +9,6 @@ from ckan.lib.navl import dictization_functions as dict_fns
 from ckan.logic import schema
 from ckan.plugins import toolkit
 from ckan.views.home import CACHE_PARAMETERS
-
 from flask import Blueprint
 
 dpt_blueprint = Blueprint("dataportaltheme_blueprint", __name__)

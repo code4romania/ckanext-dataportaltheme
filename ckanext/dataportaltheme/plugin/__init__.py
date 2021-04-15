@@ -5,7 +5,7 @@ from ckan.common import config
 from ckan.lib.plugins import DefaultDatasetForm, DefaultTranslation
 from ckan.plugins import toolkit
 
-from .views import dpt_blueprint, get_github_issues, all_groups, similar_with, generate_url, get_view_data
+from .views import all_groups, dpt_blueprint, generate_url, get_github_issues, get_view_data, similar_with
 
 
 class DataportalthemePlugin(plugins.SingletonPlugin, DefaultDatasetForm, DefaultTranslation):
