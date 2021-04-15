@@ -4,7 +4,6 @@ dataportaltheme_css:  # name of asset
     - dataportaltheme.css
     - header.css
     - search.css
-    - categories.css
     - social.css
     - footer.css
 
