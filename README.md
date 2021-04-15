@@ -47,13 +47,13 @@ All texts in the templates or controllers should be written in english using i18
 If you added a new string or block you need to run (from `/vagrant`, with the virtualenv activated):
 ```
 python setup.py extract_messages
-python setup.py update_catalog --locale ro -d  ckanext/dataportaltheme/i18n/
-python setup.py update_catalog --locale hu -d  ckanext/dataportaltheme/i18n/
+python setup.py update_catalog --locale ro -d  ckanext/dataportaltheme/plugin/i18n/
+python setup.py update_catalog --locale hu -d  ckanext/dataportaltheme/plugin/i18n/
 ```
 
 After you modify the `.po` file for each language, run this command:
 ```
-python setup.py compile_catalog --locale ro -d ckanext/dataportaltheme/i18n/
+python setup.py compile_catalog --locale ro -d ckanext/dataportaltheme/plugin/i18n/
 ```
 
 

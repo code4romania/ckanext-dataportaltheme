@@ -4,11 +4,11 @@
 
 {% block styles %}
 {{ super() }}
-{% resource 'dataportaltheme/termsandconditions.css' %}
+{% asset 'dataportaltheme/toc_css' %}
 {% endblock %}
 
 {% block breadcrumb_content %}
-<li class="active">{% link_for _('Termeni și condiții'), named_route="terms-and-conditions" %}</li>
+<li class="active">{% link_for _('Termeni și condiții'), named_route="dataportaltheme_blueprint.terms_and_conditions" %}</li>
 {% endblock %}
 
 {% block primary %}

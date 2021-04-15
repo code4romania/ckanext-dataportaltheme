@@ -2,13 +2,13 @@
 
 {% block styles %}
   {{ super() }}
-  {% resource 'dataportaltheme/about.css' %}
+  {% asset 'dataportaltheme/about_css' %}
 {% endblock %}
 
 {% block primary %}
   <div id="aboutLogo">
 		<img src="{{ h.url_for_static_or_external(g.site_logo) }}" alt="{{ g.site_title }}" title="{{ g.site_title }}" />
-	</div> 
+	</div>
   <h2>{{_('What Is Data Portal Timişoara')}} </h2>
   <p>
     {{_('Machine-readable information is data in a format that can be understood by a computer. This means that all relevant fields can be extracted and analyzed without a human contribution. Just because a data set is digitally accessible does not necessarily mean it’s computer readable (more information here). In the spirit of open data, data sets are to be provided in unprotected file formats. Tabular data is provided as CSV files or JSON format. The metadata should be excluded from the data files. These will be included in a zip file with the data file (see the package data point below).')}}
@@ -17,7 +17,7 @@
   <p>
     {{_('The purpose of the Data Portal platform is to respond to three open data issues in Romania. First of all, the portal will open the data used in the Code for Romania projects to the general public. They will be accessible and viewed by anyone interested. Second of all, it will define data standards and protocols for datasets published by Code4Romania, which can be implemented by any institution interested in providing public data. Third of all, the platform will provide a starting point for the development of an open data Community in Romania. Through the Data Portal we will provide support (infrastructure, procedures, and know-how) to volunteers that are interested in opening and cleaning up public data in Romania.')}}
   </p>
-  
+
 
   <div id="aboutCode4Ro">
     <div id="aboutWrap">

@@ -1,3 +1,3 @@
-https://github.com/OpenGov-OpenData/ckanext-odata#egg=ckanext-odata
-git+https://github.com/geosolutions-it/ckanext-tableauview.git#egg=ckanext-tableauview
-ckanext-datarequests>=1.1.0,<2.0.0
+flask_debugtoolbar
+black
+isort

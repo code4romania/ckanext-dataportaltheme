@@ -2,7 +2,7 @@
 {% set placeholder = _('Search data about your city..') %}
 
 <div class="hero module module-search module-narrow module-shallow box">
-  <form class="module-content search-form" method="get" action="{% url_for 'dataset' %}">
+  <form class="module-content search-form" method="get" action="{% url_for 'dataset.search' %}">
     <div class="search-input form-group search-giant">
       {% if selected_group %}
           <input  id="field-main-search" type="text" class="form-control" name="q" value="" autocomplete="off" placeholder="Caută date despre {{selected_group}}" />

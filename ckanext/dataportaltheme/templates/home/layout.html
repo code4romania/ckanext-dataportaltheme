@@ -21,15 +21,6 @@
           </div>
         </div>
         {% endfor %}
-        {% else %}
-
-
-
-
-        {% set new_datarequest_url=h.url_for( controller='ckanext.datarequests.controllers.ui_controller:DataRequestsUI', action='new') %}
-        
-        {% trans %}For the moment we don't have datasets about &nbsp;<b>{{selected_group}}</b>. You can &nbsp;<a href="{{new_datarequest_url}}">request a dataset</a>{% endtrans %}
-            
       {% endif %}
     </div>
     {% if all_views %}

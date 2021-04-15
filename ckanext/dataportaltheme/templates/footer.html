@@ -1,4 +1,5 @@
 {% ckan_extends %}
+
 {% include 'social.html' %}
 <footer class="site-footer">
 	<div class="container">
@@ -10,9 +11,9 @@
 
 				<ul class="list-unstyled">
 					{% block footer_links %}
-					<li>{% link_for _('Terms and conditions'), named_route="terms-and-conditions" %}</li>
+					<li>{% link_for _('Terms and conditions'), named_route="dataportaltheme_blueprint.terms_and_conditions" %}</li>
 					<li><a href="{{ h.url_for(controller='home', action='about') }}">{{ _('Privacy policy') }}</a></li>
-					<li>{% link_for _('Cookie policy'), named_route="cookie-policy" %}</li>
+					<li>{% link_for _('Cookie policy'), named_route="dataportaltheme_blueprint.cookie_policy" %}</li>
 					<li>
 						<a href="{{ 'https://code4.ro/ro/codul-de-conduita' if h.lang() == 'ro' else 'https://code4.ro/en/code-of-conduct' }}">
 							{{ _('Code of conduct') }}
@@ -45,7 +46,9 @@
 					{% block footer_lang %}
 					{# snippet "snippets/language_selector.html" #}
 					{% endblock %}
-					<!-- Global site tag (gtag.js) - Google Analytics -->
+
+{#
+			<!-- Global site tag (gtag.js) - Google Analytics -->
 			<script async src="https://www.googletagmanager.com/gtag/js?id=UA-152280395-1"></script>
 			<script>
 			window.dataLayer = window.dataLayer || [];
@@ -55,6 +58,8 @@
 
 			gtag('config', 'UA-152280395-1');
 			</script>
+#}
+
 			</div>
 		</div>
 		{% endblock %}

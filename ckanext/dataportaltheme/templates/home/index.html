@@ -7,11 +7,7 @@
 
 {% block styles %}
   {{ super() }}
-
-  {% resource 'dataportaltheme/categories_bar.css' %}
-  {% resource 'dataportaltheme/githubfeed.css' %}
-  {% resource 'dataportaltheme/contactForm.css' %}
-  {% resource 'dataportaltheme/home.css' %}
+  {% asset 'dataportaltheme/index_css' %}
 {% endblock %}
 
 {% block content %}

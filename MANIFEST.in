@@ -1,2 +1,3 @@
 include README.rst
+include LICENSE
 recursive-include ckanext/dataportaltheme *.html *.json *.js *.less *.css *.mo *.png
