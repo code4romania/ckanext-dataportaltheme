@@ -147,7 +147,7 @@ def _get_config_form_items():
     return items
 
 
-def data_stats_esentiale():
+def data_stats_essential():
     return toolkit.render("dataStats/esentiale.html")
 
 
@@ -225,7 +225,7 @@ def group_dashboard():
 
 
 rules = [
-    ("/standard-date/esentiale", data_stats_esentiale),
+    ("/standard-date/esentiale", data_stats_essential),
     ("/standard-date/structura", data_stats_struct),
     ("/termsandconditions", terms_and_conditions),
     ("/contact-form", contact_form),
