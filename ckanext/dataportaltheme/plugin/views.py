@@ -3,18 +3,16 @@ import json
 import requests
 from cachetools.func import ttl_cache
 from ckan import logic
-from ckan.common import _, config, request as ckan_request
-from ckan.lib import base, helpers as h
+from ckan.common import _
+from ckan.lib import helpers
 from ckan.lib.navl import dictization_functions as dict_fns
 from ckan.logic import schema
 from ckan.plugins import toolkit
+from ckan.plugins.toolkit import request, config, g
 from ckan.views.home import CACHE_PARAMETERS
 from flask import Blueprint
 
 dpt_blueprint = Blueprint("dataportaltheme_blueprint", __name__)
-
-c = base.c
-request = base.request
 
 
 @ttl_cache(ttl=60 * 60)
@@ -87,8 +85,8 @@ def get_view_data(group):
 
 def generate_url(package):
     site_url = config.get("ckan.site_url")
-    controller_type = "dataset" if h.ckan_version().split(".")[1] | int >= 9 else "package"
-    relative_path = h.url_for_static(controller=controller_type, action="read", id=package["name"])
+    controller_type = "dataset" if helpers.ckan_version().split(".")[1] | int >= 9 else "package"
+    relative_path = helpers.url_for_static(controller=controller_type, action="read", id=package["name"])
     return "".join([site_url, relative_path])
 
 
@@ -118,7 +116,7 @@ def _get_config_form_items():
             "control": "image_upload",
             "label": _("Site Tag Logo"),
             "placeholder": "",
-            "upload_enabled": h.uploads_enabled(),
+            "upload_enabled": helpers.uploads_enabled(),
             "field_url": "ckan.site_logo",
             "field_upload": "logo_upload",
             "field_clear": "clear_logo_upload",
@@ -160,7 +158,7 @@ def terms_and_conditions():
 
 
 def contact_form():
-    request_params = ckan_request.params
+    request_params = request.params
     url = "https://docs.google.com/forms/d/e/1FAIpQLSeGNW5FjBwauZLsf0Ar8P6SgbTdd0n5hRfCAJ-XKtzWQMSqRA/formResponse"
     form_data = {
         "entry.268426185": request_params["email"],
@@ -191,35 +189,38 @@ def code_of_conduct():
 
 def dataportal_admin():
     # items = self._get_config_form_items()
-    data = request.POST
-    if "save" in data:
+    if request.method == "POST":
+        data = request.form
         try:
-            # really?
             data_dict = logic.clean_dict(
-                dict_fns.unflatten(logic.tuplize_dict(logic.parse_params(request.POST, ignore_keys=CACHE_PARAMETERS)))
+                dict_fns.unflatten(logic.tuplize_dict(logic.parse_params(request.form, ignore_keys=CACHE_PARAMETERS)))
             )
             del data_dict["save"]
 
-            data = logic.get_action("config_option_update")({"user": c.user}, data_dict)
+            data = logic.get_action("config_option_update")({"user": g.user}, data_dict)
         except logic.ValidationError as e:
             errors = e.error_dict
             error_summary = e.error_summary
             extra_vars = {"data": data, "errors": errors, "error_summary": error_summary}
             return toolkit.render("admin/dataportal.html", extra_vars=extra_vars)
 
-        h.redirect_to(controller="ckanext.dataportaltheme.plugin:PortalController", action="dataportalAdmin")
+        return toolkit.redirect_to("dataportaltheme_blueprint.dataportal_admin")
+    else:
+        admin_schema = schema.update_configuration_schema()
+        data = {}
+        for key in admin_schema:
+            data[key] = config.get(key)
 
-    admin_schema = schema.update_configuration_schema()
-    data = {}
-    for key in admin_schema:
-        data[key] = config.get(key)
+        extra_vars = {"data": data, "errors": {}}
+        return toolkit.render("admin/dataportal.html", extra_vars=extra_vars)
 
-    extra_vars = {"data": data, "errors": {}}
-    return toolkit.render("admin/dataportal.html", extra_vars=extra_vars)
+
+dataportal_admin.provide_automatic_options = False
+dataportal_admin.methods = ['GET', 'POST']
 
 
 def group_dashboard():
-    group = request.GET.get("g", "")
+    group = request.args.get("g", "")
     extra_vars = {"selected_group": group}
     return toolkit.render("home/index.html", extra_vars=extra_vars)
 
