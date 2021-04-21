@@ -85,7 +85,12 @@ def get_view_data(group):
 
 def generate_url(package):
     site_url = config.get("ckan.site_url")
-    controller_type = "dataset" if helpers.ckan_version().split(".")[1] | int >= 9 else "package"
+
+    if int(helpers.ckan_version().split(".")[1]) >= 9:
+        controller_type = "dataset"
+    else:
+        controller_type = "package"
+
     relative_path = helpers.url_for_static(controller=controller_type, action="read", id=package["name"])
     return "".join([site_url, relative_path])
 
